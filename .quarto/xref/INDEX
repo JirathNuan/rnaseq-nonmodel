@@ -1,0 +1,32 @@
+{
+  "index.qmd": {
+    "index.html": "22a83226"
+  },
+  "intro.qmd": {
+    "intro.html": "0736d3fa"
+  },
+  "summary.qmd": {
+    "summary.html": "1e3b740a"
+  },
+  "references.qmd": {
+    "references.html": "08103bcf"
+  },
+  "01_intro_mobaxterm.qmd": {
+    "01_intro_mobaxterm.html": "66d68312"
+  },
+  "02_basic_bash.qmd": {
+    "02_basic_bash.html": "cc970f24"
+  },
+  "03_sra.qmd": {
+    "03_sra.html": "2753120f"
+  },
+  "04_qc.qmd": {
+    "04_qc.html": "c8c3e355"
+  },
+  "05_denovo_assembly.qmd": {
+    "05_denovo_assembly.html": "3a91eeb8"
+  },
+  "06_de_analysis.qmd": {
+    "06_de_analysis.html": "3369e7b1"
+  }
+}

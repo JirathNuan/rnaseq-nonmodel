@@ -1,0 +1,32 @@
+{
+    "id": "ECAC5861",
+    "path": "~/GitHub/rnaseq-nonmodel-book/01_intro_mobaxterm.qmd",
+    "project_path": "01_intro_mobaxterm.qmd",
+    "type": "quarto_markdown",
+    "hash": "4242679079",
+    "contents": "",
+    "dirty": false,
+    "created": 1677470101314.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "rmdVisualMode": "false",
+        "rmdVisualWrapConfigured": "true",
+        "source_window_id": "",
+        "Source": "Source",
+        "docOutlineVisible": "1",
+        "rmdVisualCollapsedChunks": "",
+        "rmdVisualModeLocation": "2239:1072",
+        "cursorPosition": "44,252",
+        "scrollLine": "31",
+        "docOutlineSize": "127"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1677476554,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1677476554731,
+    "read_only": false,
+    "read_only_alternatives": []
+}
