@@ -14,23 +14,19 @@ Visit MobaXterm official website to see a demo: https://mobaxterm.mobatek.net/de
 
 Terminal provides a command-line interface to macOS. Each window in Terminal represents an instance of a shell process. The window contains a prompt that indicates you can enter a command. The prompt you see depends on your Terminal and shell settings, but it often includes the name of the host you're logged in to, your current working folder, your user name, and a prompt symbol. For example, if a user named michael is using the default zsh shell, the prompt appears as:
 
-```
-michael@MacBook-Pro ~ %
-```
+    michael@MacBook-Pro ~ %
 
 This indicates that the user named michael is logged in to a computer named MacBook-Pro, and the current folder is his home folder, indicated by the tilde (\~).
 
 MacOS features a built-in SSH client called Terminal which allows you to quickly and easily connect to a server. Starting from open the "terminal" app, and enter the standard SSH command:
 
-```
-ssh user@IPAddress
-```
+    ssh user@IPAddress
 
 This will connect to the server via SSH with the username \`user\` and the default SSH port 22. The connection will look similar to the following:
 
-![A prompt screen after successfully connecting to the remote server](_book/assets/03_welcome-page.png)
+## Connecting to Remote Server
 
-## Accessing Remote Server
+Bioinformatics data processing tasks require more computing power than our laptops, so we need large servers or clusters. It's likely you'll work mostly over a network connection with remote machines on some projects. It can be frustrating for beginners to work with a remote machine. So, This part will introduce you to some commonly used bash commands. To make it easier for beginners to manage their remote machines, there are a range of different tools and technologies available, such as SSH, FTP, and terminal commands, which can be used to access and manage the environment of the machine. Additionally, there are a variety of bash commands which can be used to streamline the process of managing the machine.
 
 What you need to know for connecting to a remove server:
 
@@ -42,4 +38,8 @@ What you need to know for connecting to a remove server:
 
 By default, SSH uses port 22 but it can be changed to a non-standard port. To securely connect the client to the remote server, SSH uses symmetric encryption, asymmetric encryption, and hashing. If you're connecting for the first time, you'll be asked to verify the server's public key. Whenever you connect to the same server in the future, the client will reference this verified public key. During an SSH connection, the client and server negotiate a session key used to encrypt and decrypt data.
 
-![In order to establish a connection, SSH needs to verify SHA keys once connected for the first time. Once authentication is complete, the SSH connection is secure and can be trusted for future access.](_book/assets/02_auth_key.png){fig-align="center"}
+![In order to establish a connection, SSH needs to verify SHA keys once connected for the first time. Once authentication is complete, the SSH connection is secure and can be trusted for future access.](assets/02_ssh_authkeys.png){fig-align="center"}
+
+Upon connecting to the remote server, you'll see a welcome message like this
+
+![An example welcome message of server using Ubuntu, including general software and hardware status, information of the latest connection, as well as a prompt for user command.](assets/03_ssh-welcome-message.png){fig-align="center"}

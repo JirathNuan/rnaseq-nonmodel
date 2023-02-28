@@ -6,8 +6,12 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Ponsit Sathapondecha">
+<meta name="author" content="Jiratchaya Nuanpirom">
+<meta name="author" content="Prasert Yodsawat">
+<meta name="dcterms.date" content="2023-02-27">
 
-<title>Transcriptome Data Analysis in Non-model Organisms - 2&nbsp; Bash Command Language for Biologists</title>
+<title>Transcriptome Data Analysis in Non-model Organisms</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +24,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -30,8 +97,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./03_sra.html" rel="next">
-<link href="./01_intro_mobaxterm.html" rel="prev">
+<link href="./01_intro_mobaxterm.html" rel="next">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -70,7 +136,7 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Bash Command Language for Biologists</span></h1>
+      <h1 class="quarto-secondary-nav-title">Transcriptome Data Analysis in Non-model Organisms</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -95,7 +161,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">Preface</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -105,7 +171,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_basic_bash.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Bash Command Language for Biologists</span></a>
+  <a href="./02_basic_bash.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Bash Command Language for Biologists</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -142,9 +208,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#linux-file-systems" id="toc-linux-file-systems" class="nav-link active" data-scroll-target="#linux-file-systems"><span class="toc-section-number">2.1</span>  Linux File Systems</a></li>
-  <li><a href="#basic-bash-commands" id="toc-basic-bash-commands" class="nav-link" data-scroll-target="#basic-bash-commands"><span class="toc-section-number">2.2</span>  Basic Bash Commands</a></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="toc-section-number">2.3</span>  Resources</a></li>
+  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
   </ul>
 </nav>
     </div>
@@ -153,14 +217,28 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Bash Command Language for Biologists</span></h1>
+<h1 class="title d-none d-lg-block">Transcriptome Data Analysis in Non-model Organisms</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ponsit Sathapondecha </p>
+             <p>Jiratchaya Nuanpirom </p>
+             <p>Prasert Yodsawat </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 27, 2023</p>
+    </div>
+  </div>
   
     
   </div>
@@ -168,109 +246,16 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Shell scripting (or shell or UNIX) are heavily used in bioinformatics, which has been the interface for large bioinformatics programs. Throughout this workshop, you’ll learn how to use the necessary bash command concepts. This will allow you to focus on the content of commands in future chapters, rather than be preoccupied with understanding shell syntax. But before we start to learn bash, it’s good to understand the linux file systems a bit.</p>
-<section id="linux-file-systems" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="linux-file-systems"><span class="header-section-number">2.1</span> Linux File Systems</h2>
-<p>Adopted from <a href="https://www.geeksforgeeks.org/linux-file-hierarchy-structure">linux-file-hierarchy-structure</a>, In Unix-like operating systems, the Linux File System defines the directory structure and contents. Even if they’re on different physical or virtual disks, all files and directories are under the root directory.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://media.geeksforgeeks.org/wp-content/uploads/linuxDir.jpg" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Schematic hierarchy of Linux file systems. The figure is adopted from https://www.geeksforgeeks.org/linux-file-hierarchy-structure.</figcaption><p></p>
-</figure>
+<section id="preface" class="level1 unnumbered">
+<h1 class="unnumbered">Preface</h1>
+<p>This is a Quarto book.</p>
+<p>To learn more about Quarto books visit <a href="https://quarto.org/docs/books" class="uri">https://quarto.org/docs/books</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
 </div>
-<dl>
-<dt>Root (<code>/</code>)</dt>
-<dd>
-<p>It is the root directory of the entire file system hierarchy and the primary hierarchy root. The root directory is where everything starts. This directory can only be written by root.</p>
-</dd>
-<dt>/bin</dt>
-<dd>
-<p>Essential commands that need to be available in all users, for example, <code>cat</code>, <code>ls</code>, <code>cp</code>, <code>cd</code>, <code>top</code>, <code>mkdir</code> and many more.</p>
-</dd>
-<dt>/dev</dt>
-<dd>
-<p>Essential device files such as <code>/dev/null</code>, <code>/dev/shm</code>. These include terminal devices, usb, or any device attached to the system.</p>
-</dd>
-<dt>/etc</dt>
-<dd>
-<p>System-wide configuration files for the host, contain files all programs need. Also included are startup and shutdown shell scripts for starting and stopping individual programs, such as <code>/etc/fstab</code> for permanently mounting external disks, <code>/etc/netplan</code> for configuring the network and IP address, and more.</p>
-</dd>
-<dt>/home</dt>
-<dd>
-<p>The home directories of users, where they keep their saved files and settings. These directories are used to store all of a user’s files and settings in one place, making it easy for them to access their data and keep it organized. For example <code>/home/ponsit</code>, <code>/home/jiratchaya</code>, <code>/home/prasert</code>.</p>
-</dd>
-<dt>/lib</dt>
-<dd>
-<p>Contain essential libraries for the binaries in <code>/bin/</code> and <code>/sbin/</code>.</p>
-</dd>
-<dt>/media</dt>
-<dd>
-<p>Mount points for removable media such as CD-ROMs (deprecated).</p>
-</dd>
-<dt>/mnt</dt>
-<dd>
-<p>Temporary mount directory where sysadmins can mount file systems, such as <code>/mnt/external_disk_1</code>, <code>/mnt/removable_drive_1</code>, etc.</p>
-</dd>
-<dt>/opt</dt>
-<dd>
-<p>Optional application software packages. Contains add-on applications from individual vendors.</p>
-</dd>
-<dt>/sbin</dt>
-<dd>
-<p>Essential system binaries, e.g., <code>fsck</code>, <code>init</code>, route.</p>
-</dd>
-<dt>/tmp</dt>
-<dd>
-<p>Temporary files that aren’t preserved between reboots, and may be severely limited.</p>
-</dd>
-<dt>/usr</dt>
-<dd>
-<p>A secondary hierarchy for read-only user data. The majority of utilities and apps are in here.</p>
-</dd>
-</dl>
-</section>
-<section id="basic-bash-commands" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="basic-bash-commands"><span class="header-section-number">2.2</span> Basic Bash Commands</h2>
-<p>Bash is a Unix shell that allows you to enter commands, which are then interpreted and run by the computer. Commands can be used to perform tasks, such as creating a directory, running a program, or deleting a file. Bash is a type of interpreter, which takes user input and converts it into a language that the computer can understand and execute. Commands are typically composed of keywords, arguments, and flags, which allow the user to control how the command is interpreted and executed by the computer.</p>
-<ul>
-<li><strong>Navigating your file system</strong></li>
-</ul>
-<p>The file system manages files and directories in the operating system, as shown in the diagram above. It organizes our data into files, which store information, and directories.</p>
-<pre><code>jiratchaya@pslab1:~$</code></pre>
-<p>The dollar sign <code>$</code> is a prompt, which shows us that the shell is waiting for input. Your shell may use a different character as a prompt and may add information before the prompt.</p>
-<ul>
-<li><strong>Find out where we are now</strong></li>
-</ul>
-<!-- -->
-<pre><code>pwd</code></pre>
-<p>pwd stand for print working directory. Without explicitly specifying something else, the computer assumes we want to run commands in our current working directory. Which can be a user’s home directory (<code>~</code>).</p>
-<ul>
-<li><strong>Changing directory</strong></li>
-</ul>
-<!-- -->
-<pre><code>cd your_target_directory</code></pre>
-<p>Which stands for change directory. You can change our working directory by typing <code>cd</code> followed by a directory name. In this case, you care changing from the current directory to the directory named <code>your_target_directory</code>.</p>
-<ul>
-<li><strong>Listing directories</strong></li>
-</ul>
-<p>We can see files and subdirectories are in this directory by running ls, which stands for “listing”:</p>
-<pre><code>ls</code></pre>
-<p>Let’s see in the different way. This way is to list all files and directories including user who belong to, permissions, and file size in bytes.</p>
-<pre><code>ls -l</code></pre>
-<p>To list files and folders, permissions, and size in human-readable format.</p>
-<pre><code>ls -lh</code></pre>
-<p>See all hidden files and directories</p>
-<pre><code>ls -a
-# or
-ls -la</code></pre>
-</section>
-<section id="resources" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="resources"><span class="header-section-number">2.3</span> Resources</h2>
-<ul>
-<li><p><a href="https://hbctraining.github.io/Intro-to-shell-flipped/">Introduction to the command line interface</a> by Harvard Chan Bioinformatics Core (HBC) .</p></li>
-<li><p><a href="https://bioinformatics-core-shared-training.github.io/shell-genomics/01-introduction/index.html">Introducing the Shell</a>, from the course Introduction to the Command Line for Genomics in <a href="https://bioinformatics-core-shared-training.github.io/">bioinformatics-core-shared-training</a></p></li>
-<li></li>
-</ul>
+</div>
 
 
 </section>
@@ -411,13 +396,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./01_intro_mobaxterm.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to MobaXterm, Terminal, and SSH</span></span>
-      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./03_sra.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Retrieval with NCBI sra-tools</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./01_intro_mobaxterm.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to MobaXterm, Terminal, and SSH</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

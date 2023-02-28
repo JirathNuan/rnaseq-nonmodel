@@ -144,7 +144,7 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#mobaxterm-for-windows" id="toc-mobaxterm-for-windows" class="nav-link active" data-scroll-target="#mobaxterm-for-windows"><span class="toc-section-number">1.1</span>  MobaXterm (for Windows)</a></li>
   <li><a href="#terminal-for-macos" id="toc-terminal-for-macos" class="nav-link" data-scroll-target="#terminal-for-macos"><span class="toc-section-number">1.2</span>  Terminal (for macOS)</a></li>
-  <li><a href="#accessing-remote-server" id="toc-accessing-remote-server" class="nav-link" data-scroll-target="#accessing-remote-server"><span class="toc-section-number">1.3</span>  Accessing Remote Server</a></li>
+  <li><a href="#connecting-to-remote-server" id="toc-connecting-to-remote-server" class="nav-link" data-scroll-target="#connecting-to-remote-server"><span class="toc-section-number">1.3</span>  Connecting to Remote Server</a></li>
   </ul>
 </nav>
     </div>
@@ -188,15 +188,10 @@ ul.task-list li input[type="checkbox"] {
 <p>MacOS features a built-in SSH client called Terminal which allows you to quickly and easily connect to a server. Starting from open the “terminal” app, and enter the standard SSH command:</p>
 <pre><code>ssh user@IPAddress</code></pre>
 <p>This will connect to the server via SSH with the username `user` and the default SSH port 22. The connection will look similar to the following:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="_book/assets/03_welcome-page.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">A prompt screen after successfully connecting to the remote server</figcaption><p></p>
-</figure>
-</div>
 </section>
-<section id="accessing-remote-server" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="accessing-remote-server"><span class="header-section-number">1.3</span> Accessing Remote Server</h2>
+<section id="connecting-to-remote-server" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="connecting-to-remote-server"><span class="header-section-number">1.3</span> Connecting to Remote Server</h2>
+<p>Bioinformatics data processing tasks require more computing power than our laptops, so we need large servers or clusters. It’s likely you’ll work mostly over a network connection with remote machines on some projects. It can be frustrating for beginners to work with a remote machine. So, This part will introduce you to some commonly used bash commands. To make it easier for beginners to manage their remote machines, there are a range of different tools and technologies available, such as SSH, FTP, and terminal commands, which can be used to access and manage the environment of the machine. Additionally, there are a variety of bash commands which can be used to streamline the process of managing the machine.</p>
 <p>What you need to know for connecting to a remove server:</p>
 <ol type="1">
 <li><p>Your username and password in the remote server</p></li>
@@ -206,8 +201,15 @@ ul.task-list li input[type="checkbox"] {
 <p>By default, SSH uses port 22 but it can be changed to a non-standard port. To securely connect the client to the remote server, SSH uses symmetric encryption, asymmetric encryption, and hashing. If you’re connecting for the first time, you’ll be asked to verify the server’s public key. Whenever you connect to the same server in the future, the client will reference this verified public key. During an SSH connection, the client and server negotiate a session key used to encrypt and decrypt data.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="_book/assets/02_auth_key.png" class="img-fluid figure-img"></p>
+<p><img src="assets/02_ssh_authkeys.png" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">In order to establish a connection, SSH needs to verify SHA keys once connected for the first time. Once authentication is complete, the SSH connection is secure and can be trusted for future access.</figcaption><p></p>
+</figure>
+</div>
+<p>Upon connecting to the remote server, you’ll see a welcome message like this</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/03_ssh-welcome-message.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">An example welcome message of server using Ubuntu, including general software and hardware status, information of the latest connection, as well as a prompt for user command.</figcaption><p></p>
 </figure>
 </div>
 
