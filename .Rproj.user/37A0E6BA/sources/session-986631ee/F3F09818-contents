@@ -23,7 +23,7 @@ bibliography: references.bib
 
 format:
   html:
-    theme: slate
+    theme: minimal
   pdf:
     documentclass: scrreprt
 
