@@ -70,18 +70,16 @@ The dollar sign `$` is a prompt, which shows us that the shell is waiting for in
 
 -   **Find out where we are now**
 
-```{=html}
 <!-- -->
-```
+
     pwd
 
 pwd stand for print working directory. Without explicitly specifying something else, the computer assumes we want to run commands in our current working directory. Which can be a user's home directory (`~`).
 
 -   **Changing directory**
 
-```{=html}
 <!-- -->
-```
+
     cd your_target_directory
 
 Which stands for change directory. You can change our working directory by typing `cd` followed by a directory name. In this case, you care changing from the current directory to the directory named `your_target_directory`.
