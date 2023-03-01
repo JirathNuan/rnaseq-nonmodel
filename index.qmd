@@ -1,9 +1,7 @@
 # Preface {.unnumbered}
 
-This is a Quarto book.
+Welcome to the book of Transcriptome Data Analysis in Non-Model Organisms.
 
-To learn more about Quarto books visit <https://quarto.org/docs/books>.
+![A confusion matrix](https://pbs.twimg.com/media/FJfsxC8WYA4Rl8W.jpg:large)
 
-```{r}
-1 + 1
-```
+We'll update this page ASAP!

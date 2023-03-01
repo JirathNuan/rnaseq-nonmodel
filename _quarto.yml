@@ -5,9 +5,9 @@ project:
 book:
   title: "Transcriptome Data Analysis in Non-model Organisms"
   author: 
-    - "Ponsit Sathapondecha"
     - "Jiratchaya Nuanpirom"
     - "Prasert Yodsawat"
+    - "Ponsit Sathapondecha"
   date: today
   chapters:
     - index.qmd

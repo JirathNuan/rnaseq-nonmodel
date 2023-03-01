@@ -1,32 +1,32 @@
 # Bash Command Language for Biologists
 
-Shell scripting (or shell or UNIX) are heavily used in bioinformatics, which has been the interface for large bioinformatics programs. Throughout this workshop, you'll learn how to use the necessary bash command concepts. This will allow you to focus on the content of commands in future chapters, rather than be preoccupied with understanding shell syntax. But before we start to learn bash, it's good to understand the linux file systems a bit.
+Shell scripts (or shell or UNIX) are widely used in bioinformatics because they're the interface for large bioinformatics programs. In this workshop, you'll learn how to use the necessary Bash command concepts. This will allow you to focus on the content of the commands in the following chapters rather than on understanding shell syntax. However, before we start learning bash, it's good to understand Linux file systems a little bit.
 
 ## Linux File Systems
 
-Adopted from [linux-file-hierarchy-structure](https://www.geeksforgeeks.org/linux-file-hierarchy-structure), In Unix-like operating systems, the Linux File System defines the directory structure and contents. Even if they're on different physical or virtual disks, all files and directories are under the root directory.
+In Unix-like operating systems, the Linux file system defines the directory structure and contents. Even if they're located on different physical or virtual hard disks, all files and directories are located under the root directory.
 
-![Schematic hierarchy of Linux file systems. The figure is adopted from https://www.geeksforgeeks.org/linux-file-hierarchy-structure.](https://media.geeksforgeeks.org/wp-content/uploads/linuxDir.jpg)
+![Schematic hierarchy of Linux file systems. The figure is adopted from <https://www.geeksforgeeks.org/linux-file-hierarchy-structure>.](https://media.geeksforgeeks.org/wp-content/uploads/linuxDir.jpg)
 
 Root (`/`)
 
-:   It is the root directory of the entire file system hierarchy and the primary hierarchy root. The root directory is where everything starts. This directory can only be written by root.
+:   It is the root directory of the entire file system hierarchy and the primary hierarchy root. The root directory is where everything begins. This directory can be written only by root.
 
 /bin
 
-:   Essential commands that need to be available in all users, for example, `cat`, `ls`, `cp`, `cd`, `top`, `mkdir` and many more.
+:   Essential commands that must be available with all users, for example, `cat`, `ls`, `cp`, `cd`, `top`, `mkdir` and many more.
 
 /dev
 
-:   Essential device files such as `/dev/null`, `/dev/shm`. These include terminal devices, usb, or any device attached to the system.
+:   Essential device files such as `/dev/null`, `/dev/shm`. This includes terminal devices, USB or other devices connected to the system.
 
 /etc
 
-:   System-wide configuration files for the host, contain files all programs need. Also included are startup and shutdown shell scripts for starting and stopping individual programs, such as `/etc/fstab` for permanently mounting external disks, `/etc/netplan` for configuring the network and IP address, and more.
+:   System-wide configuration files for the host, contain files that all programs need. Also included are startup and shutdown shell scripts for starting and stopping individual programs, such as `/etc/fstab` for permanently mounting external disks, `/etc/netplan` for configuring the network and IP address, and more.
 
 /home
 
-:   The home directories of users, where they keep their saved files and settings. These directories are used to store all of a user's files and settings in one place, making it easy for them to access their data and keep it organized. For example `/home/ponsit`, `/home/jiratchaya`, `/home/prasert`.
+:  Users' home directories, where they keep their saved files and settings. These directories are used to store all of a user's files and settings in one place so that they can easily access their data and keep it organized. For example `/home/ponsit`, `/home/jiratchaya`, `/home/prasert`.
 
 /lib
 
@@ -42,7 +42,7 @@ Root (`/`)
 
 /opt
 
-:   Optional application software packages. Contains add-on applications from individual vendors.
+:   Optional application software packages, including add-on applications from individual vendors.
 
 /sbin
 
@@ -50,64 +50,464 @@ Root (`/`)
 
 /tmp
 
-:   Temporary files that aren't preserved between reboots, and may be severely limited.
+:   Temporary files that aren't preserved between reboots and may be severely restricted.
 
 /usr
 
-:   A secondary hierarchy for read-only user data. The majority of utilities and apps are in here.
+:   A secondary hierarchy for read-only user data. Most utilities and applications are located here.
 
 ## Basic Bash Commands
 
-Bash is a Unix shell that allows you to enter commands, which are then interpreted and run by the computer. Commands can be used to perform tasks, such as creating a directory, running a program, or deleting a file. Bash is a type of interpreter, which takes user input and converts it into a language that the computer can understand and execute. Commands are typically composed of keywords, arguments, and flags, which allow the user to control how the command is interpreted and executed by the computer.
+Bash is a Unix shell that allows you to enter commands that are then interpreted and executed by the computer. Commands can be used to perform tasks such as creating a directory, running a program, or deleting a file. Bash is a type of interpreter that takes user input and converts it into a language that the computer can understand and execute. Commands usually consist of keywords, arguments, and flags that allow the user to control how the command is interpreted and executed by the computer.
 
--   **Navigating your file system**
+### Creating directories {.unnumbered}
 
-The file system manages files and directories in the operating system, as shown in the diagram above. It organizes our data into files, which store information, and directories.
+Keeping all your files in a single directory makes things much easier for you and your collaborators, and makes it easier to reproduce. Suppose you're working on a transcriptome analysis of *Cyanophora paradoxa*. Your first step would be to choose a short, appropriate project name and create some basic directories.
 
-    jiratchaya@pslab1:~$
+> 🗒️**Note:** In Linux file system, **directory** is exactly the same with **folder**.
 
-The dollar sign `$` is a prompt, which shows us that the shell is waiting for input. Your shell may use a different character as a prompt and may add information before the prompt.
+To keep it short and clear, 'Cpa' is used as an alias article name for *C. paradoxa*, and as the name of the directory, followed by words describing your work, for example.
 
--   **Find out where we are now**
+> ⚠️ **warning:** Avoid using spaces ( ) or special characters such as slashes ( / ), backslashes ( \\ ), accented characters ( \' ), tilde ( \~ ), and many others. It is **recommended to use underscore ( \_ )** or hyphen ( - ) instead of these special characters.
 
-<!-- -->
+-   Create a directory name 'Cpa_RNASeq' from current working directory
 
-    pwd
+``` bash
+mkdir Cpa_RNASeq
+```
 
-pwd stand for print working directory. Without explicitly specifying something else, the computer assumes we want to run commands in our current working directory. Which can be a user's home directory (`~`).
+This will create a directory named 'Cpa_RNASeq' in your current working directory. Let us create some subdirectories!
 
--   **Changing directory**
+-   Create subdirectory '01_Rawdata' under the 'Cpa_RNASeq' directory
 
-<!-- -->
+``` bash
+mkdir Cpa_RNASeq/01_Rawdata
+```
 
-    cd your_target_directory
+This will create a subdirectory name '01_Rawdata' in the directory 'Cpa_RNASeq'
 
-Which stands for change directory. You can change our working directory by typing `cd` followed by a directory name. In this case, you care changing from the current directory to the directory named `your_target_directory`.
+-   Create multiple directory at once
 
--   **Listing directories**
+For example, if you want to create 2 directories named '02_QC' and '03_adapter_trimming' under the 'Cpa_RNASeq' directory, then simply type
 
-We can see files and subdirectories are in this directory by running ls, which stands for "listing":
+``` bash
+mkdir Cpa_RNASeq/{02_QC,03_adapter_trimming}
+```
 
-    ls
+### Navigating your file system {.unnumbered}
 
-Let's see in the different way. This way is to list all files and directories including user who belong to, permissions, and file size in bytes.
+The file system manages the files and directories of the operating system. It organizes our data into files, which store information, and directories. When you see the prompt below on your terminal's screen, it means that your terminal has processed the command you entered and is ready for the next command.
 
-    ls -l
+``` bash
+jiratchaya@DESKTOP-P2DD13C:~$
+```
 
-To list files and folders, permissions, and size in human-readable format.
+`jiratchaya` is username using this terminal. The address \@ symbol followed by `DESKTOP-P2DD13C` in a computer or server name. And, the dollar sign `$` is a prompt, which shows us that the shell is waiting for input. Your shell may use a different character as a prompt and may add information before the prompt.
 
-    ls -lh
+If you want to find out where we are now, type
+
+``` bash
+pwd
+```
+
+pwd stands for print working directory. Without explicit specification, the computer assumes that we want to execute commands in our current working directory. This can be a user's home directory (`~`).
+
+If you want to change the directory, e.g. to the 'Cpa_RNASeq' directory we just created, just type the following
+
+``` bash
+cd Cpa_RNASeq
+```
+
+`cd` stands for "change directory". You can change our working directory by typing `cd` followed by a directory name. In this case you change from the current directory to the directory named 'Cpa_RNASeq'.
+
+### Listing directories {.unnumbered}
+
+We can see what files and subdirectories are in this directory by running ls, which stands for "listing":
+
+``` bash
+ls
+```
+
+Expected result:
+
+    jiratchaya@DESKTOP-P2DD13C:~/Cpa_RNASeq$ ls
+    01_Rawdata  02_QC  03_adapter_trimming
+
+Let us look at the other way. This way is to list all the files and directories, including the users who own them, the permissions, and the file size in bytes.
+
+``` bash
+ls -l
+```
+
+Expected result:
+
+    jiratchaya@DESKTOP-P2DD13C:~/Cpa_RNASeq$ ls -l
+    total 12
+    drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:02 01_Rawdata
+    drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:02 02_QC
+    drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:02 03_adapter_trimming
+
+List files and folders, permissions and size in a human readable format.
+
+``` bash
+ls -lh
+```
+
+Expected result:
+
+    jiratchaya@DESKTOP-P2DD13C:~/Cpa_RNASeq$ ls -l
+    total 12
+    drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:02 01_Rawdata
+    drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:02 02_QC
+    drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:02 03_adapter_trimming
 
 See all hidden files and directories
 
-    ls -a
-    # or
-    ls -la
+``` bash
+ls -la
+```
+
+Expected result:
+
+    jiratchaya@DESKTOP-P2DD13C:~/Cpa_RNASeq$ ls -la
+    total 20
+    drwxr-xr-x 5 jiratchaya jiratchaya 4096 Mar  1 21:02 .
+    drwxr-x--- 3 jiratchaya jiratchaya 4096 Mar  1 21:02 ..
+    drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:02 01_Rawdata
+    drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:02 02_QC
+    drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:02 03_adapter_trimming
+
+### Files and directories handling {.unnumbered}
+
+#### Creating and editing files {.unnumbered}
+
+When you work on the command line, you often need to create or edit text files. In this workshop, we recommend using `nano` as a text editor. Other Unix text editors you may have heard of include vi, vim, emacs, vscode, and many more.
+
+We'll create the file `test.fasta`. To open an existing file or create a new file, type nano followed by the filename:
+
+``` bash
+nano test.fasta
+```
+
+This will bring up the text editing screen on your terminal. Here you can type anything you want, but in this case we'll create a sequence like this.
+
+    >seq_01
+    TCGCTAGTC
+
+    >seq_02
+    TAGCGAGTT
+
+> 🗒️**Note:**Always leave an enter in the last line. This is advantageous if this file is further used by many programmes.
+
+![The text editing screen is displayed once you have typed nano into some files. At the bottom of the window is a list of the most important keyboard shortcuts for the nano editor. All commands are preceded by either a `^` or an `M` character. The caret symbol (`^`) stands for the `Ctrl` key. For example, the commands `^J` mean that you press the `Ctrl` and `J` keys simultaneously. The letter `M` stands for the `Alt` key.](assets/04_nano_screen.png){fig-align="center"}
+
+To edit a file, you can use the navigation keys such as arrow keys, End, Home, PgUp or PgDn to control the cursor.
+
+To save the changes you made to the file, press `Ctrl+o`. If the file doesn't exist yet, it'll be created after saving.
+
+To exit nano, press `Ctrl+x`. If there are unsaved changes, you'll be asked if you want to save the changes. Nano will ask you 'Save modified buffer?', then type `y` to confirm the edit.
+
+#### Copying files and directories {.unnumbered}
+
+To copy files and directories the command `cp` can be used. `cp` stands for copy and is used to copy files and directories in Linux. An example: You copy the file `test.fasta` to `01_Rawdata` with the following syntax
+
+    cp [source file] [target_directory]/
+
+For example
+
+``` bash
+cp test.fasta 01_Rawdata/
+```
+
+Copy file to another file, using the syntax
+
+    cp [source_file] [new_file_name]
+
+For example
+
+``` bash
+cp test.fasta test_2.fasta
+```
+
+You can copy a file to a new file in the directory by using the following syntax
+
+    cp [source_file] [target_directory]/[new_file_name]
+
+For example
+
+``` bash
+cp test.fasta 01_Rawdata/another_test.fasta
+```
+
+To copying directory, use additional flag as follow
+
+    cp -r [source_directory] [new_directory_name]
+
+The flag `-r` stands for recursive, i.e. all files and subdirectories in this directory are copied repeatedly. For example, `01_Rawdata` already contains `test.fasta`, which we copied before, and we want to duplicate this directory.
+
+``` bash
+cp -r 01_Rawdata/ 01_Rawdata_new
+```
+
+#### Moving files and directories {.unnumbered}
+
+To copy files and directories, the command `mv` can be used. `mv` stands for move and is used to move files and directories in Linux. For example, move the file `test_2.fasta` to the directory `01_Rawdata_new` with the following syntax
+
+    mv [file_to_move] [target_directory]
+
+``` bash
+mv test_2.fasta 01_Rawdata_new/
+```
+
+Specifically, to move files and directories, no flags are required as with `cp`. So if we want to move `01_Rawdata_new` to a subdirectory of `01_Rawdata`, this can be done as follows
+
+    mv [source_file_or_dir] [target_file_or_dir]
+
+``` bash
+mv 01_Rawdata_new/ 01_Rawdata
+```
+
+Moving file within the directory up to the current directory
+
+    mv [source_dir]/[source_file] .
+
+The dot ( . ) stands for the current directory, which means you want to move something to the current directory. For example, we want to move the file `another_test.fasta`, which is in the directory `01_Rawdata`, to the current directory by typing
+
+``` bash
+mv 01_Rawdata/another_test.fasta .
+```
+
+#### Deleting files and directories {.unnumbered}
+
+Removing files and directories can be done with the command `rm`. `rm` stands for remove and is used to delete files and directories in Linux. It's simple and straightforward with the following syntax.
+
+    rm [file_to_delete]
+
+For example, you are deleting file `another_test.fasta`
+
+``` bash
+rm another_test.fasta
+```
+
+To delete directories, use additional flags
+
+    rm -rf [directory_to_delete]
+
+The flag `-r` means that it does something recursive, which means that it deletes all files and subdirectories of the directory you want to delete. The flag `f` can help us delete some protected files and directories that you should think twice before deleting.
+
+For example you want to delete `03_adapter_trimming` directory
+
+``` bash
+rm -rf 03_adapter_trimming
+```
+
+Or delete subdirectory `01_Rawdata_new` by
+
+``` bash
+rm -rf 01_Rawdata/01_Rawdata_new
+```
+
+Don't worry\~ the `01_Rawdata` is still with us
+
+    jiratchaya@DESKTOP-P2DD13C:~/Cpa_RNASeq$ ls -l
+    total 20
+    drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 22:33 01_Rawdata
+    drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:59 02_QC
+    -rw-r--r-- 1 jiratchaya jiratchaya   38 Mar  1 22:00 another_test.fasta
+    -rw-r--r-- 1 jiratchaya jiratchaya   38 Mar  1 21:59 test.fasta
+    -rw-r--r-- 1 jiratchaya jiratchaya   38 Mar  1 22:00 test_2.fasta
+
+> 🚨 **Danger zone:** Be sure to check the path of the location where you want to delete something with the command `rm -rf`, otherwise you'll unintentionally delete necessary files or directories.
+>
+> [![](https://i.redd.it/346ib6l1exy41.png){fig-align="center" width="70%"}](https://www.reddit.com/r/linuxmemes/comments/gk8k2x/why_i_prefer_using_rm_i_or_deleting_the_entire/)
+
+### Downloading file from URL {.unnumbered}
+
+There are numerous ways to download a file from a URL via the command line on Linux, and two of the best tools for this task are `wget` and `curl`. Both tools have their advantages and disadvantages, depending on the download task at hand. However, in this workshop we'll mainly focus on downloading with `curl`.
+
+For example, we want to download the latest (draft) genome assembly report of *Cyanophora paradoxa* from the NCBI genome database via `curl` as follows.
+
+``` bash
+curl -O https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/004/431/415/GCA_004431415.1_ASM443141v1/GCA_004431415.1_ASM443141v1_assembly_report.txt
+```
+
+Expected output
+
+    jiratchaya@DESKTOP-P2DD13C:~/Cpa_RNASeq$ curl -O https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/004/431/415/GCA_004431415.1_ASM443141v1/GCA_004431415.1_ASM443141v1_assembly_report.txt
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                     Dload  Upload   Total   Spent    Left  Speed
+    100 61357  100 61357    0     0  21604      0  0:00:02  0:00:02 --:--:-- 21604
+    jiratchaya@DESKTOP-P2DD13C:~/Cpa_RNASeq$ ls -l
+    total 80
+    drwxr-xr-x 2 jiratchaya jiratchaya  4096 Mar  1 22:33 01_Rawdata
+    drwxr-xr-x 2 jiratchaya jiratchaya  4096 Mar  1 21:59 02_QC
+    -rw-r--r-- 1 jiratchaya jiratchaya 61357 Mar  1 22:56 GCA_004431415.1_ASM443141v1_assembly_report.txt
+    -rw-r--r-- 1 jiratchaya jiratchaya    38 Mar  1 22:00 another_test.fasta
+    -rw-r--r-- 1 jiratchaya jiratchaya    38 Mar  1 21:59 test.fasta
+    -rw-r--r-- 1 jiratchaya jiratchaya    38 Mar  1 22:00 test_2.fasta
+
+**Tips:** The alternative way to retrieve genome information from NCBI, you can just go to [NCBI Genome Data Hub](https://www.ncbi.nlm.nih.gov/data-hub/genome/) and specify species name to get information. NCBI provides several routes to download files including `curl`!
+
+![A genome assembly of *C. paradoxa* in NCBI genome data hub (Accessed: 1 March 2023)](assets/05_genome_data_hub.png){fig-align="center"}
+
+### Inspecting file {.unnumbered}
+
+We'll inspect the assembly report file `GCA_004431415.1_ASM443141v1_assembly_report.txt` that we just downloaded from NCBI
+
+-   Count how many lines in that file
+
+``` bash
+wc -l GCA_004431415.1_ASM443141v1_assembly_report.txt
+```
+
+    jiratchaya@DESKTOP-P2DD13C:~/Cpa_RNASeq$ wc -l GCA_004431415.1_ASM443141v1_assembly_report.txt
+    743 GCA_004431415.1_ASM443141v1_assembly_report.txt
+
+-   Print some contents at a time.
+
+Now you will see the number of lines that fit on your screen, and you can scroll `up` and `down` with the arrow keys. Then press `q` when you have checked your file.
+
+``` bash
+less GCA_004431415.1_ASM443141v1_assembly_report.txt
+```
+
+![Example of inspecting a file with the `less` command. Users can scroll up and down with the arrow keys and exit by pressing `q`.](assets/06_less_file.png){fig-align="center" width="100%"}
+
+-   Print top 10 lines of file
+
+``` bash
+head GCA_004431415.1_ASM443141v1_assembly_report.txt
+```
+
+![The first 10 lines of *C. paradoxa* assembly report file](assets/07_head_file.png)
+
+-   Print bottom 10 lines of file
+
+``` bash
+tail GCA_004431415.1_ASM443141v1_assembly_report.txt
+```
+
+![The last 10 lines of *C. paradoxa* assembly report file.](assets/08_tail_file.png){width="100%"}
+
+-   Print only lines with a specific pattern of word.
+
+For example, we'll print only the lines contain the word "Chloroplast"
+
+``` bash
+grep "Chloroplast" GCA_004431415.1_ASM443141v1_assembly_report.txt
+```
+
+![Extracted lines with a specific word "Chloroplast" in assembly report file.](assets/09_grep_file.png)
+
+### Show latest commands we used {.unnumbered}
+
+You can simply press arrow keys `up` or `down` to see your latest commands that you typed in the terminal.
+
+Another way to see the latest command by typing below in the terminal
+
+``` bash
+history
+```
+
+History is able to keep track of the command lines you use, associate any data with each line, and use information from previous lines when writing new lines.
+
+### Shortcut: Tab Completion {.unnumbered}
+
+When typing file or directory names, it's easy to mistype. Instead, we can use 'tab' to complete what we want to type. The shell will try to fill in the rest of a directory or file name if you press tab after typing.
+
+![Using tab autocomplete in bash.](https://i.stack.imgur.com/jKJz0.gif){fig-align="center"}
+
+## Maintaining Long-Running Jobs with tmux
+
+When we run programs through the Unix shell, they run until they terminate successfully or are terminated with an error. Multiple processes running simultaneously on your computer, such as system files, web browser, email application, bioinformatics programs, and so on. In bioinformatics, we often work with processes that run for a long period of time. Therefore, it's important that we know how to work with processes and manage them using the Unix shell. In this section, we'll learn the basics of dealing with processes.
+
+In addition, processes are also terminated if the connection to the  servers is interrupted, the network connection drops immediately, or the power fails. Since we're constantly working with remote computers in our daily work in bioinformatics, we need a way to prevent the accidental termination of long-running applications. Leaving the local terminal's connection to a remote computer open while a program is running is an unsafe solution, even the most reliable networks can experience short outages.
+
+![How tmux increase you pruductivity :/](https://external-preview.redd.it/qevOpeiiyII34yThEPkMRIg6vL72zz-gt-zdQrfd-Us.jpg?auto=webp&v=enabled&s=e65d4473b8702e6437d5067d88f64d31a9822f51)
+
+Some software offers the user the possibility to run their work as a background process, e.g. Nohup, Screen and Tmux. In this workshop, we propose **Terminal Multiplexer (Tmux)**, which allows you to create a session with multiple windows, each of which can run its own processes. The Tmux sessions are persistent, which means that all the windows and their processes can be easily restored by reattaching the session.
+
+When Tmux is running on a remote machine, you can maintain a persistent session that isn't lost when the connection drops or you close your terminal window to go home (or even exit your terminal programme). Rather, all Tmux sessions can be reattached to the terminal you're currently at - simply log back into the remote machine via SSH and reattach the Tmux session. All windows remain undisturbed and all processes continue to run.
+
+### A simple usage of Tmux {.unnumbered}
+
+Open a terminal and use the following command
+
+``` bash
+tmux
+```
+
+You see a command prompt as usual, but you now see a taskbar-style menu at the bottom of the terminal that contains something like bash 0 \*. The asterisk indicates that this is your active window.
+
+![Tmux windows](assets/10_tmux_simple.png){fig-align="center"}
+
+### Detach a session {.unnumbered}
+
+This allows you to leave the tmux session, but it continues to run in the background. Just press the key
+
+    [ctrl + b] + d
+
+Your terminal will print
+
+    jiratchaya@DESKTOP-P2DD13C:~/Cpa_RNASeq$ tmux
+    [detached (from session 0)]
+
+This should take you back to a standard prompt. Remember that the Tmux session continues in the background, and you can recall it at any time.
+
+### Name the Tmux session
+
+You may find it helpful to name your sessions with meaningful titles to keep things organized. Let's try naming your first session with Tmux.
+
+You can name it anything that we want, but in this case I will name it 'process2'. Enter the following command:
+
+``` bash
+tmux new -s process2
+```
+
+You should now have a new Tmux session running. If you look in the lower left area of the window, you will see the name of your session rather than the generic 'bash'.
+
+### List tmux sessions {.unnumbered}
+
+What happened to your session? It is still running in the background. You can reopen the session by name or number ID, but what if you forgot the session name?
+
+There is a list function built into tmux:
+
+``` bash
+tmux ls
+```
+
+This lists all your current tmux sessions. When you run it, you get output like this:
+
+![List of running tmux sessions.](assets/11_tmux_sessions.png){fig-align="center" width="75%"}
+
+### Reenter (aka reattach) a session in Tmux {.unnumbered}
+
+To reopen your tmux session, you can use the tmux command with the attach or attach-session option as follows:
+
+    tmux a -t [session_name]
+
+For example, we'll reenter to the process2 session.
+
+``` bash
+tmux a -t process2
+```
+
+### Exit tmux when finish running {.unnumbered}
+
+Quitting tmux is exactly the same as quitting the standard terminal by pressing the keys `Ctrl+d` or by entering
+
+``` bash
+exit
+```
 
 ## Resources
 
--   [Introduction to the command line interface](https://hbctraining.github.io/Intro-to-shell-flipped/) by Harvard Chan Bioinformatics Core (HBC) .
+-   Buffalo, V. (2015). [*Bioinformatics data skills: Reproducible and robust research with open source tools*](https://books.google.co.th/books/about/Bioinformatics_Data_Skills.html?id=XxERCgAAQBAJ). " O'Reilly Media, Inc.".
 
--   [Introducing the Shell](https://bioinformatics-core-shared-training.github.io/shell-genomics/01-introduction/index.html), from the course Introduction to the Command Line for Genomics in [bioinformatics-core-shared-training](https://bioinformatics-core-shared-training.github.io/)
+-   [Introduction to the command line interface](https://hbctraining.github.io/Intro-to-shell-flipped/) by Harvard Chan Bioinformatics Core (Accessed on 27 Feb 2023).
 
--   
+-   [Introducing the Shell](https://bioinformatics-core-shared-training.github.io/shell-genomics/01-introduction/index.html), from the course Introduction to the Command Line for Genomics in bioinformatics-core-shared-training (Accessed on 28 Feb 2023)
+
+-   [Bash cheat sheet](https://github.com/RehanSaeed/Bash-Cheat-Sheet) from RehanSaeed GitHub repository (Accessed on 1 March 2023).
+
+-   [Getting Started with Tmux \[Beginner's Guide\]](https://linuxhandbook.com/tmux/). By linuxhandbook.com (Accessed on 2 March 2023)
