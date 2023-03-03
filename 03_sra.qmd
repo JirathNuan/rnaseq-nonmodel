@@ -1,3 +1,136 @@
-# Data Retrieval with NCBI sra-tools
+# Data Retrieval with NCBI SRA Toolkit
 
+NCBI (Natianal Center for Biotechnology Information) is a major source of biological databases related to life and health sciences research, as well as a major source of bioinformatics tools and services. NCBI hosts various types of biological data submitted by researchers from around the world, such as [GenBank](https://www.ncbi.nlm.nih.gov/nuccore) for nucleotide sequence submissions, [Sequence Read Archive (SRA)](https://www.ncbi.nlm.nih.gov/sra/) for raw sequence data, [Genome](https://www.ncbi.nlm.nih.gov/genome/) for submitting full or draft genomes, [Gene Expression Omnibus (GEO)](https://www.ncbi.nlm.nih.gov/gds) for quantitative gene expression data sets, and many more.
 
+[NCBI SRA toolkit](https://github.com/ncbi/sra-tools) is a set of utilities for downloading, viewing, and searching large amounts of high-throughput sequencing data from the NCBI SRA database.
+
+SRA toolkit can
+
+-   Effectively download the large volume of high-throughput sequencing data
+-   Convert SRA file into other biological file format
+-   Retrieve a small subset of large files
+-   Search within SRA files and fetch specific sequences
+
+![Screenshots of NCBI Sequence Read Archives](https://i0.wp.com/ncbiinsights.ncbi.nlm.nih.gov/wp-content/uploads/2015/12/post-1-fig-1-toolkit-dls.png?resize=735%252C660&ssl=1){fig-align="center" width="80%"}
+
+## What is Sequence Read Archives (SRA)
+
+The Sequence Read Archive (SRA) is the largest publicly accessible repository for high-throughput sequencing data. SRA accepts data from all areas of sequencing projects as well as metagenomics and environmental studies. Sequencing data may be isolated from a single species or from multiple species as in metagnomics studies.
+
+SRA also refers in the file description to the format defined by NCBI for NGS data in the SRA database. All data submitted to NCBI must be stored in SRA format and can be converted back to a FASTQ, FASTA, or BAM file depending on the original submission by the researchers. Here, the SRA Toolkit provides tools for downloading data, converting various data formats to SRA format and vice versa, and extracting SRA data to other formats.
+
+Researchers often use SRA data to make discoveries and conduct reproducible research. Data sets can be compared using the SRA web interface. However, if you want to download files for local use on your computer, you should use a command line interface, and the SRA Toolkit is highly recommended by NCBI.
+
+## Searching RNA-Sequencing datasets in NCBI
+
+The databases in NCBI are linked by some common features. This means that you can start wherever you have your research problems in NCBI. In this workshop, we will investigate transcriptional changes during light exposure of the alga *Cyanophora paradoxa*, a representative species of Glaucophytes. For more information about this alga, please see [this article in Science](https://www.science.org/doi/10.1126/science.1213561).
+
+⭐ You can easily search the SRA database for any keywords of interest related to your research. In this context, we search for all SRA studies related to *C. paradoxa* and see what SRA provides us. Note that the SRA database contains not only transcriptome studies, but also genomes and metagenomes.
+
+![Screenshot of the search result of *C. paradoxa* in the database NCBI SRA. Here you can see all sequencing libraries of this species that have been submitted to NCBI. You can specify which items are of interest or customize the search using the filter box on the left and right sides of the screen.](assets/14_ncbi_sra.png){fig-align="center"}
+
+-   We'll adjust our selection using the tool in the SRA database, the ***SRA Run Selector***, as follows.
+
+![Browsing sequencing data in NCBI SRA database](assets/15_run_selector.gif){fig-align="center"}
+
+-   In the SRA Run Selector, you can customize the filters based on the metadata columns of all runs. In this case, we filter the SRA runs based on the assay type as RNA-Seq and select only paired-end sequencing data as follows.
+
+![Customizing filters in SRA Run Selector](assets/16_run_selector_filtering.gif){fig-align="center"}
+
+-   Then you can select which runs you want to download and perform analysis. In this workshop we'll select *C. paradoxa* RNA-Seq reads from **SRR8306028**, **SRR8306029**, **SRR8306032**, **SRR8306033**, **SRR8306034** and **SRR8306035**.
+
+![Exporting the selected metadata in SRA Run Selector.](assets/17_export_metadata.gif){fig-align="center"}
+
+-   The downloaded metadata is in comma-separated file format. So you can open them with spreadsheet programs like Microsoft Excel on your local laptop. The metadata looks like this.
+
+```{r, echo=FALSE}
+library(magrittr)
+meta_df <- read.csv("assets/SraRunTable.txt")
+knitr::kable(meta_df) %>% 
+  kableExtra::kable_styling(full_width = F, font_size = 11)
+```
+
+## Downloading SRA runs using *fasterq-dump*
+
+`fasterq-dump` are tools in the SRA toolkit used to connect from our remote server to the NCBI server and download sequencing data from SRA.
+
+According to the [NCBI sra-tools' guideline](https://github.com/ncbi/sra-tools/wiki/08.-prefetch-and-fasterq-dump#how-to-use-prefetch-and-fasterq-dump-to-extract-fastq-files-from-sra-accessions), using `fasterq-dump` in combination with another tool, `prefetch`, is the better way to download data because `prefetch` can be invoked at any time if the previous download accidentally failed. So it is not necessary to start the download from the beginning.
+
+However, `prefetch` can sometimes be skipped if you want to download a small amount of data. In this workshop we'll use only `fasterq-dump` to download and process SRA file format to FASTQ file for further analysis.
+
+Now we download RNA-Seq libraries from *C. paradoxa* using the SRA accessions listed in the first column of the metadata above using the following command.
+
+``` bash
+# Activate analysis environment
+conda activate sra-tools
+# Run fasterq-dump
+fasterq-dump --threads 2 --progress \
+SRR8306028 SRR8306029 SRR8306032 \
+SRR8306033 SRR8306034 SRR8306035
+```
+
+From the `fasterq-dump` command,
+
+`--threads` refer to how many threads to use (default = 6).
+
+`--progress` force the terminal to print the progress of downloading and processing file to the screen.
+
+By default, `fasterq-dump` processes a single SRA file format of paired-end reads by splitting reads into forward (`*_1.fastq`) and reverse (`*_2.fastq`), if singletons (unpaired between forward and reverse reads) present, it will be written to another fastq file as described in this figure.
+
+![Sequence read processing by fasterq-dump using default parameters. Figure adopted from <https://github.com/ncbi/sra-tools/wiki/HowTo:-fasterq-dump>.](https://github.com/ncbi/sra-tools/wiki/images/split3-mode.png){fig-align="center" width="80%"}
+
+## What is FASTQ file format
+
+Next-generation sequencing and data analysis projects typically begin with the processing of sequence read data and their quality tags from the sequencer in FASTQ format. The FASTQ format is the most commonly used format in sequence analysis and is generated by a sequencer. The FASTQ file contains the sequence data from the clusters that pass the filter of a flow cell. Many analysis tools require this format because it contains much more information than FASTA. In this workshop, we will mainly explain the FASTQ file format, which comes from the Illumina sequencer.
+
+The FASTQ format is similar to the fasta format, but differs in syntax and in the integration of quality values. Each sequence requires at least 4 lines:
+
+![Example of FASTQ file format](/assets/12_fastq_format.png)
+
+1.  A sequence identifier with information about the sequencing run and the cluster. The exact contents of this line vary by based on the BCL to FASTQ conversion software used.
+
+2.  The sequence (the base calls; A, C, T, G and N).
+
+3.  A separator, which is simply a plus (+) sign.
+
+4.  The base call quality scores. These are Phred +33 encoded, using ASCII characters to represent the numerical quality scores.
+
+The FastQ sequence descriptor generally follows a specific format that includes all information about the sequencer and its position on the flow cell. The sequence descriptor also follows a specific format and contains information about the sample information.
+
+FASTQ sequence descriptor, particulary in Illumina sequence reads look like:
+
+    @HWUSI-EAS100R:6:73:941:1973#0/1
+
+where
+
+|                   |                                                                     |
+|----------------------|--------------------------------------------------|
+| **HWUSI-EAS100R** | The unique instrument name                                          |
+| **6**             | Flowcell lane                                                       |
+| **73**            | Tile number within the flowcell lane                                |
+| **941**           | 'x'-coordinate of the cluster within the tile                       |
+| **1973**          | 'y'-coordinate of the cluster within the tile                       |
+| **#0**            | Index number for a multiplexed sample (0 for no indexing)           |
+| **/1**            | The member of a pair, /1 or /2 (paired-end or mate-pair reads only) |
+
+### What software use FASTQ
+
+To date, Almost NGS analysis software requires FASTQ format. For example:
+
+-   QC such as [fastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) used FASTQ to determine how good of the sequence read library, generate an informative report, and also determining the presence of adapter sequences which can also be trimmed by some integrated QC tools such as [FASTP](https://github.com/OpenGene/fastp).
+
+```{=html}
+<!-- -->
+```
+-   Aligners such as [bowtie2](https://github.com/BenLangmead/bowtie2), [BWA](https://github.com/lh3/bwa), [STAR](https://github.com/alexdobin/STAR), and so on, use reads, and quality sometimes, to align to the reference sequence. The mapping information can be further used for quantifying expression, constructing sequence assembly, and variant calling.
+
+-   De novo assembly tools, for example [Trinity](https://github.com/trinityrnaseq/trinityrnaseq), [Spades](https://github.com/ablab/spades), [Velvet](https://github.com/dzerbino/velvet), etc., also use FASTQ to construct contig library and scaffolding. Some de novo assembler tools not only use FASTQ to contruct draft assembly but also used in the polishing process to refine assembly, such as [Flye](https://github.com/fenderglass/Flye), [Unicycler](https://github.com/rrwick/Unicycler), [Canu](https://github.com/marbl/canu), etc.
+
+And many more.
+
+## Reference Sources
+
+-   Price, Dana C., et al. "*Cyanophora paradoxa* genome elucidates origin of photosynthesis in algae and plants." *Science* 335.6070 (2012): 843-847. <https://doi.org/10.1126/science.1213561>.
+-   [SRA Toolkit: the SRA database at your fingertips](https://ncbiinsights.ncbi.nlm.nih.gov/2015/12/11/sra-toolkit-the-sra-database-at-your-fingertips/) from NCBI Insights. Accessed 4-Mar-2023.
+-   [How to use NCBI SRA Toolkit effectively](https://www.reneshbedre.com/blog/ncbi_sra_toolkit.html) by Renesh Bedre, Data science blog. Accessed 4-Mar-2023.
+-   [HowTo: fasterq dump](https://github.com/ncbi/sra-tools/wiki/HowTo:-fasterq-dump) by NCBI sra-tools GitHub Wiki. Accessed 4-Mar-2023.

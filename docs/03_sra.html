@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Transcriptome Data Analysis in Non-model Organisms - 3&nbsp; Data Retrieval with NCBI sra-tools</title>
+<title>Transcriptome Data Analysis in Non-model Organisms - 3&nbsp; Data Retrieval with NCBI SRA Toolkit</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -61,6 +124,9 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
 </head>
 
@@ -70,7 +136,7 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Retrieval with NCBI sra-tools</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Retrieval with NCBI SRA Toolkit</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -110,7 +176,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_sra.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Retrieval with NCBI sra-tools</span></a>
+  <a href="./03_sra.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Retrieval with NCBI SRA Toolkit</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -138,14 +204,27 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#what-is-sequence-read-archives-sra" id="toc-what-is-sequence-read-archives-sra" class="nav-link active" data-scroll-target="#what-is-sequence-read-archives-sra"><span class="toc-section-number">3.1</span>  What is Sequence Read Archives (SRA)</a></li>
+  <li><a href="#searching-rna-sequencing-datasets-in-ncbi" id="toc-searching-rna-sequencing-datasets-in-ncbi" class="nav-link" data-scroll-target="#searching-rna-sequencing-datasets-in-ncbi"><span class="toc-section-number">3.2</span>  Searching RNA-Sequencing datasets in NCBI</a></li>
+  <li><a href="#downloading-sra-runs-using-fasterq-dump" id="toc-downloading-sra-runs-using-fasterq-dump" class="nav-link" data-scroll-target="#downloading-sra-runs-using-fasterq-dump"><span class="toc-section-number">3.3</span>  Downloading SRA runs using <em>fasterq-dump</em></a></li>
+  <li><a href="#what-is-fastq-file-format" id="toc-what-is-fastq-file-format" class="nav-link" data-scroll-target="#what-is-fastq-file-format"><span class="toc-section-number">3.4</span>  What is FASTQ file format</a>
+  <ul class="collapse">
+  <li><a href="#what-software-use-fastq" id="toc-what-software-use-fastq" class="nav-link" data-scroll-target="#what-software-use-fastq"><span class="toc-section-number">3.4.1</span>  What software use FASTQ</a></li>
+  </ul></li>
+  <li><a href="#reference-sources" id="toc-reference-sources" class="nav-link" data-scroll-target="#reference-sources"><span class="toc-section-number">3.5</span>  Reference Sources</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Retrieval with NCBI sra-tools</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data Retrieval with NCBI SRA Toolkit</span></h1>
 </div>
 
 
@@ -160,8 +239,681 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<p>NCBI (Natianal Center for Biotechnology Information) is a major source of biological databases related to life and health sciences research, as well as a major source of bioinformatics tools and services. NCBI hosts various types of biological data submitted by researchers from around the world, such as <a href="https://www.ncbi.nlm.nih.gov/nuccore">GenBank</a> for nucleotide sequence submissions, <a href="https://www.ncbi.nlm.nih.gov/sra/">Sequence Read Archive (SRA)</a> for raw sequence data, <a href="https://www.ncbi.nlm.nih.gov/genome/">Genome</a> for submitting full or draft genomes, <a href="https://www.ncbi.nlm.nih.gov/gds">Gene Expression Omnibus (GEO)</a> for quantitative gene expression data sets, and many more.</p>
+<p><a href="https://github.com/ncbi/sra-tools">NCBI SRA toolkit</a> is a set of utilities for downloading, viewing, and searching large amounts of high-throughput sequencing data from the NCBI SRA database.</p>
+<p>SRA toolkit can</p>
+<ul>
+<li>Effectively download the large volume of high-throughput sequencing data</li>
+<li>Convert SRA file into other biological file format</li>
+<li>Retrieve a small subset of large files</li>
+<li>Search within SRA files and fetch specific sequences</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://i0.wp.com/ncbiinsights.ncbi.nlm.nih.gov/wp-content/uploads/2015/12/post-1-fig-1-toolkit-dls.png?resize=735%252C660&amp;ssl=1" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">Screenshots of NCBI Sequence Read Archives</figcaption><p></p>
+</figure>
+</div>
+<section id="what-is-sequence-read-archives-sra" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="what-is-sequence-read-archives-sra"><span class="header-section-number">3.1</span> What is Sequence Read Archives (SRA)</h2>
+<p>The Sequence Read Archive (SRA) is the largest publicly accessible repository for high-throughput sequencing data. SRA accepts data from all areas of sequencing projects as well as metagenomics and environmental studies. Sequencing data may be isolated from a single species or from multiple species as in metagnomics studies.</p>
+<p>SRA also refers in the file description to the format defined by NCBI for NGS data in the SRA database. All data submitted to NCBI must be stored in SRA format and can be converted back to a FASTQ, FASTA, or BAM file depending on the original submission by the researchers. Here, the SRA Toolkit provides tools for downloading data, converting various data formats to SRA format and vice versa, and extracting SRA data to other formats.</p>
+<p>Researchers often use SRA data to make discoveries and conduct reproducible research. Data sets can be compared using the SRA web interface. However, if you want to download files for local use on your computer, you should use a command line interface, and the SRA Toolkit is highly recommended by NCBI.</p>
+</section>
+<section id="searching-rna-sequencing-datasets-in-ncbi" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="searching-rna-sequencing-datasets-in-ncbi"><span class="header-section-number">3.2</span> Searching RNA-Sequencing datasets in NCBI</h2>
+<p>The databases in NCBI are linked by some common features. This means that you can start wherever you have your research problems in NCBI. In this workshop, we will investigate transcriptional changes during light exposure of the alga <em>Cyanophora paradoxa</em>, a representative species of Glaucophytes. For more information about this alga, please see <a href="https://www.science.org/doi/10.1126/science.1213561">this article in Science</a>.</p>
+<p>⭐ You can easily search the SRA database for any keywords of interest related to your research. In this context, we search for all SRA studies related to <em>C. paradoxa</em> and see what SRA provides us. Note that the SRA database contains not only transcriptome studies, but also genomes and metagenomes.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/14_ncbi_sra.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Screenshot of the search result of <em>C. paradoxa</em> in the database NCBI SRA. Here you can see all sequencing libraries of this species that have been submitted to NCBI. You can specify which items are of interest or customize the search using the filter box on the left and right sides of the screen.</figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li>We’ll adjust our selection using the tool in the SRA database, the <strong><em>SRA Run Selector</em></strong>, as follows.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/15_run_selector.gif" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Browsing sequencing data in NCBI SRA database</figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li>In the SRA Run Selector, you can customize the filters based on the metadata columns of all runs. In this case, we filter the SRA runs based on the assay type as RNA-Seq and select only paired-end sequencing data as follows.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/16_run_selector_filtering.gif" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Customizing filters in SRA Run Selector</figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li>Then you can select which runs you want to download and perform analysis. In this workshop we’ll select <em>C. paradoxa</em> RNA-Seq reads from <strong>SRR8306028</strong>, <strong>SRR8306029</strong>, <strong>SRR8306032</strong>, <strong>SRR8306033</strong>, <strong>SRR8306034</strong> and <strong>SRR8306035</strong>.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/17_export_metadata.gif" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Exporting the selected metadata in SRA Run Selector.</figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li>The downloaded metadata is in comma-separated file format. So you can open them with spreadsheet programs like Microsoft Excel on your local laptop. The metadata looks like this.</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table" style="font-size: 11px; width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Run </th>
+   <th style="text-align:left;"> Assay.Type </th>
+   <th style="text-align:right;"> AvgSpotLen </th>
+   <th style="text-align:right;"> Bases </th>
+   <th style="text-align:left;"> BioSample </th>
+   <th style="text-align:right;"> Bytes </th>
+   <th style="text-align:left;"> Center.Name </th>
+   <th style="text-align:left;"> Consent </th>
+   <th style="text-align:left;"> DATASTORE.filetype </th>
+   <th style="text-align:left;"> DATASTORE.provider </th>
+   <th style="text-align:left;"> DATASTORE.region </th>
+   <th style="text-align:left;"> Experiment </th>
+   <th style="text-align:left;"> Instrument </th>
+   <th style="text-align:left;"> Library.Name </th>
+   <th style="text-align:left;"> LibraryLayout </th>
+   <th style="text-align:left;"> LibrarySelection </th>
+   <th style="text-align:left;"> LibrarySource </th>
+   <th style="text-align:left;"> Organism </th>
+   <th style="text-align:left;"> Platform </th>
+   <th style="text-align:left;"> ReleaseDate </th>
+   <th style="text-align:left;"> create_date </th>
+   <th style="text-align:right;"> version </th>
+   <th style="text-align:left;"> Sample.Name </th>
+   <th style="text-align:left;"> SRA.Study </th>
+   <th style="text-align:left;"> BioProject </th>
+   <th style="text-align:left;"> ENA.FIRST.PUBLIC..run. </th>
+   <th style="text-align:left;"> ENA_first_public </th>
+   <th style="text-align:left;"> ENA.LAST.UPDATE..run. </th>
+   <th style="text-align:left;"> ENA.LAST.UPDATE </th>
+   <th style="text-align:left;"> External_Id </th>
+   <th style="text-align:left;"> INSDC_center_alias </th>
+   <th style="text-align:left;"> INSDC_center_name </th>
+   <th style="text-align:left;"> INSDC_first_public </th>
+   <th style="text-align:left;"> INSDC_last_update </th>
+   <th style="text-align:left;"> INSDC_status </th>
+   <th style="text-align:left;"> Sample_Name </th>
+   <th style="text-align:left;"> Submitter_Id </th>
+   <th style="text-align:left;"> Broker_name </th>
+   <th style="text-align:left;"> Developmental_stage </th>
+   <th style="text-align:left;"> Experimental_Factor._stimulus..exp. </th>
+   <th style="text-align:left;"> Genotype </th>
+   <th style="text-align:left;"> growth_condition </th>
+   <th style="text-align:left;"> Organism_part </th>
+   <th style="text-align:left;"> stimulus </th>
+   <th style="text-align:left;"> Experimental_Factor._organism..exp. </th>
+   <th style="text-align:left;"> Experimental_Factor._time..exp. </th>
+   <th style="text-align:left;"> Experimental_Factor._growth_condition..exp. </th>
+   <th style="text-align:left;"> common_name </th>
+   <th style="text-align:left;"> BioSampleModel </th>
+   <th style="text-align:left;"> geo_loc_name_country </th>
+   <th style="text-align:left;"> geo_loc_name_country_continent </th>
+   <th style="text-align:left;"> geo_loc_name </th>
+   <th style="text-align:left;"> Isolate </th>
+   <th style="text-align:left;"> TISSUE </th>
+   <th style="text-align:left;"> Collection_Date </th>
+   <th style="text-align:left;"> Isolation_source </th>
+   <th style="text-align:left;"> BIOMATERIAL_PROVIDER </th>
+   <th style="text-align:left;"> dev_stage </th>
+   <th style="text-align:left;"> Temp </th>
+   <th style="text-align:left;"> TREATMENT </th>
+   <th style="text-align:left;"> BREED </th>
+   <th style="text-align:left;"> culture.collection </th>
+   <th style="text-align:left;"> sequencer </th>
+   <th style="text-align:left;"> source_mat_id </th>
+   <th style="text-align:left;"> tissue_type </th>
+   <th style="text-align:left;"> Host </th>
+   <th style="text-align:left;"> Lat_Lon </th>
+   <th style="text-align:left;"> Sample_Type </th>
+   <th style="text-align:left;"> Strain </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> SRR8306028 </td>
+   <td style="text-align:left;"> RNA-Seq </td>
+   <td style="text-align:right;"> 300 </td>
+   <td style="text-align:right;"> 3373326900 </td>
+   <td style="text-align:left;"> SAMN10588740 </td>
+   <td style="text-align:right;"> 1950953927 </td>
+   <td style="text-align:left;"> HHU DUESSELDORF </td>
+   <td style="text-align:left;"> public </td>
+   <td style="text-align:left;"> fastq,run.zq,sra </td>
+   <td style="text-align:left;"> s3,ncbi,gs </td>
+   <td style="text-align:left;"> gs.US,s3.us-east-1,ncbi.public </td>
+   <td style="text-align:left;"> SRX5120515 </td>
+   <td style="text-align:left;"> Illumina HiSeq 2000 </td>
+   <td style="text-align:left;"> Cyanophora dark III </td>
+   <td style="text-align:left;"> PAIRED </td>
+   <td style="text-align:left;"> cDNA </td>
+   <td style="text-align:left;"> TRANSCRIPTOMIC </td>
+   <td style="text-align:left;"> Cyanophora paradoxa </td>
+   <td style="text-align:left;"> ILLUMINA </td>
+   <td style="text-align:left;"> 2019-08-05T00:00:00Z </td>
+   <td style="text-align:left;"> 2018-12-17T16:48:00Z </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> Cyanophora_dark </td>
+   <td style="text-align:left;"> SRP173157 </td>
+   <td style="text-align:left;"> PRJNA509798 </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Plant </td>
+   <td style="text-align:left;"> Denmark </td>
+   <td style="text-align:left;"> Europe </td>
+   <td style="text-align:left;"> Denmark: obtained from the Scandinavian culture collection of Algae &amp; Protozoa (SCCAP) </td>
+   <td style="text-align:left;"> SCCAP K-0262 </td>
+   <td style="text-align:left;"> unicells </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> SCCAP K-0262 </td>
+   <td style="text-align:left;"> exponential </td>
+   <td style="text-align:left;"> 15 °C </td>
+   <td style="text-align:left;"> 0 µmol quanta m-2s-1 </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SRR8306029 </td>
+   <td style="text-align:left;"> RNA-Seq </td>
+   <td style="text-align:right;"> 300 </td>
+   <td style="text-align:right;"> 3361510200 </td>
+   <td style="text-align:left;"> SAMN10588740 </td>
+   <td style="text-align:right;"> 1882426113 </td>
+   <td style="text-align:left;"> HHU DUESSELDORF </td>
+   <td style="text-align:left;"> public </td>
+   <td style="text-align:left;"> run.zq,fastq,sra </td>
+   <td style="text-align:left;"> s3,ncbi,gs </td>
+   <td style="text-align:left;"> gs.US,s3.us-east-1,ncbi.public </td>
+   <td style="text-align:left;"> SRX5120514 </td>
+   <td style="text-align:left;"> Illumina HiSeq 2000 </td>
+   <td style="text-align:left;"> Cyanophora dark II </td>
+   <td style="text-align:left;"> PAIRED </td>
+   <td style="text-align:left;"> cDNA </td>
+   <td style="text-align:left;"> TRANSCRIPTOMIC </td>
+   <td style="text-align:left;"> Cyanophora paradoxa </td>
+   <td style="text-align:left;"> ILLUMINA </td>
+   <td style="text-align:left;"> 2019-08-05T00:00:00Z </td>
+   <td style="text-align:left;"> 2018-12-17T16:44:00Z </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> Cyanophora_dark </td>
+   <td style="text-align:left;"> SRP173157 </td>
+   <td style="text-align:left;"> PRJNA509798 </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Plant </td>
+   <td style="text-align:left;"> Denmark </td>
+   <td style="text-align:left;"> Europe </td>
+   <td style="text-align:left;"> Denmark: obtained from the Scandinavian culture collection of Algae &amp; Protozoa (SCCAP) </td>
+   <td style="text-align:left;"> SCCAP K-0262 </td>
+   <td style="text-align:left;"> unicells </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> SCCAP K-0262 </td>
+   <td style="text-align:left;"> exponential </td>
+   <td style="text-align:left;"> 15 °C </td>
+   <td style="text-align:left;"> 0 µmol quanta m-2s-1 </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SRR8306032 </td>
+   <td style="text-align:left;"> RNA-Seq </td>
+   <td style="text-align:right;"> 300 </td>
+   <td style="text-align:right;"> 3378668400 </td>
+   <td style="text-align:left;"> SAMN10588739 </td>
+   <td style="text-align:right;"> 1903910409 </td>
+   <td style="text-align:left;"> HHU DUESSELDORF </td>
+   <td style="text-align:left;"> public </td>
+   <td style="text-align:left;"> sra,run.zq,fastq </td>
+   <td style="text-align:left;"> gs,s3,ncbi </td>
+   <td style="text-align:left;"> ncbi.public,gs.US,s3.us-east-1 </td>
+   <td style="text-align:left;"> SRX5120511 </td>
+   <td style="text-align:left;"> Illumina HiSeq 2000 </td>
+   <td style="text-align:left;"> Cyanophora light II </td>
+   <td style="text-align:left;"> PAIRED </td>
+   <td style="text-align:left;"> cDNA </td>
+   <td style="text-align:left;"> TRANSCRIPTOMIC </td>
+   <td style="text-align:left;"> Cyanophora paradoxa </td>
+   <td style="text-align:left;"> ILLUMINA </td>
+   <td style="text-align:left;"> 2019-08-05T00:00:00Z </td>
+   <td style="text-align:left;"> 2018-12-17T16:44:00Z </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> Cyanophora_normal light </td>
+   <td style="text-align:left;"> SRP173157 </td>
+   <td style="text-align:left;"> PRJNA509798 </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Plant </td>
+   <td style="text-align:left;"> Denmark </td>
+   <td style="text-align:left;"> Europe </td>
+   <td style="text-align:left;"> Denmark: obtained from the Scandinavian culture collection of Algae &amp; Protozoa (SCCAP) </td>
+   <td style="text-align:left;"> SCCAP K-0262 </td>
+   <td style="text-align:left;"> unicells </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> SCCAP K-0262 </td>
+   <td style="text-align:left;"> exponential </td>
+   <td style="text-align:left;"> 15 °C </td>
+   <td style="text-align:left;"> ~ 50 µmol quanta m-2s-1 </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SRR8306033 </td>
+   <td style="text-align:left;"> RNA-Seq </td>
+   <td style="text-align:right;"> 300 </td>
+   <td style="text-align:right;"> 3386020200 </td>
+   <td style="text-align:left;"> SAMN10588739 </td>
+   <td style="text-align:right;"> 1892499340 </td>
+   <td style="text-align:left;"> HHU DUESSELDORF </td>
+   <td style="text-align:left;"> public </td>
+   <td style="text-align:left;"> fastq,run.zq,sra </td>
+   <td style="text-align:left;"> ncbi,s3,gs </td>
+   <td style="text-align:left;"> gs.US,ncbi.public,s3.us-east-1 </td>
+   <td style="text-align:left;"> SRX5120510 </td>
+   <td style="text-align:left;"> Illumina HiSeq 2000 </td>
+   <td style="text-align:left;"> Cyanophora light I </td>
+   <td style="text-align:left;"> PAIRED </td>
+   <td style="text-align:left;"> cDNA </td>
+   <td style="text-align:left;"> TRANSCRIPTOMIC </td>
+   <td style="text-align:left;"> Cyanophora paradoxa </td>
+   <td style="text-align:left;"> ILLUMINA </td>
+   <td style="text-align:left;"> 2019-08-05T00:00:00Z </td>
+   <td style="text-align:left;"> 2018-12-17T16:35:00Z </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> Cyanophora_normal light </td>
+   <td style="text-align:left;"> SRP173157 </td>
+   <td style="text-align:left;"> PRJNA509798 </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Plant </td>
+   <td style="text-align:left;"> Denmark </td>
+   <td style="text-align:left;"> Europe </td>
+   <td style="text-align:left;"> Denmark: obtained from the Scandinavian culture collection of Algae &amp; Protozoa (SCCAP) </td>
+   <td style="text-align:left;"> SCCAP K-0262 </td>
+   <td style="text-align:left;"> unicells </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> SCCAP K-0262 </td>
+   <td style="text-align:left;"> exponential </td>
+   <td style="text-align:left;"> 15 °C </td>
+   <td style="text-align:left;"> ~ 50 µmol quanta m-2s-1 </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SRR8306034 </td>
+   <td style="text-align:left;"> RNA-Seq </td>
+   <td style="text-align:right;"> 300 </td>
+   <td style="text-align:right;"> 3436771500 </td>
+   <td style="text-align:left;"> SAMN10588740 </td>
+   <td style="text-align:right;"> 1902846665 </td>
+   <td style="text-align:left;"> HHU DUESSELDORF </td>
+   <td style="text-align:left;"> public </td>
+   <td style="text-align:left;"> fastq,run.zq,sra </td>
+   <td style="text-align:left;"> ncbi,s3,gs </td>
+   <td style="text-align:left;"> gs.US,ncbi.public,s3.us-east-1 </td>
+   <td style="text-align:left;"> SRX5120509 </td>
+   <td style="text-align:left;"> Illumina HiSeq 2000 </td>
+   <td style="text-align:left;"> Cyanophora dark I </td>
+   <td style="text-align:left;"> PAIRED </td>
+   <td style="text-align:left;"> cDNA </td>
+   <td style="text-align:left;"> TRANSCRIPTOMIC </td>
+   <td style="text-align:left;"> Cyanophora paradoxa </td>
+   <td style="text-align:left;"> ILLUMINA </td>
+   <td style="text-align:left;"> 2019-08-05T00:00:00Z </td>
+   <td style="text-align:left;"> 2018-12-17T16:38:00Z </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> Cyanophora_dark </td>
+   <td style="text-align:left;"> SRP173157 </td>
+   <td style="text-align:left;"> PRJNA509798 </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Plant </td>
+   <td style="text-align:left;"> Denmark </td>
+   <td style="text-align:left;"> Europe </td>
+   <td style="text-align:left;"> Denmark: obtained from the Scandinavian culture collection of Algae &amp; Protozoa (SCCAP) </td>
+   <td style="text-align:left;"> SCCAP K-0262 </td>
+   <td style="text-align:left;"> unicells </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> SCCAP K-0262 </td>
+   <td style="text-align:left;"> exponential </td>
+   <td style="text-align:left;"> 15 °C </td>
+   <td style="text-align:left;"> 0 µmol quanta m-2s-1 </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SRR8306035 </td>
+   <td style="text-align:left;"> RNA-Seq </td>
+   <td style="text-align:right;"> 300 </td>
+   <td style="text-align:right;"> 3436308000 </td>
+   <td style="text-align:left;"> SAMN10588739 </td>
+   <td style="text-align:right;"> 1909811743 </td>
+   <td style="text-align:left;"> HHU DUESSELDORF </td>
+   <td style="text-align:left;"> public </td>
+   <td style="text-align:left;"> run.zq,fastq,sra </td>
+   <td style="text-align:left;"> s3,gs,ncbi </td>
+   <td style="text-align:left;"> gs.US,s3.us-east-1,ncbi.public </td>
+   <td style="text-align:left;"> SRX5120508 </td>
+   <td style="text-align:left;"> Illumina HiSeq 2000 </td>
+   <td style="text-align:left;"> Cyanophora light III </td>
+   <td style="text-align:left;"> PAIRED </td>
+   <td style="text-align:left;"> cDNA </td>
+   <td style="text-align:left;"> TRANSCRIPTOMIC </td>
+   <td style="text-align:left;"> Cyanophora paradoxa </td>
+   <td style="text-align:left;"> ILLUMINA </td>
+   <td style="text-align:left;"> 2019-08-05T00:00:00Z </td>
+   <td style="text-align:left;"> 2018-12-17T15:00:00Z </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> Cyanophora_normal light </td>
+   <td style="text-align:left;"> SRP173157 </td>
+   <td style="text-align:left;"> PRJNA509798 </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Plant </td>
+   <td style="text-align:left;"> Denmark </td>
+   <td style="text-align:left;"> Europe </td>
+   <td style="text-align:left;"> Denmark: obtained from the Scandinavian culture collection of Algae &amp; Protozoa (SCCAP) </td>
+   <td style="text-align:left;"> SCCAP K-0262 </td>
+   <td style="text-align:left;"> unicells </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> SCCAP K-0262 </td>
+   <td style="text-align:left;"> exponential </td>
+   <td style="text-align:left;"> 15 °C </td>
+   <td style="text-align:left;"> ~ 50 µmol quanta m-2s-1 </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</section>
+<section id="downloading-sra-runs-using-fasterq-dump" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="downloading-sra-runs-using-fasterq-dump"><span class="header-section-number">3.3</span> Downloading SRA runs using <em>fasterq-dump</em></h2>
+<p><code>fasterq-dump</code> are tools in the SRA toolkit used to connect from our remote server to the NCBI server and download sequencing data from SRA.</p>
+<p>According to the <a href="https://github.com/ncbi/sra-tools/wiki/08.-prefetch-and-fasterq-dump#how-to-use-prefetch-and-fasterq-dump-to-extract-fastq-files-from-sra-accessions">NCBI sra-tools’ guideline</a>, using <code>fasterq-dump</code> in combination with another tool, <code>prefetch</code>, is the better way to download data because <code>prefetch</code> can be invoked at any time if the previous download accidentally failed. So it is not necessary to start the download from the beginning.</p>
+<p>However, <code>prefetch</code> can sometimes be skipped if you want to download a small amount of data. In this workshop we’ll use only <code>fasterq-dump</code> to download and process SRA file format to FASTQ file for further analysis.</p>
+<p>Now we download RNA-Seq libraries from <em>C. paradoxa</em> using the SRA accessions listed in the first column of the metadata above using the following command.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Activate analysis environment</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate sra-tools</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Run fasterq-dump</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">fasterq-dump</span> <span class="at">--threads</span> 2 <span class="at">--progress</span> <span class="dt">\</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>SRR8306028 SRR8306029 SRR8306032 <span class="dt">\</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>SRR8306033 SRR8306034 SRR8306035</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>From the <code>fasterq-dump</code> command,</p>
+<p><code>--threads</code> refer to how many threads to use (default = 6).</p>
+<p><code>--progress</code> force the terminal to print the progress of downloading and processing file to the screen.</p>
+<p>By default, <code>fasterq-dump</code> processes a single SRA file format of paired-end reads by splitting reads into forward (<code>*_1.fastq</code>) and reverse (<code>*_2.fastq</code>), if singletons (unpaired between forward and reverse reads) present, it will be written to another fastq file as described in this figure.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://github.com/ncbi/sra-tools/wiki/images/split3-mode.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">Sequence read processing by fasterq-dump using default parameters. Figure adopted from <a href="https://github.com/ncbi/sra-tools/wiki/HowTo:-fasterq-dump" class="uri">https://github.com/ncbi/sra-tools/wiki/HowTo:-fasterq-dump</a>.</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="what-is-fastq-file-format" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="what-is-fastq-file-format"><span class="header-section-number">3.4</span> What is FASTQ file format</h2>
+<p>Next-generation sequencing and data analysis projects typically begin with the processing of sequence read data and their quality tags from the sequencer in FASTQ format. The FASTQ format is the most commonly used format in sequence analysis and is generated by a sequencer. The FASTQ file contains the sequence data from the clusters that pass the filter of a flow cell. Many analysis tools require this format because it contains much more information than FASTA. In this workshop, we will mainly explain the FASTQ file format, which comes from the Illumina sequencer.</p>
+<p>The FASTQ format is similar to the fasta format, but differs in syntax and in the integration of quality values. Each sequence requires at least 4 lines:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src=".\assets/12_fastq_format.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Example of FASTQ file format</figcaption><p></p>
+</figure>
+</div>
+<ol type="1">
+<li><p>A sequence identifier with information about the sequencing run and the cluster. The exact contents of this line vary by based on the BCL to FASTQ conversion software used.</p></li>
+<li><p>The sequence (the base calls; A, C, T, G and N).</p></li>
+<li><p>A separator, which is simply a plus (+) sign.</p></li>
+<li><p>The base call quality scores. These are Phred +33 encoded, using ASCII characters to represent the numerical quality scores.</p></li>
+</ol>
+<p>The FastQ sequence descriptor generally follows a specific format that includes all information about the sequencer and its position on the flow cell. The sequence descriptor also follows a specific format and contains information about the sample information.</p>
+<p>FASTQ sequence descriptor, particulary in Illumina sequence reads look like:</p>
+<pre><code>@HWUSI-EAS100R:6:73:941:1973#0/1</code></pre>
+<p>where</p>
+<table class="table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 69%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>HWUSI-EAS100R</strong></td>
+<td>The unique instrument name</td>
+</tr>
+<tr class="even">
+<td><strong>6</strong></td>
+<td>Flowcell lane</td>
+</tr>
+<tr class="odd">
+<td><strong>73</strong></td>
+<td>Tile number within the flowcell lane</td>
+</tr>
+<tr class="even">
+<td><strong>941</strong></td>
+<td>‘x’-coordinate of the cluster within the tile</td>
+</tr>
+<tr class="odd">
+<td><strong>1973</strong></td>
+<td>‘y’-coordinate of the cluster within the tile</td>
+</tr>
+<tr class="even">
+<td><strong>#0</strong></td>
+<td>Index number for a multiplexed sample (0 for no indexing)</td>
+</tr>
+<tr class="odd">
+<td><strong>/1</strong></td>
+<td>The member of a pair, /1 or /2 (paired-end or mate-pair reads only)</td>
+</tr>
+</tbody>
+</table>
+<section id="what-software-use-fastq" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="what-software-use-fastq"><span class="header-section-number">3.4.1</span> What software use FASTQ</h3>
+<p>To date, Almost NGS analysis software requires FASTQ format. For example:</p>
+<ul>
+<li>QC such as <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">fastQC</a> used FASTQ to determine how good of the sequence read library, generate an informative report, and also determining the presence of adapter sequences which can also be trimmed by some integrated QC tools such as <a href="https://github.com/OpenGene/fastp">FASTP</a>.</li>
+</ul>
+<!-- -->
+<ul>
+<li><p>Aligners such as <a href="https://github.com/BenLangmead/bowtie2">bowtie2</a>, <a href="https://github.com/lh3/bwa">BWA</a>, <a href="https://github.com/alexdobin/STAR">STAR</a>, and so on, use reads, and quality sometimes, to align to the reference sequence. The mapping information can be further used for quantifying expression, constructing sequence assembly, and variant calling.</p></li>
+<li><p>De novo assembly tools, for example <a href="https://github.com/trinityrnaseq/trinityrnaseq">Trinity</a>, <a href="https://github.com/ablab/spades">Spades</a>, <a href="https://github.com/dzerbino/velvet">Velvet</a>, etc., also use FASTQ to construct contig library and scaffolding. Some de novo assembler tools not only use FASTQ to contruct draft assembly but also used in the polishing process to refine assembly, such as <a href="https://github.com/fenderglass/Flye">Flye</a>, <a href="https://github.com/rrwick/Unicycler">Unicycler</a>, <a href="https://github.com/marbl/canu">Canu</a>, etc.</p></li>
+</ul>
+<p>And many more.</p>
+</section>
+</section>
+<section id="reference-sources" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="reference-sources"><span class="header-section-number">3.5</span> Reference Sources</h2>
+<ul>
+<li>Price, Dana C., et al.&nbsp;“<em>Cyanophora paradoxa</em> genome elucidates origin of photosynthesis in algae and plants.” <em>Science</em> 335.6070 (2012): 843-847. <a href="https://doi.org/10.1126/science.1213561" class="uri">https://doi.org/10.1126/science.1213561</a>.</li>
+<li><a href="https://ncbiinsights.ncbi.nlm.nih.gov/2015/12/11/sra-toolkit-the-sra-database-at-your-fingertips/">SRA Toolkit: the SRA database at your fingertips</a> from NCBI Insights. Accessed 4-Mar-2023.</li>
+<li><a href="https://www.reneshbedre.com/blog/ncbi_sra_toolkit.html">How to use NCBI SRA Toolkit effectively</a> by Renesh Bedre, Data science blog. Accessed 4-Mar-2023.</li>
+<li><a href="https://github.com/ncbi/sra-tools/wiki/HowTo:-fasterq-dump">HowTo: fasterq dump</a> by NCBI sra-tools GitHub Wiki. Accessed 4-Mar-2023.</li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

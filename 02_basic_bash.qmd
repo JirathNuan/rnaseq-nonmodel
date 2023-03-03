@@ -26,7 +26,7 @@ Root (`/`)
 
 /home
 
-:  Users' home directories, where they keep their saved files and settings. These directories are used to store all of a user's files and settings in one place so that they can easily access their data and keep it organized. For example `/home/ponsit`, `/home/jiratchaya`, `/home/prasert`.
+:   Users' home directories, where they keep their saved files and settings. These directories are used to store all of a user's files and settings in one place so that they can easily access their data and keep it organized. For example `/home/ponsit`, `/home/jiratchaya`, `/home/prasert`.
 
 /lib
 
@@ -68,7 +68,7 @@ Keeping all your files in a single directory makes things much easier for you an
 
 To keep it short and clear, 'Cpa' is used as an alias article name for *C. paradoxa*, and as the name of the directory, followed by words describing your work, for example.
 
-> ⚠️ **warning:** Avoid using spaces ( ) or special characters such as slashes ( / ), backslashes ( \\ ), accented characters ( \' ), tilde ( \~ ), and many others. It is **recommended to use underscore ( \_ )** or hyphen ( - ) instead of these special characters.
+> ⚠️ **warning:** Avoid using spaces ( ) or special characters such as slashes ( / ), backslashes ( \\ ), accented characters ( ' ), tilde ( \~ ), and many others. It is **recommended to use underscore ( \_ )** or hyphen ( - ) instead of these special characters.
 
 -   Create a directory name 'Cpa_RNASeq' from current working directory
 
@@ -421,7 +421,7 @@ When typing file or directory names, it's easy to mistype. Instead, we can use '
 
 When we run programs through the Unix shell, they run until they terminate successfully or are terminated with an error. Multiple processes running simultaneously on your computer, such as system files, web browser, email application, bioinformatics programs, and so on. In bioinformatics, we often work with processes that run for a long period of time. Therefore, it's important that we know how to work with processes and manage them using the Unix shell. In this section, we'll learn the basics of dealing with processes.
 
-In addition, processes are also terminated if the connection to the  servers is interrupted, the network connection drops immediately, or the power fails. Since we're constantly working with remote computers in our daily work in bioinformatics, we need a way to prevent the accidental termination of long-running applications. Leaving the local terminal's connection to a remote computer open while a program is running is an unsafe solution, even the most reliable networks can experience short outages.
+In addition, processes are also terminated if the connection to the servers is interrupted, the network connection drops immediately, or the power fails. Since we're constantly working with remote computers in our daily work in bioinformatics, we need a way to prevent the accidental termination of long-running applications. Leaving the local terminal's connection to a remote computer open while a program is running is an unsafe solution, even the most reliable networks can experience short outages.
 
 ![How tmux increase you pruductivity :/](https://external-preview.redd.it/qevOpeiiyII34yThEPkMRIg6vL72zz-gt-zdQrfd-Us.jpg?auto=webp&v=enabled&s=e65d4473b8702e6437d5067d88f64d31a9822f51)
 
@@ -454,7 +454,7 @@ Your terminal will print
 
 This should take you back to a standard prompt. Remember that the Tmux session continues in the background, and you can recall it at any time.
 
-### Name the Tmux session
+### Name the Tmux session {.unnumbered}
 
 You may find it helpful to name your sessions with meaningful titles to keep things organized. Let's try naming your first session with Tmux.
 
