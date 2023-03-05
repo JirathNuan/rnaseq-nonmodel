@@ -88,11 +88,50 @@ This will create a subdirectory name '01_Rawdata' in the directory 'Cpa_RNASeq'
 
 -   Create multiple directory at once
 
-For example, if you want to create 2 directories named '02_QC' and '03_adapter_trimming' under the 'Cpa_RNASeq' directory, then simply type
+For example, if you want to create 2 directories named '02_QC' and '03_assembly' under the 'Cpa_RNASeq' directory, then simply type
 
 ``` bash
-mkdir Cpa_RNASeq/{02_QC,03_adapter_trimming}
+mkdir Cpa_RNASeq/{02_QC,03_assembly}
 ```
+
+::: callout-note
+## Activity
+
+A well-organized project directory can make life easier. Your project directory should be organized in a consistent and understandable way. A clear project organization makes it easier for both you and your collaborators to find out exactly where and what everything is located, which improves the reproducibility of research. It's also much easier to automate tasks when files are organized and clearly named.
+
+In this workshop, we'll learn transcriptome data analysis in many steps from downloading reads to transcriptome annotation. Therefore, we'll divide each analysis step into subdirectories as follows. Let's assume that we have already created the directory `Cpa_RNASeq`.
+
+    .
+    └── Cpa_RNASeq
+        ├── 01_Rawdata
+        ├── 02_QC
+        ├── 03_assembly
+        ├── 04_DE_analysis
+        └── 05_annotation
+
+Could you generate bash command(s) to create these directories ?
+:::
+
+::: {.callout-caution collapse="true"}
+## Answer
+
+``` bash
+mkdir Cpa_RNASeq/{01_Rawdata,02_QC,03_assembly,04_DE_analysis,05_annotation}
+```
+
+or
+
+``` bash
+mkdir Cpa_RNASeq/01_Rawdata Cpa_RNASeq/02_QC Cpa_RNASeq/03_assembly Cpa_RNASeq/04_DE_analysis Cpa_RNASeq/05_annotation
+```
+
+or
+
+``` bash
+cd Cpa_RNASeq
+mkdir 01_Rawdata 02_QC 03_assembly 04_DE_analysis 05_annotation
+```
+:::
 
 ### Navigating your file system {.unnumbered}
 
@@ -131,7 +170,7 @@ ls
 Expected result:
 
     jiratchaya@DESKTOP-P2DD13C:~/Cpa_RNASeq$ ls
-    01_Rawdata  02_QC  03_adapter_trimming
+    01_Rawdata  02_QC  03_assembly
 
 Let us look at the other way. This way is to list all the files and directories, including the users who own them, the permissions, and the file size in bytes.
 
@@ -145,7 +184,7 @@ Expected result:
     total 12
     drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:02 01_Rawdata
     drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:02 02_QC
-    drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:02 03_adapter_trimming
+    drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:02 03_assembly
 
 List files and folders, permissions and size in a human readable format.
 
@@ -159,7 +198,7 @@ Expected result:
     total 12
     drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:02 01_Rawdata
     drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:02 02_QC
-    drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:02 03_adapter_trimming
+    drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:02 03_assembly
 
 See all hidden files and directories
 
@@ -175,7 +214,7 @@ Expected result:
     drwxr-x--- 3 jiratchaya jiratchaya 4096 Mar  1 21:02 ..
     drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:02 01_Rawdata
     drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:02 02_QC
-    drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:02 03_adapter_trimming
+    drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:02 03_assembly
 
 ### Files and directories handling {.unnumbered}
 
@@ -416,6 +455,12 @@ History is able to keep track of the command lines you use, associate any data w
 When typing file or directory names, it's easy to mistype. Instead, we can use 'tab' to complete what we want to type. The shell will try to fill in the rest of a directory or file name if you press tab after typing.
 
 ![Using tab autocomplete in bash.](https://i.stack.imgur.com/jKJz0.gif){fig-align="center"}
+
+### Have no idea what this command can do
+
+Basically, the built-in Linux system commands store usage in their command manual. You can call `man` followed by a command you want to learn more about. for example `man curl`.
+
+![A manual page of `curl`. Users can scroll using arrow keys up and down, and quit reading by press `q`.](assets/18_man_curl.png){fig-align="center" width="80%"}
 
 ## Maintaining Long-Running Jobs with tmux
 

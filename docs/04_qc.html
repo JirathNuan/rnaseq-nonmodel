@@ -20,6 +20,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -61,6 +124,7 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -138,7 +202,33 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#what-is-fastq-file-format" id="toc-what-is-fastq-file-format" class="nav-link active" data-scroll-target="#what-is-fastq-file-format"><span class="toc-section-number">4.1</span>  What is FASTQ file format</a>
+  <ul class="collapse">
+  <li><a href="#what-software-use-fastq" id="toc-what-software-use-fastq" class="nav-link" data-scroll-target="#what-software-use-fastq"><span class="toc-section-number">4.1.1</span>  What software use FASTQ</a></li>
+  </ul></li>
+  <li><a href="#quality-assessment-using-fastqc" id="toc-quality-assessment-using-fastqc" class="nav-link" data-scroll-target="#quality-assessment-using-fastqc"><span class="toc-section-number">4.2</span>  Quality assessment using FastQC</a></li>
+  <li><a href="#interpreting-fastqc-results" id="toc-interpreting-fastqc-results" class="nav-link" data-scroll-target="#interpreting-fastqc-results"><span class="toc-section-number">4.3</span>  Interpreting FastQC results</a>
+  <ul class="collapse">
+  <li><a href="#basic-statistics" id="toc-basic-statistics" class="nav-link" data-scroll-target="#basic-statistics"><span class="toc-section-number">4.3.1</span>  Basic statistics</a></li>
+  <li><a href="#per-base-sequence-quality" id="toc-per-base-sequence-quality" class="nav-link" data-scroll-target="#per-base-sequence-quality"><span class="toc-section-number">4.3.2</span>  Per Base Sequence Quality</a></li>
+  <li><a href="#per-tile-sequence-quality" id="toc-per-tile-sequence-quality" class="nav-link" data-scroll-target="#per-tile-sequence-quality"><span class="toc-section-number">4.3.3</span>  Per tile sequence quality</a></li>
+  <li><a href="#per-sequence-quality-scores" id="toc-per-sequence-quality-scores" class="nav-link" data-scroll-target="#per-sequence-quality-scores"><span class="toc-section-number">4.3.4</span>  Per Sequence Quality Scores</a></li>
+  <li><a href="#per-base-sequence-content" id="toc-per-base-sequence-content" class="nav-link" data-scroll-target="#per-base-sequence-content"><span class="toc-section-number">4.3.5</span>  Per Base Sequence Content</a></li>
+  <li><a href="#per-sequence-gc-content" id="toc-per-sequence-gc-content" class="nav-link" data-scroll-target="#per-sequence-gc-content"><span class="toc-section-number">4.3.6</span>  Per Sequence GC Content</a></li>
+  <li><a href="#per-base-n-content" id="toc-per-base-n-content" class="nav-link" data-scroll-target="#per-base-n-content"><span class="toc-section-number">4.3.7</span>  Per base N content</a></li>
+  <li><a href="#sequence-length-distribution" id="toc-sequence-length-distribution" class="nav-link" data-scroll-target="#sequence-length-distribution"><span class="toc-section-number">4.3.8</span>  Sequence Length Distribution</a></li>
+  <li><a href="#sequence-duplication-levels" id="toc-sequence-duplication-levels" class="nav-link" data-scroll-target="#sequence-duplication-levels"><span class="toc-section-number">4.3.9</span>  Sequence Duplication Levels</a></li>
+  <li><a href="#overrepresented-sequences" id="toc-overrepresented-sequences" class="nav-link" data-scroll-target="#overrepresented-sequences"><span class="toc-section-number">4.3.10</span>  Overrepresented sequences</a></li>
+  <li><a href="#adapter-content" id="toc-adapter-content" class="nav-link" data-scroll-target="#adapter-content"><span class="toc-section-number">4.3.11</span>  Adapter Content</a></li>
+  </ul></li>
+  <li><a href="#adapter-trimming-with-cutadapt" id="toc-adapter-trimming-with-cutadapt" class="nav-link" data-scroll-target="#adapter-trimming-with-cutadapt"><span class="toc-section-number">4.4</span>  Adapter Trimming with Cutadapt</a></li>
+  <li><a href="#reference-sources" id="toc-reference-sources" class="nav-link" data-scroll-target="#reference-sources"><span class="toc-section-number">4.5</span>  Reference Sources</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -160,8 +250,294 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<section id="what-is-fastq-file-format" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="what-is-fastq-file-format"><span class="header-section-number">4.1</span> What is FASTQ file format</h2>
+<p>Next-generation sequencing and data analysis projects typically begin with the processing of sequence read data and their quality tags from the sequencer in FASTQ format. The FASTQ format is the most commonly used format in sequence analysis and is generated by a sequencer. The FASTQ file contains the sequence data from the clusters that pass the filter of a flow cell. Many analysis tools require this format because it contains much more information than FASTA. In this workshop, we will mainly explain the FASTQ file format, which comes from the Illumina sequencer.</p>
+<p>The FASTQ format is similar to the fasta format, but differs in syntax and in the integration of quality values. Each sequence requires at least 4 lines:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src=".\assets/12_fastq_format.png" class="img-fluid figure-img" alt="Example of FASTQ file format"></p>
+<p></p><figcaption class="figure-caption">Example of FASTQ file format</figcaption><p></p>
+</figure>
+</div>
+<ol type="1">
+<li><p>A sequence identifier with information about the sequencing run and the cluster. The exact contents of this line vary by based on the BCL to FASTQ conversion software used.</p></li>
+<li><p>The sequence (the base calls; A, C, T, G and N).</p></li>
+<li><p>A separator, which is simply a plus (+) sign.</p></li>
+<li><p>The base call quality scores. These are Phred +33 encoded, using ASCII characters to represent the numerical quality scores.</p></li>
+</ol>
+<p>The FastQ sequence descriptor generally follows a specific format that includes all information about the sequencer and its position on the flow cell. The sequence descriptor also follows a specific format and contains information about the sample information.</p>
+<p>FASTQ sequence descriptor, particulary in Illumina sequence reads look like:</p>
+<pre><code>@HWUSI-EAS100R:6:73:941:1973#0/1</code></pre>
+<p>where</p>
+<table class="table">
+<colgroup>
+<col style="width: 36%">
+<col style="width: 63%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>HWUSI-EAS100R</strong></td>
+<td>The unique instrument name</td>
+</tr>
+<tr class="even">
+<td><strong>6</strong></td>
+<td>Flowcell lane</td>
+</tr>
+<tr class="odd">
+<td><strong>73</strong></td>
+<td>Tile number within the flowcell lane</td>
+</tr>
+<tr class="even">
+<td><strong>941</strong></td>
+<td>‘x’-coordinate of the cluster within the tile</td>
+</tr>
+<tr class="odd">
+<td><strong>1973</strong></td>
+<td>‘y’-coordinate of the cluster within the tile</td>
+</tr>
+<tr class="even">
+<td><strong>#0</strong></td>
+<td>Index number for a multiplexed sample (0 for no indexing)</td>
+</tr>
+<tr class="odd">
+<td><strong>/1</strong></td>
+<td>The member of a pair, /1 or /2 (paired-end or mate-pair reads only)</td>
+</tr>
+</tbody>
+</table>
+<p>As mentioned earlier, line 4 contains the quality score of the nucleotide at the same position. The quality scores are represented by the code ASCII, which indicates how confident of the correctly called base is.</p>
+<p>We can calculate the quality score of a base,if P is the error probability, then:</p>
+<p><span class="math display">\[
+\text{Q} = \text{-10}log_{10}\left( P \right)
+\]</span></p>
+<p>The following figure shows the representative ASCII code for the score value. Base quality scoring for analysis is important when identifying types of genomic variation such as SNPs, but it is also an indicator of the overall quality of the sequencing as well.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.drive5.com/usearch/manual/qscores.gif" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Tables converting between integer Q scores, ASCII characters and error probabilities. Figure adopted from https://www.drive5.com/usearch/manual/quality_score.html</figcaption><p></p>
+</figure>
+</div>
+<section id="what-software-use-fastq" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="what-software-use-fastq"><span class="header-section-number">4.1.1</span> What software use FASTQ</h3>
+<p>To date, Almost NGS analysis software requires FASTQ format. For example:</p>
+<ul>
+<li><p>QC such as <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">fastQC</a> used FASTQ to determine how good of the sequence read library, generate an informative report, and also determining the presence of adapter sequences which can also be trimmed by some integrated QC tools such as <a href="https://github.com/OpenGene/fastp">FASTP</a>.</p></li>
+<li><p>Aligners such as <a href="https://github.com/BenLangmead/bowtie2">bowtie2</a>, <a href="https://github.com/lh3/bwa">BWA</a>, <a href="https://github.com/alexdobin/STAR">STAR</a>, and so on, use reads, and quality sometimes, to align to the reference sequence. The mapping information can be further used for quantifying expression, constructing sequence assembly, and variant calling.</p></li>
+<li><p>De novo assembly tools, for example <a href="https://github.com/trinityrnaseq/trinityrnaseq">Trinity</a>, <a href="https://github.com/ablab/spades">Spades</a>, <a href="https://github.com/dzerbino/velvet">Velvet</a>, etc., also use FASTQ to construct contig library and scaffolding. Some de novo assembler tools not only use FASTQ to contruct draft assembly but also used in the polishing process to refine assembly, such as <a href="https://github.com/fenderglass/Flye">Flye</a>, <a href="https://github.com/rrwick/Unicycler">Unicycler</a>, <a href="https://github.com/marbl/canu">Canu</a>, etc.</p></li>
+</ul>
+</section>
+</section>
+<section id="quality-assessment-using-fastqc" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="quality-assessment-using-fastqc"><span class="header-section-number">4.2</span> Quality assessment using FastQC</h2>
+<p>FastQC is designed for quality control of raw sequence data from high-throughput sequencing technology. It provides a modular set of analyses that you can use to get a quick overview of the quantity and quality of your data, and to help you decide on the raw data whether you should perform adapter or low-quality read trimming or whether you can perform further analyses. For sequence reads that require adapter trimming before further analysis, we recommended to assessing the quality both before and after trimming.</p>
+<p>Most sequencers will generate a QC report as part of their analysis pipeline, but this is usually only focused on identifying problems which were generated by the sequencer itself. FastQC aims to provide a QC report which can spot problems which originate either in the sequencer or in the starting library material.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Activity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The following will perform on you user account by activating your working environment at first.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate qc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then, create a directory for QC result before adapter trimming</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> 02_QC/fastQC_before_trim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Run FastQC all file at once. Here, we’ll use a wildcard <code>*.fastq</code> to select all FASTQ files in 01_Rawdata directory. We also specify number of CPU threads in <code>--threads</code> and QC output files in 02_QC/fastQC_before_trim using <code>--outdir</code> argument.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="at">--outdir</span> 02_QC/fastQC_before_trim <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>--threads 2 <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>01_Rawdata/<span class="pp">*</span>.fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="interpreting-fastqc-results" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="interpreting-fastqc-results"><span class="header-section-number">4.3</span> Interpreting FastQC results</h2>
+<p>FastQC also provided excellent explanation of each analysis step in their documentation. So we encouraged you to learn more at their <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">web page</a> along with the <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/">documentation</a>.</p>
+<p>The analysis in FastQC is performed by a series of analysis modules. The left hand side of the main interactive display or the top of the HTML report show a summary of the modules which were run, and a quick evaluation of whether the results of the module seem entirely normal (green tick), slightly abnormal (orange triangle) or very unusual (red cross).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/19_fqc_sidebar.png" class="img-fluid figure-img" style="width:30.0%"></p>
+<p></p><figcaption class="figure-caption">FastQC sidebar</figcaption><p></p>
+</figure>
+</div>
+<section id="basic-statistics" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="basic-statistics"><span class="header-section-number">4.3.1</span> Basic statistics</h3>
+<p>The Basic Statistics module generates some simple composition statistics for the file analysed.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/20_fqc_basic_stat.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<p></p><figcaption class="figure-caption">Basic statistics of SRR8306028.</figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li><p><strong>Filename:</strong> The original filename of the file which was analysed</p></li>
+<li><p><strong>File type:</strong> Says whether the file appeared to contain actual base calls or colorspace data which had to be converted to base calls</p></li>
+<li><p><strong>Encoding:</strong> Says which ASCII encoding of quality values was found in this file.</p></li>
+<li><p><strong>Total Sequences:</strong> A count of the total number of sequences processed. There are two values reported, actual and estimated. At the moment these will always be the same. In the future it may be possible to analyse just a subset of sequences and estimate the total number, to speed up the analysis, but since we have found that problematic sequences are not evenly distributed through a file we have disabled this for now.</p></li>
+<li><p><strong>Sequence Length:</strong> Provides the length of the shortest and longest sequence in the set. If all sequences are the same length only one value is reported. %GC: The overall %GC of all bases in all sequences</p></li>
+</ul>
+</section>
+<section id="per-base-sequence-quality" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="per-base-sequence-quality"><span class="header-section-number">4.3.2</span> Per Base Sequence Quality</h3>
+<p>The Per base sequence quality plot shows an overview of the range of quality values across all bases at each position in the FastQ file.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/21_fqc_per_base_seq_qual.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<p></p><figcaption class="figure-caption">Per Base Sequence Quality plot of SRR8306028. In which the central red line is the median value. The yellow box represents the inter-quartile range (25-75%). The upper and lower whiskers represent the 10% and 90% points. The blue line represents the mean quality.</figcaption><p></p>
+</figure>
+</div>
+<p>The higher the score, the better the base call, i.e., the box plots fall into the very good quality area (green background), the mediocre quality area (orange background), and the poor quality area (red background). The following figures show a comparison of the good and poor quality results of Illumina sequencing technology.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/31_fqc_compare_quality.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">A comparison of good (left) and bad (right) per base sequence quality plots. Figures adopted from example reports in <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc" class="uri">https://www.bioinformatics.babraham.ac.uk/projects/fastqc</a>.</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="per-tile-sequence-quality" class="level3" data-number="4.3.3">
+<h3 data-number="4.3.3" class="anchored" data-anchor-id="per-tile-sequence-quality"><span class="header-section-number">4.3.3</span> Per tile sequence quality</h3>
+<p>This plot is specific to Illumina sequencing libraries and shows colour shading of quality score by position on the flow cell. The colours are on a scale from cold to hot, with cold colours representing positions where the quality was at or above average for that base in the run, and hotter colours indicating that a tile had worse qualities than other tiles for that base. In the example below, you can see that certain tiles have consistently poor quality. A good chart should be blue throughout.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/22_fqc_per_tile_seq_qual.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<p></p><figcaption class="figure-caption">Per tile sequence quality plot of SRR8306028.</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="per-sequence-quality-scores" class="level3" data-number="4.3.4">
+<h3 data-number="4.3.4" class="anchored" data-anchor-id="per-sequence-quality-scores"><span class="header-section-number">4.3.4</span> Per Sequence Quality Scores</h3>
+<p>The per sequence quality score report allows you to see if a subset of your sequences have universally low quality values. It is often the case that a subset of sequences will have universally poor quality, often because they are poorly imaged (on the edge of the field of view etc), however these should represent only a small percentage of the total sequences.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/23_fqc_per_seq_qual.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<p></p><figcaption class="figure-caption">Per Sequence Quality Scores plot of SRR8306028.</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="per-base-sequence-content" class="level3" data-number="4.3.5">
+<h3 data-number="4.3.5" class="anchored" data-anchor-id="per-base-sequence-content"><span class="header-section-number">4.3.5</span> Per Base Sequence Content</h3>
+<p>Per Base Sequence Content plots out the proportion of each base position in a file for which each of the four normal DNA bases has been called. The plot shows the quality of nucleotide A T C and G separately into 4 lines.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/24_fqc_per_base_seq_content.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<p></p><figcaption class="figure-caption">Per Base Sequence Content plot of SRR8306028.</figcaption><p></p>
+</figure>
+</div>
+<p>Usually ambiguous base values are found at the beginning of the read. Libraries made with random hexamer primers, with almost all RNA-Seq libraries using them, and those that were fragmented libraries. This bias does not affect an absolute sequence, but provides enrichment of a number of different K-mers at the 5’ end of the reads. While this is a true technical bias, it cannot be corrected by trimming and does not appear to affect downstream analysis in most cases. However, a warning or error is generated in this module. This module issues a warning if the difference between A and T, or G and C is greater than 10% in any position.</p>
+</section>
+<section id="per-sequence-gc-content" class="level3" data-number="4.3.6">
+<h3 data-number="4.3.6" class="anchored" data-anchor-id="per-sequence-gc-content"><span class="header-section-number">4.3.6</span> Per Sequence GC Content</h3>
+<p>This module measures the GC content over the entire length of each sequence in a file and compares it to a normal distribution of GC content. Normally, one would expect an approximately normal distribution of GC content, where the central peak corresponds to the total GC content of the underlying genome of interest.</p>
+<p>The skewness of the distribution may indicate some unusual events such as contamination or systematic bias in your sequencing library. However, the GC content signature of different organisms may depend on their nature.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/25_fqc_gc_content.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<p></p><figcaption class="figure-caption">Per Sequence GC Content plot of SRR8306028.</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="per-base-n-content" class="level3" data-number="4.3.7">
+<h3 data-number="4.3.7" class="anchored" data-anchor-id="per-base-n-content"><span class="header-section-number">4.3.7</span> Per base N content</h3>
+<p>This module represents the percentage of base calls at each position for which an N was called. The ‘N’ base is found when the sequencer is not able to make a confident base call, then it will normally substitute an N.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/26_fqc_N.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<p></p><figcaption class="figure-caption">Per base N content plot of SRR8306028.</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="sequence-length-distribution" class="level3" data-number="4.3.8">
+<h3 data-number="4.3.8" class="anchored" data-anchor-id="sequence-length-distribution"><span class="header-section-number">4.3.8</span> Sequence Length Distribution</h3>
+<p>This module generates a histogram of distribution of sequence reads in the file which was analyzed.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/27_fqc_len_dist.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<p></p><figcaption class="figure-caption">Sequence Length Distribution plot of SRR8306028.</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="sequence-duplication-levels" class="level3" data-number="4.3.9">
+<h3 data-number="4.3.9" class="anchored" data-anchor-id="sequence-duplication-levels"><span class="header-section-number">4.3.9</span> Sequence Duplication Levels</h3>
+<p>This module counts the degree of duplication for every sequence in a library and creates a plot showing the relative number of sequences with different degrees of duplication. A low level of duplication may indicate a very high level of coverage of the target sequence, but a high level of duplication is more likely to indicate some kind of enrichment bias (eg PCR over amplification).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/28_fqc_seq_dups.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<p></p><figcaption class="figure-caption">Sequence Duplication Levels plot of SRR8306028.</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="overrepresented-sequences" class="level3" data-number="4.3.10">
+<h3 data-number="4.3.10" class="anchored" data-anchor-id="overrepresented-sequences"><span class="header-section-number">4.3.10</span> Overrepresented sequences</h3>
+<p>This module lists all sequences that make up more than 0.1% of the first 100,000 sequences examined. For each overrepresented sequence, the program searches for matches in a database of common impurities and reports the best match found. However, finding a hit doesn’t mean that this is the source of the contamination, but may point you in the right direction.</p>
+</section>
+<section id="adapter-content" class="level3" data-number="4.3.11">
+<h3 data-number="4.3.11" class="anchored" data-anchor-id="adapter-content"><span class="header-section-number">4.3.11</span> Adapter Content</h3>
+<p>This plot shows the cumulative percentage of adapter sequences used for sequencing this library at each position. Most adapter sequences found in Illumina RNA-Seq libraries are Illumina Universal Adapters. This module issues a warning if a sequence is present in more than 5% of all reads. This module issues a warning if a sequence is present in more than 10% of all reads. If the adapter sequence is present in more than 1% of the sequence library, adapter trimming is considered.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/30_adapter_content.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<p></p><figcaption class="figure-caption">Adapter Content of SRR8306028.</figcaption><p></p>
+</figure>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Activity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To further combine all the QC results into a single interactive HTML file, we’d suggested to use <code>multiqc</code> software to combine it.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate qc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then, run multiqc</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">multiqc</span> <span class="at">--filename</span> QCreport_before_trim <span class="dt">\</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>--outdir 02_QC/ <span class="dt">\</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>--dirs 02_QC/fastQC_before_trim/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Output files:</p>
+<pre><code>- QCreport_before_trim_data
+   ├── multiqc_citations.txt
+   ├── multiqc_data.json
+   ├── multiqc_fastqc.txt
+   ├── multiqc_general_stats.txt
+   ├── multiqc.log
+   └── multiqc_sources.txt
+- QCreport_before_trim.html</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="adapter-trimming-with-cutadapt" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="adapter-trimming-with-cutadapt"><span class="header-section-number">4.4</span> Adapter Trimming with Cutadapt</h2>
+<p>Cutadapt is a tool to remove sequencing adapters, primers, poly-A tails and other types of unwanted sequence from your high-throughput sequencing reads. Cutadapt supports both FASTQ and FASTA file format for trimming.</p>
+<p>Several types of sequencing adapters have been used nowaday. We have to know which adapter found in our sequencing library. Fortunately, Illumina provide a manual of <a href="https://support.illumina.com/downloads/illumina-adapter-sequences-document-1000000002694.html">Illumina Adapter Sequences</a> that used in different types of sequencing. As mentioned, most of RNA-Seq library sequenced by Illumina used Illumina TruSeq Single Indexes, which is <code>AGATCGGAAGAGCACACGTCTGAACTCCAGTCA</code> and <code>AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT</code> flanked at the 5’ end of forward reads and 3’ end of reverse reads, respectively.</p>
+<p>Fortunately, the dataset that will be used is free of apadter sequences examined from the <a href="#adapter-content">adapter content</a> from FastQC result. <strong><em>So this command will just show as a demo for your future project.</em></strong></p>
+<p>An example command of Cutadapt as follow.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cutadapt</span> <span class="at">--cores</span> 2 <span class="dt">\</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>-u 10 <span class="at">-U</span> 10 <span class="dt">\</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>-a AGATCGGAAGAGCACACGTCTGAACTCCAGTCA <span class="dt">\</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>-A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT <span class="dt">\</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>-o <span class="op">&lt;</span>output_forward.fastq<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>-p <span class="op">&lt;</span>output_reverse.fastq<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>input_forward.fastq<span class="op">&gt;</span> <span class="op">&lt;</span>input_reverse.fastq<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>According to the command, we specify number of CPU threads in <code>--cores</code>. We remove 10 bases directly from each end of read, <code>-u</code> for forward and <code>-U</code> for reverse reads. Then we specify the adapter sequences as mentioned above in <code>a</code> and <code>A</code>. And the paths for forward and reverse reads output files in <code>-o</code> and <code>-p</code>, respectively.</p>
+</section>
+<section id="reference-sources" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="reference-sources"><span class="header-section-number">4.5</span> Reference Sources</h2>
+<ul>
+<li><p><a href="https://hbctraining.github.io/Intro-to-rnaseq-hpc-O2/lessons/02_assessing_quality.html">Quality Control of FASTQ files</a> from Harvard Chan Bioinformatics Core (HBC) training (Accessed on 1 Mar 2023).</p></li>
+<li><p><a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC official website</a> from Babraham Bioinformatics (Accessed on 1 Mar 2023).</p></li>
+<li><p><a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/">FastQC Documentation</a> from Babraham Bioinformatics (Accessed on 1 Mar 2023).</p></li>
+<li><p><a href="https://cutadapt.readthedocs.io/en/stable/guide.html">Cutadapt 4.2 Documentation</a> (Accessed on 1 Mar 2023).</p></li>
+<li><p><a href="https://support.illumina.com/downloads/illumina-adapter-sequences-document-1000000002694.html">Illumina Adapter Sequences</a> (Accessed on 1 Mar 2023).</p></li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

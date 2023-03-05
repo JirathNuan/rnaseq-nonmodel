@@ -211,11 +211,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#what-is-sequence-read-archives-sra" id="toc-what-is-sequence-read-archives-sra" class="nav-link active" data-scroll-target="#what-is-sequence-read-archives-sra"><span class="toc-section-number">3.1</span>  What is Sequence Read Archives (SRA)</a></li>
   <li><a href="#searching-rna-sequencing-datasets-in-ncbi" id="toc-searching-rna-sequencing-datasets-in-ncbi" class="nav-link" data-scroll-target="#searching-rna-sequencing-datasets-in-ncbi"><span class="toc-section-number">3.2</span>  Searching RNA-Sequencing datasets in NCBI</a></li>
   <li><a href="#downloading-sra-runs-using-fasterq-dump" id="toc-downloading-sra-runs-using-fasterq-dump" class="nav-link" data-scroll-target="#downloading-sra-runs-using-fasterq-dump"><span class="toc-section-number">3.3</span>  Downloading SRA runs using <em>fasterq-dump</em></a></li>
-  <li><a href="#what-is-fastq-file-format" id="toc-what-is-fastq-file-format" class="nav-link" data-scroll-target="#what-is-fastq-file-format"><span class="toc-section-number">3.4</span>  What is FASTQ file format</a>
-  <ul class="collapse">
-  <li><a href="#what-software-use-fastq" id="toc-what-software-use-fastq" class="nav-link" data-scroll-target="#what-software-use-fastq"><span class="toc-section-number">3.4.1</span>  What software use FASTQ</a></li>
-  </ul></li>
-  <li><a href="#reference-sources" id="toc-reference-sources" class="nav-link" data-scroll-target="#reference-sources"><span class="toc-section-number">3.5</span>  Reference Sources</a></li>
+  <li><a href="#reference-sources" id="toc-reference-sources" class="nav-link" data-scroll-target="#reference-sources"><span class="toc-section-number">3.4</span>  Reference Sources</a></li>
   </ul>
 </nav>
     </div>
@@ -263,43 +259,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="searching-rna-sequencing-datasets-in-ncbi" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="searching-rna-sequencing-datasets-in-ncbi"><span class="header-section-number">3.2</span> Searching RNA-Sequencing datasets in NCBI</h2>
 <p>The databases in NCBI are linked by some common features. This means that you can start wherever you have your research problems in NCBI. In this workshop, we will investigate transcriptional changes during light exposure of the alga <em>Cyanophora paradoxa</em>, a representative species of Glaucophytes. For more information about this alga, please see <a href="https://www.science.org/doi/10.1126/science.1213561">this article in Science</a>.</p>
-<p>⭐ You can easily search the SRA database for any keywords of interest related to your research. In this context, we search for all SRA studies related to <em>C. paradoxa</em> and see what SRA provides us. Note that the SRA database contains not only transcriptome studies, but also genomes and metagenomes.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Activity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can easily search the SRA database for any keywords of interest related to your research. In this context, we search for all SRA studies related to <em>C. paradoxa</em> and see what SRA provides us. Note that the SRA database contains not only transcriptome studies, but also genomes and metagenomes.</p>
+<ol type="1">
+<li>Go to SRA database: <a href="https://www.ncbi.nlm.nih.gov/sra" class="uri">https://www.ncbi.nlm.nih.gov/sra</a>, and search for ‘cyanophora paradoxa’.</li>
+</ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="assets/14_ncbi_sra.png" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">Screenshot of the search result of <em>C. paradoxa</em> in the database NCBI SRA. Here you can see all sequencing libraries of this species that have been submitted to NCBI. You can specify which items are of interest or customize the search using the filter box on the left and right sides of the screen.</figcaption><p></p>
 </figure>
 </div>
-<ul>
+<ol start="2" type="1">
 <li>We’ll adjust our selection using the tool in the SRA database, the <strong><em>SRA Run Selector</em></strong>, as follows.</li>
-</ul>
+</ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="assets/15_run_selector.gif" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">Browsing sequencing data in NCBI SRA database</figcaption><p></p>
 </figure>
 </div>
-<ul>
+<ol start="3" type="1">
 <li>In the SRA Run Selector, you can customize the filters based on the metadata columns of all runs. In this case, we filter the SRA runs based on the assay type as RNA-Seq and select only paired-end sequencing data as follows.</li>
-</ul>
+</ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="assets/16_run_selector_filtering.gif" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">Customizing filters in SRA Run Selector</figcaption><p></p>
 </figure>
 </div>
-<ul>
+<ol start="4" type="1">
 <li>Then you can select which runs you want to download and perform analysis. In this workshop we’ll select <em>C. paradoxa</em> RNA-Seq reads from <strong>SRR8306028</strong>, <strong>SRR8306029</strong>, <strong>SRR8306032</strong>, <strong>SRR8306033</strong>, <strong>SRR8306034</strong> and <strong>SRR8306035</strong>.</li>
-</ul>
+</ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="assets/17_export_metadata.gif" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">Exporting the selected metadata in SRA Run Selector.</figcaption><p></p>
 </figure>
 </div>
-<ul>
+<ol start="5" type="1">
 <li>The downloaded metadata is in comma-separated file format. So you can open them with spreadsheet programs like Microsoft Excel on your local laptop. The metadata looks like this.</li>
-</ul>
+</ol>
 <div class="cell">
 <div class="cell-output-display">
 
@@ -809,22 +818,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 </div>
+</div>
+</div>
 </section>
 <section id="downloading-sra-runs-using-fasterq-dump" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="downloading-sra-runs-using-fasterq-dump"><span class="header-section-number">3.3</span> Downloading SRA runs using <em>fasterq-dump</em></h2>
 <p><code>fasterq-dump</code> are tools in the SRA toolkit used to connect from our remote server to the NCBI server and download sequencing data from SRA.</p>
 <p>According to the <a href="https://github.com/ncbi/sra-tools/wiki/08.-prefetch-and-fasterq-dump#how-to-use-prefetch-and-fasterq-dump-to-extract-fastq-files-from-sra-accessions">NCBI sra-tools’ guideline</a>, using <code>fasterq-dump</code> in combination with another tool, <code>prefetch</code>, is the better way to download data because <code>prefetch</code> can be invoked at any time if the previous download accidentally failed. So it is not necessary to start the download from the beginning.</p>
 <p>However, <code>prefetch</code> can sometimes be skipped if you want to download a small amount of data. In this workshop we’ll use only <code>fasterq-dump</code> to download and process SRA file format to FASTQ file for further analysis.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Activity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We’ll do the following command in Terminal or MobaXterm, by access to the username and password that we’ve provided.</p>
+<ul>
+<li><p>For mobaXterm, enter to your session.</p></li>
+<li><p>For terminal, type</p></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="op">&lt;</span>username<span class="op">&gt;</span>@<span class="op">&lt;</span>server IP address<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now we download RNA-Seq libraries from <em>C. paradoxa</em> using the SRA accessions listed in the first column of the metadata above using the following command.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Activate analysis environment</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate sra-tools</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Run fasterq-dump</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">fasterq-dump</span> <span class="at">--threads</span> 2 <span class="at">--progress</span> <span class="dt">\</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>SRR8306028 SRR8306029 SRR8306032 <span class="dt">\</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>SRR8306033 SRR8306034 SRR8306035</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Activate analysis environment</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate ncbi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Go to working directory</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Cpa_RNASeq/01_Rawdata</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Run fasterq-dump</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fasterq-dump</span> <span class="at">--threads</span> 2 <span class="at">--progress</span> <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>SRR8306028 SRR8306029 SRR8306032 <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>SRR8306033 SRR8306034 SRR8306035</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>From the <code>fasterq-dump</code> command,</p>
 <p><code>--threads</code> refer to how many threads to use (default = 6).</p>
 <p><code>--progress</code> force the terminal to print the progress of downloading and processing file to the screen.</p>
+<p>Expected output files.</p>
+<pre><code>01_Rawdata
+├── SRR8306028_1.fastq
+├── SRR8306028_2.fastq
+├── SRR8306029_1.fastq
+├── SRR8306029_2.fastq
+├── SRR8306032_1.fastq
+├── SRR8306032_2.fastq
+├── SRR8306033_1.fastq
+├── SRR8306033_2.fastq
+├── SRR8306034_1.fastq
+├── SRR8306034_2.fastq
+├── SRR8306035_1.fastq
+└── SRR8306035_2.fastq</code></pre>
+</div>
+</div>
 <p>By default, <code>fasterq-dump</code> processes a single SRA file format of paired-end reads by splitting reads into forward (<code>*_1.fastq</code>) and reverse (<code>*_2.fastq</code>), if singletons (unpaired between forward and reverse reads) present, it will be written to another fastq file as described in this figure.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -833,78 +878,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </figure>
 </div>
 </section>
-<section id="what-is-fastq-file-format" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="what-is-fastq-file-format"><span class="header-section-number">3.4</span> What is FASTQ file format</h2>
-<p>Next-generation sequencing and data analysis projects typically begin with the processing of sequence read data and their quality tags from the sequencer in FASTQ format. The FASTQ format is the most commonly used format in sequence analysis and is generated by a sequencer. The FASTQ file contains the sequence data from the clusters that pass the filter of a flow cell. Many analysis tools require this format because it contains much more information than FASTA. In this workshop, we will mainly explain the FASTQ file format, which comes from the Illumina sequencer.</p>
-<p>The FASTQ format is similar to the fasta format, but differs in syntax and in the integration of quality values. Each sequence requires at least 4 lines:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src=".\assets/12_fastq_format.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Example of FASTQ file format</figcaption><p></p>
-</figure>
-</div>
-<ol type="1">
-<li><p>A sequence identifier with information about the sequencing run and the cluster. The exact contents of this line vary by based on the BCL to FASTQ conversion software used.</p></li>
-<li><p>The sequence (the base calls; A, C, T, G and N).</p></li>
-<li><p>A separator, which is simply a plus (+) sign.</p></li>
-<li><p>The base call quality scores. These are Phred +33 encoded, using ASCII characters to represent the numerical quality scores.</p></li>
-</ol>
-<p>The FastQ sequence descriptor generally follows a specific format that includes all information about the sequencer and its position on the flow cell. The sequence descriptor also follows a specific format and contains information about the sample information.</p>
-<p>FASTQ sequence descriptor, particulary in Illumina sequence reads look like:</p>
-<pre><code>@HWUSI-EAS100R:6:73:941:1973#0/1</code></pre>
-<p>where</p>
-<table class="table">
-<colgroup>
-<col style="width: 30%">
-<col style="width: 69%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><strong>HWUSI-EAS100R</strong></td>
-<td>The unique instrument name</td>
-</tr>
-<tr class="even">
-<td><strong>6</strong></td>
-<td>Flowcell lane</td>
-</tr>
-<tr class="odd">
-<td><strong>73</strong></td>
-<td>Tile number within the flowcell lane</td>
-</tr>
-<tr class="even">
-<td><strong>941</strong></td>
-<td>‘x’-coordinate of the cluster within the tile</td>
-</tr>
-<tr class="odd">
-<td><strong>1973</strong></td>
-<td>‘y’-coordinate of the cluster within the tile</td>
-</tr>
-<tr class="even">
-<td><strong>#0</strong></td>
-<td>Index number for a multiplexed sample (0 for no indexing)</td>
-</tr>
-<tr class="odd">
-<td><strong>/1</strong></td>
-<td>The member of a pair, /1 or /2 (paired-end or mate-pair reads only)</td>
-</tr>
-</tbody>
-</table>
-<section id="what-software-use-fastq" class="level3" data-number="3.4.1">
-<h3 data-number="3.4.1" class="anchored" data-anchor-id="what-software-use-fastq"><span class="header-section-number">3.4.1</span> What software use FASTQ</h3>
-<p>To date, Almost NGS analysis software requires FASTQ format. For example:</p>
-<ul>
-<li>QC such as <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">fastQC</a> used FASTQ to determine how good of the sequence read library, generate an informative report, and also determining the presence of adapter sequences which can also be trimmed by some integrated QC tools such as <a href="https://github.com/OpenGene/fastp">FASTP</a>.</li>
-</ul>
-<!-- -->
-<ul>
-<li><p>Aligners such as <a href="https://github.com/BenLangmead/bowtie2">bowtie2</a>, <a href="https://github.com/lh3/bwa">BWA</a>, <a href="https://github.com/alexdobin/STAR">STAR</a>, and so on, use reads, and quality sometimes, to align to the reference sequence. The mapping information can be further used for quantifying expression, constructing sequence assembly, and variant calling.</p></li>
-<li><p>De novo assembly tools, for example <a href="https://github.com/trinityrnaseq/trinityrnaseq">Trinity</a>, <a href="https://github.com/ablab/spades">Spades</a>, <a href="https://github.com/dzerbino/velvet">Velvet</a>, etc., also use FASTQ to construct contig library and scaffolding. Some de novo assembler tools not only use FASTQ to contruct draft assembly but also used in the polishing process to refine assembly, such as <a href="https://github.com/fenderglass/Flye">Flye</a>, <a href="https://github.com/rrwick/Unicycler">Unicycler</a>, <a href="https://github.com/marbl/canu">Canu</a>, etc.</p></li>
-</ul>
-<p>And many more.</p>
-</section>
-</section>
-<section id="reference-sources" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="reference-sources"><span class="header-section-number">3.5</span> Reference Sources</h2>
+<section id="reference-sources" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="reference-sources"><span class="header-section-number">3.4</span> Reference Sources</h2>
 <ul>
 <li>Price, Dana C., et al.&nbsp;“<em>Cyanophora paradoxa</em> genome elucidates origin of photosynthesis in algae and plants.” <em>Science</em> 335.6070 (2012): 843-847. <a href="https://doi.org/10.1126/science.1213561" class="uri">https://doi.org/10.1126/science.1213561</a>.</li>
 <li><a href="https://ncbiinsights.ncbi.nlm.nih.gov/2015/12/11/sra-toolkit-the-sra-database-at-your-fingertips/">SRA Toolkit: the SRA database at your fingertips</a> from NCBI Insights. Accessed 4-Mar-2023.</li>
