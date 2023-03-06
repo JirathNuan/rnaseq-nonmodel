@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Transcriptome Data Analysis in Non-model Organisms - 6&nbsp; Differential Gene Expression Analysis</title>
+<title>Transcriptome Data Analysis in Non-model Organisms - 6&nbsp; Estimating Abundance and Differential Expression Analysis of Genes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -61,6 +124,9 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
 </head>
 
@@ -70,7 +136,7 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Differential Gene Expression Analysis</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Estimating Abundance and Differential Expression Analysis of Genes</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -125,7 +191,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06_de_analysis.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Differential Gene Expression Analysis</span></a>
+  <a href="./06_de_analysis.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Estimating Abundance and Differential Expression Analysis of Genes</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -138,14 +204,30 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#estimating-transcript-abundance" id="toc-estimating-transcript-abundance" class="nav-link active" data-scroll-target="#estimating-transcript-abundance"><span class="toc-section-number">6.1</span>  Estimating Transcript Abundance</a></li>
+  <li><a href="#building-transcript-and-gene-expression-matrices" id="toc-building-transcript-and-gene-expression-matrices" class="nav-link" data-scroll-target="#building-transcript-and-gene-expression-matrices"><span class="toc-section-number">6.2</span>  Building Transcript and Gene Expression Matrices</a></li>
+  <li><a href="#quality-control-of-sample-read-counts-and-biological-replicates" id="toc-quality-control-of-sample-read-counts-and-biological-replicates" class="nav-link" data-scroll-target="#quality-control-of-sample-read-counts-and-biological-replicates"><span class="toc-section-number">6.3</span>  Quality Control of Sample Read Counts and Biological Replicates</a>
+  <ul class="collapse">
+  <li><a href="#compare-replicates-for-each-of-your-samples" id="toc-compare-replicates-for-each-of-your-samples" class="nav-link" data-scroll-target="#compare-replicates-for-each-of-your-samples"><span class="toc-section-number">6.3.1</span>  Compare replicates for each of your samples</a></li>
+  <li><a href="#compare-replicates-across-samples" id="toc-compare-replicates-across-samples" class="nav-link" data-scroll-target="#compare-replicates-across-samples"><span class="toc-section-number">6.3.2</span>  Compare Replicates Across Samples</a></li>
+  <li><a href="#principal-component-analysis-pca" id="toc-principal-component-analysis-pca" class="nav-link" data-scroll-target="#principal-component-analysis-pca"><span class="toc-section-number">6.3.3</span>  Principal Component Analysis (PCA)</a></li>
+  </ul></li>
+  <li><a href="#differential-expression-analysis" id="toc-differential-expression-analysis" class="nav-link" data-scroll-target="#differential-expression-analysis"><span class="toc-section-number">6.4</span>  Differential Expression Analysis</a></li>
+  <li><a href="#extracting-and-clustering-differentially-expressed-transcripts" id="toc-extracting-and-clustering-differentially-expressed-transcripts" class="nav-link" data-scroll-target="#extracting-and-clustering-differentially-expressed-transcripts"><span class="toc-section-number">6.5</span>  Extracting and clustering differentially expressed transcripts</a></li>
+  <li><a href="#de-gene-patterning-and-clustering-analysis" id="toc-de-gene-patterning-and-clustering-analysis" class="nav-link" data-scroll-target="#de-gene-patterning-and-clustering-analysis"><span class="toc-section-number">6.6</span>  DE gene patterning and clustering analysis</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Differential Gene Expression Analysis</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Estimating Abundance and Differential Expression Analysis of Genes</span></h1>
 </div>
 
 
@@ -160,8 +242,717 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<p>Differential gene expression analysis is a statistical method that uses count data to determine significant changes between experimental groups. For example, transcriptional changes of stress-induced genes in plant leaves under water deficit compared to normal conditions are examined. Count data can be transcript, gene, exon, and noncoding characteristics.</p>
+<p>To perform differential gene expression analysis with the Trinity integrated extensions, you will need the assembled transcripts/genes from the previous step and clean reads (and their replicates) from your experiment to assign to the assembled transcripts/genes and count the number of reads assigned to those transcripts/genes.</p>
+<section id="estimating-transcript-abundance" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="estimating-transcript-abundance"><span class="header-section-number">6.1</span> Estimating Transcript Abundance</h2>
+<p>This part will adopted from Trinity’s Wiki <a href="https://github.com/trinityrnaseq/trinityrnaseq/wiki/Trinity-Transcript-Quantification">Trinity Transcript Quantification</a>.</p>
+<p>There are two different methods for quantifying reads mapped to the reference, by using the alignment-based (RSEM) and alignment-free (salmon, kallisto) qualtifiers. In this workshop, we’ll use the salmon, an ultra-fast alignment and quantification tool, to count number of reads mapped to the assembled gene.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can see the usage of the command you wsh to perform by type the command followed by <code>--help</code>, or <code>-h</code>. For example, to see the usage of</p>
+<pre><code>align_and_estimate_abundance.pl -h</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Activity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Now we will align and count reads mapped to the reference assembled transcripts using buit-in utility <code>align_and_estimate_abundance.pl</code> using the following commands.</p>
+<ol type="1">
+<li><p>Go to working directory</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Cpa_RNASeq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The working directory should contain the following subdirectories.</p></li>
+</ol>
+<pre><code>        Cpa_RNASeq
+        ├── 01_Rawdata
+        ├── 02_QC
+        ├── 03_assembly
+        ├── 04_DE_analysis
+        └── 05_annotation</code></pre>
+<ol start="2" type="1">
+<li><p>Estimating Transcript Abundance</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">align_and_estimate_abundance.pl</span> <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>--transcripts 03_assembly/trinity_out_dir.Trinity.fasta <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>--seqType fq <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>--samples_file sample_list.tsv <span class="dt">\</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>--est_method salmon <span class="dt">\</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>--gene_trans_map 03_assembly/trinity_out_dir.Trinity.fasta.gene_trans_map <span class="dt">\</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>--thread_count 2 <span class="dt">\</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>--prep_reference</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ol>
+</div>
+</div>
+<p>Parameter descriptions of <code>align_and_estimate_abundance.pl</code>: the assembled transcripts flagged in <code>--transcripts</code>, <code>--seqType</code> indicates file format of reads that will be mappped to the reference transcripts.</p>
+<p>A list of read files will be contained in the metadata file sample_list.tsv in the parameter <code>--samples_file</code>, which we have prepared for you. In short, the sample list will be prepared in a tab-delimited text file indicating the relationships between biological replicates. For example,</p>
+<pre><code>dark    dark_1  01_Rawdata/SRR8306034_1.fastq   01_Rawdata/SRR8306034_2.fastq
+dark    dark_2  01_Rawdata/SRR8306029_1.fastq   01_Rawdata/SRR8306029_2.fastq
+dark    dark_3  01_Rawdata/SRR8306028_1.fastq   01_Rawdata/SRR8306028_2.fastq
+normal_light    normal_light_1  01_Rawdata/SRR8306033_1.fastq   01_Rawdata/SRR8306033_2.fastq
+normal_light    normal_light_2  01_Rawdata/SRR8306032_1.fastq   01_Rawdata/SRR8306032_2.fastq
+normal_light    normal_light_3  01_Rawdata/SRR8306035_1.fastq   01_Rawdata/SRR8306035_2.fastq</code></pre>
+<p>The first column indicates the study experimental groups, followed by their biological replicates in the second column, and the forward and reverse sequence read files belong to their biological replicate. It’s important that the file path begins with the directory in which you’ll be working so that the programs can correctly route to the files.</p>
+<p>Next, define the read count estimation tool in <code>--est_method</code>, in this workshop we’ll use salmon, and also estimate gene-level read counts using information about gene-transcript relationships from the <code>trinity_out_dir.Trinity.fasta.gene_trans_map</code> file that we specified in the <code>--gene_trans_map</code> parameter.</p>
+<p>Output results are created in the current working directory separately for experimental groups and biological replicates.</p>
+<pre><code>dark_1
+    ├── aux_info/
+    ├── cmd_info.json
+    ├── lib_format_counts.json
+    ├── libParams/
+    ├── logs/
+    ├── quant.sf
+    └── quant.sf.genes
+.
+.
+.
+normal_light_3
+    ├── aux_info/
+    ├── cmd_info.json
+    ├── lib_format_counts.json
+    ├── libParams/
+    ├── logs/
+    ├── quant.sf
+    └── quant.sf.genes</code></pre>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Activity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>According to the previous part, now we’ll organize the directory to make it tidy by moving all the results to the directory <code>04_ DE _analysis</code>.</p>
+<pre><code>``` bash
+# make sure you're in ~/Cpa_RNASeq directory so that you can move the file correctly. 
+mv dark* normal* 04_DE_analysis/
+```
+
+Then enter to the directory `04_DE_analysis`
+
+``` bash
+cd 04_DE_analysis
+ls ./*
+```</code></pre>
+</div>
+</div>
+<p>Expected result:</p>
+<pre><code>(trinity) jiratchaya@pslab1:~/Cpa_RNASeq/04_DE_analysis$ ls ./*
+./dark_1:
+aux_info  cmd_info.json  lib_format_counts.json  libParams  logs  quant.sf  quant.sf.genes
+
+./dark_2:
+aux_info  cmd_info.json  lib_format_counts.json  libParams  logs  quant.sf  quant.sf.genes
+
+./dark_3:
+aux_info  cmd_info.json  lib_format_counts.json  libParams  logs  quant.sf  quant.sf.genes
+
+./normal_light_1:
+aux_info  cmd_info.json  lib_format_counts.json  libParams  logs  quant.sf  quant.sf.genes
+
+./normal_light_2:
+aux_info  cmd_info.json  lib_format_counts.json  libParams  logs  quant.sf  quant.sf.genes
+
+./normal_light_3:
+aux_info  cmd_info.json  lib_format_counts.json  libParams  logs  quant.sf  quant.sf.genes</code></pre>
+<p>after running salmon you’ll find output files:</p>
+<ul>
+<li><p><code>quant.sf</code> : transcript abundance estimates (generated by salmon)</p></li>
+<li><p><code>quant.sf.genes</code> : gene-level abundance estimates (generated here by summing transcript values)</p></li>
+</ul>
+<p>Here’s an example of <code>quant.sf.genes</code> file:</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table" style="font-size: 11px; width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Name </th>
+   <th style="text-align:right;"> Length </th>
+   <th style="text-align:right;"> EffectiveLength </th>
+   <th style="text-align:right;"> TPM </th>
+   <th style="text-align:right;"> NumReads </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> TRINITY_DN35101_c0_g1 </td>
+   <td style="text-align:right;"> 248 </td>
+   <td style="text-align:right;"> 35.30 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TRINITY_DN42970_c0_g1 </td>
+   <td style="text-align:right;"> 215 </td>
+   <td style="text-align:right;"> 24.82 </td>
+   <td style="text-align:right;"> 7.15 </td>
+   <td style="text-align:right;"> 3.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TRINITY_DN41199_c0_g1 </td>
+   <td style="text-align:right;"> 280 </td>
+   <td style="text-align:right;"> 47.38 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TRINITY_DN35784_c0_g1 </td>
+   <td style="text-align:right;"> 247 </td>
+   <td style="text-align:right;"> 34.96 </td>
+   <td style="text-align:right;"> 6.77 </td>
+   <td style="text-align:right;"> 4.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TRINITY_DN32682_c0_g1 </td>
+   <td style="text-align:right;"> 275 </td>
+   <td style="text-align:right;"> 45.30 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TRINITY_DN8538_c0_g1 </td>
+   <td style="text-align:right;"> 1019 </td>
+   <td style="text-align:right;"> 710.33 </td>
+   <td style="text-align:right;"> 0.17 </td>
+   <td style="text-align:right;"> 2.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TRINITY_DN2880_c0_g1 </td>
+   <td style="text-align:right;"> 2376 </td>
+   <td style="text-align:right;"> 2067.33 </td>
+   <td style="text-align:right;"> 0.74 </td>
+   <td style="text-align:right;"> 26.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TRINITY_DN9226_c0_g1 </td>
+   <td style="text-align:right;"> 275 </td>
+   <td style="text-align:right;"> 45.30 </td>
+   <td style="text-align:right;"> 7.84 </td>
+   <td style="text-align:right;"> 6.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TRINITY_DN3645_c1_g1 </td>
+   <td style="text-align:right;"> 1175 </td>
+   <td style="text-align:right;"> 866.33 </td>
+   <td style="text-align:right;"> 0.40 </td>
+   <td style="text-align:right;"> 5.82 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TRINITY_DN5921_c0_g2 </td>
+   <td style="text-align:right;"> 368 </td>
+   <td style="text-align:right;"> 94.72 </td>
+   <td style="text-align:right;"> 4.37 </td>
+   <td style="text-align:right;"> 7.00 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</section>
+<section id="building-transcript-and-gene-expression-matrices" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="building-transcript-and-gene-expression-matrices"><span class="header-section-number">6.2</span> Building Transcript and Gene Expression Matrices</h2>
+<p>We use gene-level abundance matrices with the filename <code>quant.sf.genes</code>, which are available in all results directories. In this step, the utility <code>abundance_estimates_to_matrix.pl</code> is used to combine all separate count matrices from the file <code>quant.sf.genes</code> in all result directories into a single matrix file. By using salmon as <code>--est_method</code> and specifying the parameter <code>--gene_trans_map</code>, a gene abundance matrix is created.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Activity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>Create abundance matrix</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">abundance_estimates_to_matrix.pl</span> <span class="at">--est_method</span> salmon <span class="dt">\</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>--gene_trans_map ../03_assembly/trinity_out_dir.Trinity.fasta.gene_trans_map <span class="dt">\</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>--name_sample_by_basedir <span class="dt">\</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="pp">*</span>/quant.sf.genes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Expected result:</p>
+<pre><code>(trinity) jiratchaya@pslab1:~/Cpa_RNASeq/04_DE_analysis$ ls -l
+total 4945
+drwxrwx--- 1 root PSLab    4096 Mar  5 16:16 dark_1
+drwxrwx--- 1 root PSLab    4096 Mar  5 16:16 dark_2
+drwxrwx--- 1 root PSLab    4096 Mar  5 16:16 dark_3
+drwxrwx--- 1 root PSLab    4096 Mar  5 16:16 normal_light_1
+drwxrwx--- 1 root PSLab    4096 Mar  5 16:16 normal_light_2
+drwxrwx--- 1 root PSLab    4096 Mar  5 16:16 normal_light_3
+-rw-rw---- 1 root PSLab      67 Mar  6 13:29 salmon.gene.counts.matrix
+-rw-rw---- 1 root PSLab      67 Mar  6 13:29 salmon.gene.TPM.not_cross_norm
+-rw-rw---- 1 root PSLab 2736773 Mar  6 13:29 salmon.isoform.counts.matrix
+-rw-rw---- 1 root PSLab 2297101 Mar  6 13:29 salmon.isoform.TPM.not_cross_norm</code></pre>
+<p>This command will generate 4 result files:</p>
+<ul>
+<li><code>salmon.gene.counts.matrix</code> is the estimated raw RNA-Seq counts in GENE level in all experimental groups.</li>
+<li><code>salmon.gene.TPM.not_cross_norm</code> is the Transcript per Million (TPM) of RNA-Seq counts in GENE level in all experimental groups.</li>
+<li><code>salmon.isoform.counts.matrix</code> is the estimated raw RNA-Seq counts in TRANSCRIPTS level in all experimental groups.</li>
+<li><code>salmon.isoform.TPM.not_cross_norm</code> is the Transcript per Million (TPM) of RNA-Seq counts in TRANSCRIPTS level in all experimental groups.</li>
+</ul></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="quality-control-of-sample-read-counts-and-biological-replicates" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="quality-control-of-sample-read-counts-and-biological-replicates"><span class="header-section-number">6.3</span> Quality Control of Sample Read Counts and Biological Replicates</h2>
+<p>Once you’ve performed quantification for each experimental group, it’s good to examine the data to ensure that your biological replicates are well correlated, and also to investigate relationships among your samples.</p>
+<p>It is critical that you identify any obvious differences between the relationships between your sample and replicates, such as those resulting from accidental mislabeling of sample replicates, strong outliers, or batch effects, prior to further data analysis.</p>
+<p>The Trinity’s utility called <code>PtR</code> (pronounced as ‘Peter’, stands for Perl to R) can generate some exploratory data analysis that rely on count matrix, such as compare difference between replicate, compare difference between experimental groups, principal component analysis, and so on.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Activity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Recheck the current working directory</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You’re in <code>~/Cpa_RNASeq/04_DE_analysis</code></p>
+<ol type="1">
+<li><p>Prepare sample metadata from differential expression (DE) analysis</p>
+<p>The sample metadata table for analysis DE is different from the table used to estimate abundance. We only need the first two columns from this file to create a metadata table for analysis from DE. Therefore, we can use the following Bash command to create and edit a new file.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Go to ~/Cpa_RNASeq directory by change to upper directory</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Extract first 2 columns of the metadata for estimating read count to to a new file in <code>04_DE_analysis</code></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f</span> 1-2 sample_list.tsv <span class="op">&gt;</span> 04_DE_analysis/samples.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then dive back into 04_DE_analysis directory</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> 04_DE_analysis</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>See expected result file</p>
+<pre><code>(trinity) jiratchaya@pslab1:~/Cpa_RNASeq/04_DE_analysis$ cat samples.txt
+dark    dark_1
+dark    dark_2
+dark    dark_3
+normal_light    normal_light_1
+normal_light    normal_light_2
+normal_light    normal_light_3</code></pre></li>
+</ol>
+</div>
+</div>
+<section id="compare-replicates-for-each-of-your-samples" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="compare-replicates-for-each-of-your-samples"><span class="header-section-number">6.3.1</span> Compare replicates for each of your samples</h3>
+<p>This step will use PtR to reads the matrix of counts, performs a counts-per-million (CPM) data transformation followed by a log2 transform, and then generates a multi-page pdf file <code>named ${sample}.rep_compare.pdf</code> for each of your samples, including several useful plots</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Activity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>Compare replicates for each of your samples
+
+``` bash
+PtR --matrix salmon.isoform.counts.matrix \
+--samples samples.txt --log2 --CPM \
+--min_rowSums 10 \
+--compare_replicates
+```</code></pre>
+</div>
+</div>
+<p>These files will append more to your current working directories:</p>
+<pre><code>-rw-rw---- 1 root PSLab    4695 Mar  6 14:37 salmon.isoform.counts.matrix.R
+-rw-rw---- 1 root PSLab 1990182 Mar  6 14:37 dark.rep_compare.pdf
+-rw-rw---- 1 root PSLab 1828692 Mar  6 14:37 normal_light.rep_compare.pdf
+-rw-rw---- 1 root PSLab 3558147 Mar  6 14:37 salmon.isoform.counts.matrix.minRow10.CPM.log2.dat</code></pre>
+<p>The last 3 files are newly generated by this step. There’s two PDF files separated by experimental groups, <code>dark.rep_compare.pdf</code> and <code>normal_light.rep_compare.pdf</code>, and raw data for plots in <code>.dat</code> file.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src=".\assets/32_trinity_compare_reps.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<p></p><figcaption class="figure-caption">Example result of comparing biological replicates in Dark samples. The figures were captured from <code>dark.rep_compare.pdf</code> file. (A) The sum of mapped fragments. (B) Pairwise comparisons of replicate log(CPM) values, in which the data points more than 2-fold different are highlighted in red. (C) The pairwise MA plots (x-axis: mean log(CPM), y-axis log(fold_change)). And, (D) A Replicate Pearson correlation heatmap.</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="compare-replicates-across-samples" class="level3" data-number="6.3.2">
+<h3 data-number="6.3.2" class="anchored" data-anchor-id="compare-replicates-across-samples"><span class="header-section-number">6.3.2</span> Compare Replicates Across Samples</h3>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Activity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This command will generate a useful heatmap of pearson correlation matrix of samples from two different experimental groups.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>    <span class="ex">PtR</span> <span class="at">--matrix</span> salmon.isoform.counts.matrix <span class="dt">\</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--min_rowSums</span> 10 <span class="dt">\</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--samples_file</span> samples.txt <span class="dt">\</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--log2</span> <span class="at">--CPM</span> <span class="dt">\</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--sample_cor_matrix</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>These files will append more to your current working directories:</p>
+<pre><code>-rw-rw---- 1 root PSLab    4012 Mar  6 15:02 salmon.isoform.counts.matrix.R
+-rw-rw---- 1 root PSLab 3558147 Mar  6 15:02 salmon.isoform.counts.matrix.minRow10.CPM.log2.dat
+-rw-rw---- 1 root PSLab     678 Mar  6 15:02 salmon.isoform.counts.matrix.minRow10.CPM.log2.sample_cor.dat
+-rw-rw---- 1 root PSLab    6429 Mar  6 15:02 salmon.isoform.counts.matrix.minRow10.CPM.log2.sample_cor_matrix.pdf</code></pre>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src=".\assets/33_sample_corr.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<p></p><figcaption class="figure-caption">heatmap of pearson correlation coefficiant between Dark and Normal light samples.</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="principal-component-analysis-pca" class="level3" data-number="6.3.3">
+<h3 data-number="6.3.3" class="anchored" data-anchor-id="principal-component-analysis-pca"><span class="header-section-number">6.3.3</span> Principal Component Analysis (PCA)</h3>
+<p>Another important analysis method to explore relationships among the sample replicates is Principal Component Analysis (PCA).</p>
+<p>You can find more explanation about PCA here: - https://blog.bioturing.com/2018/06/14/principal-component-analysis-explained-simply/ - https://youtu.be/FgakZw6K1QQ</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Activity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>    <span class="ex">PtR</span> <span class="at">--matrix</span> salmon.isoform.counts.matrix <span class="dt">\</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--samples_file</span> samples.txt <span class="dt">\</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--min_rowSums</span> 10 <span class="at">--log2</span> <span class="dt">\</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--CPM</span> <span class="at">--center_rows</span> <span class="dt">\</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--prin_comp</span> 3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>These files will append more to your current working directories:</p>
+<pre><code>-rw-rw---- 1 root PSLab    4789 Mar  6 15:18 salmon.isoform.counts.matrix.R
+-rw-rw---- 1 root PSLab 4069112 Mar  6 15:18 salmon.isoform.counts.matrix.minRow10.CPM.log2.centered.dat
+-rw-rw---- 1 root PSLab     756 Mar  6 15:18 salmon.isoform.counts.matrix.minRow10.CPM.log2.centered.PCA.prcomp.scores
+-rw-rw---- 1 root PSLab 4163653 Mar  6 15:18 salmon.isoform.counts.matrix.minRow10.CPM.log2.centered.PCA.prcomp.loadings
+-rw-rw---- 1 root PSLab    5446 Mar  6 15:18 salmon.isoform.counts.matrix.minRow10.CPM.log2.centered.prcomp.principal_components.pdf</code></pre>
+<p>You can find the PCA plot in <code>salmon.isoform.counts.matrix.minRow10.CPM.log2.centered.prcomp.principal_components.pdf</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src=".\assets/34_PCA.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<p></p><figcaption class="figure-caption">PCA plot.</figcaption><p></p>
+</figure>
+</div>
+<p>We set the number of principal components (PC) to be calculated for only first 3 PCs in <code>--prin_comp</code>. Which indicates that these PCs will be plotted, as shown above, with PC1 vs.&nbsp;PC2 and PC2 vs.&nbsp;PC3. In this example, the replicates cluster tightly according to sample type, which is very reassuring.</p>
+</section>
+</section>
+<section id="differential-expression-analysis" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="differential-expression-analysis"><span class="header-section-number">6.4</span> Differential Expression Analysis</h2>
+<p>Trinity also contains a built-in utility for DE analysis called <code>run_DE_analysis.pl</code>, in which use the count matrix and sample metadata file. Trinity provides support for several differential expression analysis tools, currently including edgeR, DESeq2, limma/voom, and ROTS.</p>
+<p>DE analysis in Trinity will perform pairwise comparison of gene/transcript expression. If the biological replicates are presented for each sample, you should indicate this as we already created in our metadata table <code>samples.txt</code>. Here we’ll analyze DE genes in the ‘transcript’ level using the <code>salmon.isoform.counts.matrix</code> file.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Activity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>DE analysis using DESeq2</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">run_DE_analysis.pl</span> <span class="dt">\</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>--matrix salmon.isoform.counts.matrix <span class="dt">\</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>--method DESeq2 <span class="dt">\</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>--samples_file samples.txt <span class="dt">\</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>--output DESeq2_result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>After run the above command, the following directory will append to your current working directory:</p>
+<pre><code>drwxrwx--- 1 root PSLab     688 Mar  6 15:42 DESeq2_result</code></pre>
+<p>In this output directory, you’ll find the following files for each of the pairwise comparisons performed:</p>
+<pre><code>-rw-rw---- 1 root PSLab  972633 Mar  6 15:42 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.count_matrix
+-rw-rw---- 1 root PSLab 4247784 Mar  6 15:42 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results
+-rw-rw---- 1 root PSLab 2428272 Mar  6 15:42 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.MA_n_Volcano.pdf
+-rw-rw---- 1 root PSLab    1845 Mar  6 15:42 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.Rscript</code></pre>
+<p>Result explanations:</p>
+<ul>
+<li><p><code>salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.Rscript</code> is the R-script executed to perform the DE analysis.</p></li>
+<li><p><code>salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.count_matrix</code> is an integer matrix of read count derived from the input file <code>salmon.isoform.counts.matrix</code>.</p></li>
+<li><p><code>salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results</code> is the DE analysis results, including log fold change and statistical significance.</p></li>
+<li><p><code>salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.MA_n_Volcano.pdf</code> is MA and Volcano plots features found DE at the defined FDR will be colored red.</p></li>
+</ul>
+<p>Here’s an example of DE analysis result file (<code>salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results</code>):</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table" style="font-size: 11px; width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:left;"> sampleA </th>
+   <th style="text-align:left;"> sampleB </th>
+   <th style="text-align:right;"> baseMeanA </th>
+   <th style="text-align:right;"> baseMeanB </th>
+   <th style="text-align:right;"> baseMean </th>
+   <th style="text-align:right;"> log2FoldChange </th>
+   <th style="text-align:right;"> lfcSE </th>
+   <th style="text-align:right;"> stat </th>
+   <th style="text-align:right;"> pvalue </th>
+   <th style="text-align:right;"> padj </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> TRINITY_DN8082_c0_g1 </td>
+   <td style="text-align:left;"> dark </td>
+   <td style="text-align:left;"> normal_light </td>
+   <td style="text-align:right;"> 4685.731 </td>
+   <td style="text-align:right;"> 17.948650 </td>
+   <td style="text-align:right;"> 2351.8401 </td>
+   <td style="text-align:right;"> 8.023585 </td>
+   <td style="text-align:right;"> 0.3947937 </td>
+   <td style="text-align:right;"> 20.32349 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TRINITY_DN281_c0_g1 </td>
+   <td style="text-align:left;"> dark </td>
+   <td style="text-align:left;"> normal_light </td>
+   <td style="text-align:right;"> 2406.185 </td>
+   <td style="text-align:right;"> 9.827619 </td>
+   <td style="text-align:right;"> 1208.0061 </td>
+   <td style="text-align:right;"> 7.917578 </td>
+   <td style="text-align:right;"> 0.3987747 </td>
+   <td style="text-align:right;"> 19.85477 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TRINITY_DN902_c0_g1 </td>
+   <td style="text-align:left;"> dark </td>
+   <td style="text-align:left;"> normal_light </td>
+   <td style="text-align:right;"> 3515.942 </td>
+   <td style="text-align:right;"> 5.151569 </td>
+   <td style="text-align:right;"> 1760.5469 </td>
+   <td style="text-align:right;"> 9.433323 </td>
+   <td style="text-align:right;"> 0.4966128 </td>
+   <td style="text-align:right;"> 18.99533 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TRINITY_DN801_c0_g2 </td>
+   <td style="text-align:left;"> dark </td>
+   <td style="text-align:left;"> normal_light </td>
+   <td style="text-align:right;"> 2100.468 </td>
+   <td style="text-align:right;"> 4.052528 </td>
+   <td style="text-align:right;"> 1052.2602 </td>
+   <td style="text-align:right;"> 9.023139 </td>
+   <td style="text-align:right;"> 0.4877916 </td>
+   <td style="text-align:right;"> 18.49794 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TRINITY_DN38798_c0_g1 </td>
+   <td style="text-align:left;"> dark </td>
+   <td style="text-align:left;"> normal_light </td>
+   <td style="text-align:right;"> 1013.842 </td>
+   <td style="text-align:right;"> 4.511975 </td>
+   <td style="text-align:right;"> 509.1769 </td>
+   <td style="text-align:right;"> 7.806389 </td>
+   <td style="text-align:right;"> 0.4421257 </td>
+   <td style="text-align:right;"> 17.65649 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TRINITY_DN10456_c0_g1 </td>
+   <td style="text-align:left;"> dark </td>
+   <td style="text-align:left;"> normal_light </td>
+   <td style="text-align:right;"> 3630.296 </td>
+   <td style="text-align:right;"> 8.696336 </td>
+   <td style="text-align:right;"> 1819.4963 </td>
+   <td style="text-align:right;"> 8.698117 </td>
+   <td style="text-align:right;"> 0.5004932 </td>
+   <td style="text-align:right;"> 17.37909 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TRINITY_DN15271_c1_g1 </td>
+   <td style="text-align:left;"> dark </td>
+   <td style="text-align:left;"> normal_light </td>
+   <td style="text-align:right;"> 1503.228 </td>
+   <td style="text-align:right;"> 6.205016 </td>
+   <td style="text-align:right;"> 754.7166 </td>
+   <td style="text-align:right;"> 7.908525 </td>
+   <td style="text-align:right;"> 0.4612383 </td>
+   <td style="text-align:right;"> 17.14629 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TRINITY_DN258_c0_g2 </td>
+   <td style="text-align:left;"> dark </td>
+   <td style="text-align:left;"> normal_light </td>
+   <td style="text-align:right;"> 2973.655 </td>
+   <td style="text-align:right;"> 5.218821 </td>
+   <td style="text-align:right;"> 1489.4370 </td>
+   <td style="text-align:right;"> 9.144528 </td>
+   <td style="text-align:right;"> 0.5358879 </td>
+   <td style="text-align:right;"> 17.06425 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TRINITY_DN15130_c0_g1 </td>
+   <td style="text-align:left;"> dark </td>
+   <td style="text-align:left;"> normal_light </td>
+   <td style="text-align:right;"> 2019.010 </td>
+   <td style="text-align:right;"> 4.727083 </td>
+   <td style="text-align:right;"> 1011.8685 </td>
+   <td style="text-align:right;"> 8.728308 </td>
+   <td style="text-align:right;"> 0.5121991 </td>
+   <td style="text-align:right;"> 17.04085 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TRINITY_DN1_c0_g2 </td>
+   <td style="text-align:left;"> dark </td>
+   <td style="text-align:left;"> normal_light </td>
+   <td style="text-align:right;"> 1107.861 </td>
+   <td style="text-align:right;"> 6.860877 </td>
+   <td style="text-align:right;"> 557.3612 </td>
+   <td style="text-align:right;"> 7.312156 </td>
+   <td style="text-align:right;"> 0.4304045 </td>
+   <td style="text-align:right;"> 16.98903 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>An example of volcano plot for transcript-level differentially expression analysis.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src=".\assets/35_DE_plots.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">(left) MA plot and (right) volcano plot.</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="extracting-and-clustering-differentially-expressed-transcripts" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="extracting-and-clustering-differentially-expressed-transcripts"><span class="header-section-number">6.5</span> Extracting and clustering differentially expressed transcripts</h2>
+<p>An initial step in analyzing differential expression is to extract those transcripts that are most differentially expressed (most significant FDR and fold-changes) and to cluster the transcripts according to their patterns of differential expression across the samples.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Activity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Extracting and clustering differentially expressed transcripts can run using the following from within the DE output directory, by running the following script:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> DESeq2_result/</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="ex">analyze_diff_expr.pl</span> <span class="dt">\</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>--matrix salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.count_matrix <span class="dt">\</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>-P 0.001 <span class="dt">\</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>-C 2 <span class="dt">\</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>--samples ../samples.txt <span class="dt">\</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>--max_genes_clust 10000</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>The above command use an integer count matrix from DE analysis, and define criteria for extracting differentially expressed transcripts. For example, set p-value cutoff for FDR in <code>-P</code> to 0.001, set minimum absolute log 2-fold change criteria in <code>-C</code> to 2, meaning that it will extracted only the DE transcripts that are 2^2 = 4-fold, and use only top 10,000 among all differentially transcripts in <code>--max_genes_clust</code> for hierarchical clustering analysis. However, user can customize these criteria based on their interest.</p>
+<p>The following results will append to the current working directory <code>DESeq2_result</code></p>
+<pre><code>-rw-rw---- 1 root PSLab      120 Mar  6 16:34 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.samples
+-rw-rw---- 1 root PSLab   332012 Mar  6 16:34 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P0.001_C2.dark-UP.subset
+-rw-rw---- 1 root PSLab    42038 Mar  6 16:34 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P0.001_C2.normal_light-UP.subset
+-rw-rw---- 1 root PSLab   373901 Mar  6 16:34 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P0.001_C2.DE.subset
+-rw-rw---- 1 root PSLab       51 Mar  6 16:34 DE_feature_counts.P0.001_C2.matrix
+-rw-rw---- 1 root PSLab    73959 Mar  6 16:34 diffExpr.P0.001_C2.matrix
+-rw-rw---- 1 root PSLab     4649 Mar  6 16:34 diffExpr.P0.001_C2.matrix.R
+-rw-rw---- 1 root PSLab   246973 Mar  6 16:34 diffExpr.P0.001_C2.matrix.log2.centered.dat
+-rw-rw---- 1 root PSLab      698 Mar  6 16:34 diffExpr.P0.001_C2.matrix.log2.centered.sample_cor.dat
+-rw-rw---- 1 root PSLab     6399 Mar  6 16:34 diffExpr.P0.001_C2.matrix.log2.centered.sample_cor_matrix.pdf
+-rw-rw---- 1 root PSLab   101250 Mar  6 16:34 diffExpr.P0.001_C2.matrix.log2.centered.genes_vs_samples_heatmap.pdf
+-rw-rw---- 1 root PSLab 14777602 Mar  6 16:34 diffExpr.P0.001_C2.matrix.RData</code></pre>
+<p>Result explanations:</p>
+<ul>
+<li><p><code>salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.samples</code> is identical to the metadata <code>samples.txt</code> file.</p></li>
+<li><p><code>salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P0.001_C2.dark-UP.subset</code> is the subset of expression matrix of up-regulated transcripts in Dark group, which are down-regulated in Normal light group.</p></li>
+<li><p><code>salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P0.001_C2.normal_light-UP.subset</code> is the subset of expression matrix of up-regulated transcripts in Normal light group, which are down-regulated in Dark group.</p></li>
+<li><p><code>salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P0.001_C2.DE.subset</code> is a summary of DE transcripts results containing columns of significant values, and its normalized expression value.</p></li>
+<li><p><code>diffExpr.P0.001_C2.matrix.log2.centered.sample_cor_matrix.pdf</code> is the sample correlation matrix, as follow.</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src=".\assets/35_DE_sample_cor.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Sample correlation matrix visualized only for differentially expressed transcripts.</figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li><code>diffExpr.P0.001_C2.matrix.log2.centered.genes_vs_samples_heatmap.pdf</code> is heatmap of differentially expressed transcripts.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src=".\assets/36_DE_heatmap.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Heatmap of differentially expressed transcripts.</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="de-gene-patterning-and-clustering-analysis" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="de-gene-patterning-and-clustering-analysis"><span class="header-section-number">6.6</span> DE gene patterning and clustering analysis</h2>
+<p>In the heat map of differentially expressed transcripts, there is a clear difference between the DE transcripts under dark and normal light conditions. Therefore, using <code>define_clusters_by_cutting_tree.pl</code>, we can divide these genes into clusters based on the same trend of expression values as follows.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Activity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Automatically Partitioning Genes into Expression Clusters</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">define_clusters_by_cutting_tree.pl</span> <span class="dt">\</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>-R diffExpr.P0.001_C2.matrix.RData <span class="dt">\</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>--Ptree 60</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>There are three different methods for dividing genes into clusters, K-Means clustering, hierarchical clustering (as used in the heatmap), and the recommended method of using criteria to truncate tree branch lengths that fall below the criteria by using ‘–Ptree’.</p>
+<p>The following results will append to the current working directory <code>DESeq2_result</code> which are files and <code>diffExpr.P0.001_C2.matrix.RData.clusters_fixed_P_60/</code> directory.</p>
+<pre><code>-rw-rw---- 1 root PSLab    45837 Mar  6 16:51 clusters_fixed_P_60.heatmap.heatmap_gene_order.txt
+-rw-rw---- 1 root PSLab    61467 Mar  6 16:51 clusters_fixed_P_60.heatmap.gene_cluster_colors.dat
+-rw-rw---- 1 root PSLab   110890 Mar  6 16:51 clusters_fixed_P_60.heatmap.heatmap.pdf
+drwxrwx--- 1 root PSLab      400 Mar  6 16:51 diffExpr.P0.001_C2.matrix.RData.clusters_fixed_P_60/</code></pre>
+<p>List of files in <code>diffExpr.P0.001_C2.matrix.RData.clusters_fixed_P_60/</code> directory are:</p>
+<pre><code>-rw-rw---- 1 root PSLab  43915 Mar  6 16:51 my_cluster_plots.pdf
+-rw-rw---- 1 root PSLab 220780 Mar  6 16:51 subcluster_1_log2_medianCentered_fpkm.matrix
+-rw-rw---- 1 root PSLab  26259 Mar  6 16:51 subcluster_2_log2_medianCentered_fpkm.matrix
+-rw-rw---- 1 root PSLab    816 Mar  6 16:51 __tmp_plot_clusters.R</code></pre>
+<p>The DE transcript partiitoning and clustering is located in <code>my_cluster_plots.pdf</code></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src=".\assets/37_DE_partition.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">DE transcript partiitoning and clustering analysis</figcaption><p></p>
+</figure>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

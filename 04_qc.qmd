@@ -25,7 +25,7 @@ FASTQ sequence descriptor, particulary in Illumina sequence reads look like:
 where
 
 |                   |                                                                     |
-|--------------------------|----------------------------------------------|
+|-------------------|---------------------------------------------------------------------|
 | **HWUSI-EAS100R** | The unique instrument name                                          |
 | **6**             | Flowcell lane                                                       |
 | **73**            | Tile number within the flowcell lane                                |
