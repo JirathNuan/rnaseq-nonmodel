@@ -1,2 +1,50 @@
 # De novo Assembly with Trinity
 
+Trinity is a promosing tool for de novo full-length transcriptome assembly that continually developed since 2011. Trinity assembles reads by constructs many individual de Bruijn graphs, each representing the transcriptional complexity at a given gene or locus, that originated from the different nucleotide in the same position, and then processes each graph independently to extract full-length splicing isoforms and to tease apart transcripts derived from paralogous genes [@grabherr2011; @haas2013]. Each assembled contig is will refer to a transcript.
+
+![Overview of the concept of de novo transcriptome assembly. Clean reads are divided into k-mers, i.e., in this figure k = 5, which means that a read is divided into many fragments, each fragment containing 5 bases. Then, de Bruijn graphs are stitched from a pool of billions of k-mers (b). During sequencing, read fragments originating from the same spot or derived from the same gene may even have a nucleotide change at the same position, which may be either true polymorphisms or sequencing errors, so that similar k-mer sequences are joined together and routing to adjacent k-mers (c). The bulges in the graphs represent variations within the graph complex. Each graph complex represents a gene that can split into many transcript isoforms during traversion (d) to eventually obtain the assembled transcript library (e). For more details, please see @martin_next-generation_2011.](/assets/38_denovo_assembly_concept.png)
+
+Trinity can construct genomes without genome information and enables transcript construction in non-model organisms where genome assembly is not yet available, or that do not achieve successful chromosome-level or full assembly. Downstream processes, such as transcript assembly completeness analysis, transcript abundance estimation, and identification of differentially expressed genes, can also be performed with Trinity and its built-in utilities commands.
+
+For de novo assembly in fast and efficient way for limited computational resources available, we prepared the downsized reads that derived from the SRA accessions that we already retrieved from NCBI SRA database from the previous chapter.
+
+During de novo assembly, the longest and the heaviest computation resource required for constructing and stitching billions of de Bruijn graphs. Very deep sequencing libraries may failed of these processes. Therefore, normalizing or downsizing sequence reads before de novo assembly is efficient way to proceed it. In brief, we downsized sequence reads using built-in Trinity command `insilico_read_normalization.pl` as follow. *This just inform all participant to the source of raw data that they will perform assembly.*
+
+``` bash
+insilico_read_normalization.pl \
+--seqType fq \
+--JM 100G \
+--max_cov 10 \
+--left 01_Rawdata/*_1.fastq \
+--right 01_Rawdata/*_2.fastq \
+--pairs_together \
+--CPU 50 \
+--output 03_assembly
+```
+
+Trinity `insilico_read_normalization.pl` uses forward and reverse reads input from `--left` and `–-right` parameters by reduce the maximum coverage depth (`--max_cov`) observed to 10x, and retain only paired reads in `--pairs_together`.
+
+The output file given as follow:
+
+    <ls 03_assembly>
+
+## Running Trinity
+
+Trinity is run via the script `Trinity`:
+
+``` bash
+Trinity --seqType fq \
+--max_memory 6G \
+--CPU 2 \
+--left 01_rawdata/left.fq \
+--right 01_rawdata/right.fq \
+--no_normalize_reads
+```
+
+By this command, Trinity take the input forward and reverse reads from `--left` and `–-right`, respectively. By default, de novo assembly with Trinity will perform in silico read normalization by itself. Since we have already normalized the sequence reads file prior to assembly, this step will skip the normalization step by add `--no_normalize_reads` to the command. All other arguments will use with the default parameters.
+
+The given results in `03_assembly` directory are:
+
+xxxxxxxx\.
+
+## Transcript Assembly Quality Assessment

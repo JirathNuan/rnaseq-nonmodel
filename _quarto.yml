@@ -17,7 +17,12 @@ book:
     - 04_qc.qmd
     - 05_denovo_assembly.qmd
     - 06_de_analysis.qmd
+    - 07_annotation.qmd
     - references.qmd
+  repo-url: https://github.com/JirathNuan/rnaseq-nonmodel
+  repo-actions: [edit]
+  downloads: [pdf]
+
 
 bibliography: references.bib
 

@@ -26,7 +26,7 @@ This will connect to the server via SSH with the username \`user\` and the defau
 
 ## Connecting to Remote Server
 
-Bioinformatics data processing tasks require more computing power than our laptops, so we need large servers or clusters. It's likely you'll work mostly over a network connection with remote machines on some projects. It can be frustrating for beginners to work with a remote machine. So, This part will introduce you to some commonly used bash commands. To make it easier for beginners to manage their remote machines, there are a range of different tools and technologies available, such as SSH, FTP, and terminal commands, which can be used to access and manage the environment of the machine. Additionally, there are a variety of bash commands which can be used to streamline the process of managing the machine.
+Bioinformatics data processing tasks require more computing power than our laptops, so we need large servers or clusters. It's likely you'll work mostly over a network connection with remote machines on some projects. It can be frustrating for beginners to work with a remote machine. So, This part will introduce you to some commonly used bash commands. To make it easier for beginners to manage their remote machines, there are a range of different tools and technologies available, such as SSH, FTP, and terminal commands, which can be used to access and manage the environment of the machine. Additionally, there are a variety of bash commands which can be used to streamline the process of managing the machine @buffalo2015.
 
 What you need to know for connecting to a remove server:
 

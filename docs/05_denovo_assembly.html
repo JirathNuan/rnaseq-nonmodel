@@ -20,6 +20,88 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
@@ -84,6 +166,10 @@ ul.task-list li input[type="checkbox"] {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Transcriptome Data Analysis in Non-model Organisms</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/JirathNuan/rnaseq-nonmodel" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="./Transcriptome-Data-Analysis-in-Non-model-Organisms.pdf" title="Download PDF" class="sidebar-tool px-1"><i class="bi bi-file-pdf"></i></a>
+</div>
     </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -130,6 +216,11 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./07_annotation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Transcriptome Assembly Annotation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
@@ -138,7 +229,14 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#running-trinity" id="toc-running-trinity" class="nav-link active" data-scroll-target="#running-trinity"><span class="toc-section-number">5.1</span>  Running Trinity</a></li>
+  <li><a href="#transcript-assembly-quality-assessment" id="toc-transcript-assembly-quality-assessment" class="nav-link" data-scroll-target="#transcript-assembly-quality-assessment"><span class="toc-section-number">5.2</span>  Transcript Assembly Quality Assessment</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/JirathNuan/rnaseq-nonmodel/edit/main/05_denovo_assembly.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -160,8 +258,57 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<p>Trinity is a promosing tool for de novo full-length transcriptome assembly that continually developed since 2011. Trinity assembles reads by constructs many individual de Bruijn graphs, each representing the transcriptional complexity at a given gene or locus, that originated from the different nucleotide in the same position, and then processes each graph independently to extract full-length splicing isoforms and to tease apart transcripts derived from paralogous genes <span class="citation" data-cites="grabherr2011 haas2013">(<a href="references.html#ref-grabherr2011" role="doc-biblioref">Grabherr et al. 2011</a>; <a href="references.html#ref-haas2013" role="doc-biblioref">Haas et al. 2013</a>)</span>. Each assembled contig is will refer to a transcript.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src=".\assets/38_denovo_assembly_concept.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Overview of the concept of de novo transcriptome assembly. Clean reads are divided into k-mers, i.e., in this figure k = 5, which means that a read is divided into many fragments, each fragment containing 5 bases. Then, de Bruijn graphs are stitched from a pool of billions of k-mers (b). During sequencing, read fragments originating from the same spot or derived from the same gene may even have a nucleotide change at the same position, which may be either true polymorphisms or sequencing errors, so that similar k-mer sequences are joined together and routing to adjacent k-mers (c). The bulges in the graphs represent variations within the graph complex. Each graph complex represents a gene that can split into many transcript isoforms during traversion (d) to eventually obtain the assembled transcript library (e). For more details, please see <span class="citation" data-cites="martin_next-generation_2011">Martin and Wang (<a href="references.html#ref-martin_next-generation_2011" role="doc-biblioref">2011</a>)</span>.</figcaption><p></p>
+</figure>
+</div>
+<p>Trinity can construct genomes without genome information and enables transcript construction in non-model organisms where genome assembly is not yet available, or that do not achieve successful chromosome-level or full assembly. Downstream processes, such as transcript assembly completeness analysis, transcript abundance estimation, and identification of differentially expressed genes, can also be performed with Trinity and its built-in utilities commands.</p>
+<p>For de novo assembly in fast and efficient way for limited computational resources available, we prepared the downsized reads that derived from the SRA accessions that we already retrieved from NCBI SRA database from the previous chapter.</p>
+<p>During de novo assembly, the longest and the heaviest computation resource required for constructing and stitching billions of de Bruijn graphs. Very deep sequencing libraries may failed of these processes. Therefore, normalizing or downsizing sequence reads before de novo assembly is efficient way to proceed it. In brief, we downsized sequence reads using built-in Trinity command <code>insilico_read_normalization.pl</code> as follow. <em>This just inform all participant to the source of raw data that they will perform assembly.</em></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">insilico_read_normalization.pl</span> <span class="dt">\</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>--seqType fq <span class="dt">\</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>--JM 100G <span class="dt">\</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>--max_cov 10 <span class="dt">\</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>--left 01_Rawdata/<span class="pp">*</span>_1.fastq <span class="dt">\</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>--right 01_Rawdata/<span class="pp">*</span>_2.fastq <span class="dt">\</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>--pairs_together <span class="dt">\</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>--CPU 50 <span class="dt">\</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>--output 03_assembly</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Trinity <code>insilico_read_normalization.pl</code> uses forward and reverse reads input from <code>--left</code> and <code>–-right</code> parameters by reduce the maximum coverage depth (<code>--max_cov</code>) observed to 10x, and retain only paired reads in <code>--pairs_together</code>.</p>
+<p>The output file given as follow:</p>
+<pre><code>&lt;ls 03_assembly&gt;</code></pre>
+<section id="running-trinity" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="running-trinity"><span class="header-section-number">5.1</span> Running Trinity</h2>
+<p>Trinity is run via the script <code>Trinity</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Trinity</span> <span class="at">--seqType</span> fq <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>--max_memory 6G <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>--CPU 2 <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>--left 01_rawdata/left.fq <span class="dt">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>--right 01_rawdata/right.fq <span class="dt">\</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>--no_normalize_reads</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>By this command, Trinity take the input forward and reverse reads from <code>--left</code> and <code>–-right</code>, respectively. By default, de novo assembly with Trinity will perform in silico read normalization by itself. Since we have already normalized the sequence reads file prior to assembly, this step will skip the normalization step by add <code>--no_normalize_reads</code> to the command. All other arguments will use with the default parameters.</p>
+<p>The given results in <code>03_assembly</code> directory are:</p>
+<p>xxxxxxxx.</p>
+</section>
+<section id="transcript-assembly-quality-assessment" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="transcript-assembly-quality-assessment"><span class="header-section-number">5.2</span> Transcript Assembly Quality Assessment</h2>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="ref-grabherr2011" class="csl-entry" role="doc-biblioentry">
+Grabherr, Manfred G, Brian J Haas, Moran Yassour, Joshua Z Levin, Dawn A Thompson, Ido Amit, Xian Adiconis, Lin Fan, Raktima Raychowdhury, and Qiandong Zeng. 2011. <span>“Trinity: Reconstructing a Full-Length Transcriptome Without a Genome from RNA-Seq Data.”</span> <em>Nature Biotechnology</em> 29 (7): 644.
+</div>
+<div id="ref-haas2013" class="csl-entry" role="doc-biblioentry">
+Haas, Brian J, Alexie Papanicolaou, Moran Yassour, Manfred Grabherr, Philip D Blood, Joshua Bowden, Matthew Brian Couger, David Eccles, Bo Li, and Matthias Lieber. 2013. <span>“De Novo Transcript Sequence Reconstruction from RNA-Seq Using the Trinity Platform for Reference Generation and Analysis.”</span> <em>Nature Protocols</em> 8 (8): 1494–1512.
+</div>
+<div id="ref-martin_next-generation_2011" class="csl-entry" role="doc-biblioentry">
+Martin, Jeffrey A., and Zhong Wang. 2011. <span>“Next-Generation Transcriptome Assembly.”</span> <em>Nature Reviews Genetics</em> 12 (10): 671–82. <a href="https://doi.org/10.1038/nrg3068">https://doi.org/10.1038/nrg3068</a>.
+</div>
+</div>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
