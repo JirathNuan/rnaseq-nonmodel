@@ -234,7 +234,11 @@ div.csl-indent {
    
   <ul>
   <li><a href="#running-trinity" id="toc-running-trinity" class="nav-link active" data-scroll-target="#running-trinity"><span class="toc-section-number">5.1</span>  Running Trinity</a></li>
-  <li><a href="#transcript-assembly-quality-assessment" id="toc-transcript-assembly-quality-assessment" class="nav-link" data-scroll-target="#transcript-assembly-quality-assessment"><span class="toc-section-number">5.2</span>  Transcript Assembly Quality Assessment</a></li>
+  <li><a href="#transcript-assembly-quality-assessment" id="toc-transcript-assembly-quality-assessment" class="nav-link" data-scroll-target="#transcript-assembly-quality-assessment"><span class="toc-section-number">5.2</span>  Transcript Assembly Quality Assessment</a>
+  <ul class="collapse">
+  <li><a href="#examining-gene-and-contig-nx-statistics" id="toc-examining-gene-and-contig-nx-statistics" class="nav-link" data-scroll-target="#examining-gene-and-contig-nx-statistics"><span class="toc-section-number">5.2.1</span>  Examining gene and contig Nx statistics</a></li>
+  <li><a href="#benchmarking-universal-single-copy-orthologs-busco-analysis" id="toc-benchmarking-universal-single-copy-orthologs-busco-analysis" class="nav-link" data-scroll-target="#benchmarking-universal-single-copy-orthologs-busco-analysis"><span class="toc-section-number">5.2.2</span>  Benchmarking Universal Single-Copy Orthologs (BUSCO) analysis</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/JirathNuan/rnaseq-nonmodel/edit/main/05_denovo_assembly.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
@@ -258,7 +262,7 @@ div.csl-indent {
 
 </header>
 
-<p>Trinity is a promosing tool for de novo full-length transcriptome assembly that continually developed since 2011. Trinity assembles reads by constructs many individual de Bruijn graphs, each representing the transcriptional complexity at a given gene or locus, that originated from the different nucleotide in the same position, and then processes each graph independently to extract full-length splicing isoforms and to tease apart transcripts derived from paralogous genes <span class="citation" data-cites="grabherr2011 haas2013">(<a href="references.html#ref-grabherr2011" role="doc-biblioref">Grabherr et al. 2011</a>; <a href="references.html#ref-haas2013" role="doc-biblioref">Haas et al. 2013</a>)</span>. Each assembled contig is will refer to a transcript.</p>
+<p>Trinity is a promising tool for de novo full-length transcriptome assembly that continually developed since 2011. Trinity assembles reads by constructs many individual de Bruijn graphs, each representing the transcriptional complexity at a given gene or locus, that originated from the different nucleotide in the same position, and then processes each graph independently to extract full-length splicing isoforms and to tease apart transcripts derived from paralogous genes <span class="citation" data-cites="grabherr2011 haas2013">(<a href="references.html#ref-grabherr2011" role="doc-biblioref">Grabherr et al. 2011</a>; <a href="references.html#ref-haas2013" role="doc-biblioref">Haas et al. 2013</a>)</span>. Each assembled contig is will refer to a transcript.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src=".\assets/38_denovo_assembly_concept.png" class="img-fluid figure-img"></p>
@@ -295,6 +299,141 @@ div.csl-indent {
 </section>
 <section id="transcript-assembly-quality-assessment" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="transcript-assembly-quality-assessment"><span class="header-section-number">5.2</span> Transcript Assembly Quality Assessment</h2>
+<p>According to suggestions from Trinity wiki of <a href="https://github.com/trinityrnaseq/trinityrnaseq/wiki/Transcriptome-Assembly-Quality-Assessment">transcriptome assembly quality assessment</a>, it’s worth to determine how good of the quality of assembled transcript. Several approaches available for characterize the quality of your assembly. However, in this workshop we’ll perform only two approaches</p>
+<section id="examining-gene-and-contig-nx-statistics" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="examining-gene-and-contig-nx-statistics"><span class="header-section-number">5.2.1</span> Examining gene and contig Nx statistics</h3>
+<p>We can compute Nx statistics from the assembled transcripts, as well as GC content, number of assembled transcripts, mean and median of contig length. from <code>TrinityStats.pl</code> command.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Activity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The following script in the Trinity toolkit will compute these values for you like so:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Go to assembly directory</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Cpa_RNASeq/03_assembly</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run TrinityStats</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">TrinityStats.pl</span> trinity_out_dir.Trinity.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Expected time used: &gt; 1 min</p>
+</div>
+</div>
+<p>Expected output from the terminal screen:</p>
+<pre><code>################################
+## Counts of transcripts, etc.
+################################
+Total trinity 'genes':  49389
+Total trinity transcripts:      66772
+Percent GC: 66.62
+
+########################################
+Stats based on ALL transcript contigs:
+########################################
+
+        Contig N10: 4225
+        Contig N20: 3083
+        Contig N30: 2464
+        Contig N40: 2014
+        Contig N50: 1678
+
+        Median contig length: 758
+        Average contig: 1106.61
+        Total assembled bases: 73890513
+
+
+#####################################################
+## Stats based on ONLY LONGEST ISOFORM per 'GENE':
+#####################################################
+
+        Contig N10: 3987
+        Contig N20: 2871
+        Contig N30: 2280
+        Contig N40: 1862
+        Contig N50: 1531
+
+        Median contig length: 624
+        Average contig: 984.38
+        Total assembled bases: 48617582</code></pre>
+<p>The N10 through N50 values show the value of at least x% of number of assembled contigs have Nx nucleotide in length. For example, in contigs (isoform) level, the N50 indicates at least half (50%) of number of the assembled transcripts are 1,678 nucleotides in length, whereas N50 of the longest isoform that represent the gene is 1,531 nucleotides in length.</p>
+</section>
+<section id="benchmarking-universal-single-copy-orthologs-busco-analysis" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="benchmarking-universal-single-copy-orthologs-busco-analysis"><span class="header-section-number">5.2.2</span> Benchmarking Universal Single-Copy Orthologs (BUSCO) analysis</h3>
+<p>BUSCO reported the transcriptome assembly completeness by evaluate whether the set of assembly recovered a whole set of universal functional genes referred from orthologous sequence from neighbor species. BUSCO metric is complementary to technical metrics like N50 as we did using TrinityStats.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Activity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>BUSCO v4 and v5 use lineage datasets information from <a href="https://www.ezlab.org/orthodb.html">OrthoDB</a> v10. You can search all available lineage datasets using the following command:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Activate conda environment</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate busco</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># List all lineage datasets in OrthoDB v10</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">busco</span> <span class="at">--list-datasets</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>As of March 2023, more than 100 lineage datasets available in OrthoDB v10.</p>
+<p>Generally the lineage to select for your assessments should be the most specific lineage available, e.g.&nbsp;for assessing Cyanophora transcriptome assembly data you may choose the Viridiplantae or Chlorophyta lineages rather than the metazoa lineage. Here we’ll select Viridiplantae lineage dataset to evaluate the single-copy orthologs in Cyanophora assembled transcriptome using the following command.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Go to current working directory</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Cpa_RNASeq/03_assembly</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a directory of assessment results</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> assessment</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> assessment</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Run BUSCO</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="ex">busco</span> <span class="at">--mode</span> transcriptome <span class="dt">\</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>--in ../trinity_out_dir.Trinity.fasta <span class="dt">\</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>--lineage_dataset viridiplantae_odb10 <span class="dt">\</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>--out BUSCO_Viridiplantae <span class="dt">\</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>--cpu 2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Estimated time usage: ~30-35 min</p>
+<p>In this command, BUSCO runs in transcriptome mode by the required input file.</p>
+</div>
+</div>
+<p>The classification results from BUSCO will save to <code>BUSCO_Viridiplantae</code> in your working directory, as well as print out to the terminal as follow:</p>
+<pre><code>2023-03-08 00:05:05 INFO:       Results:        C:61.6%[S:42.8%,D:18.8%],F:16.0%,M:22.4%,n:425
+
+2023-03-08 00:05:06 INFO:
+
+        --------------------------------------------------
+        |Results from dataset viridiplantae_odb10         |
+        --------------------------------------------------
+        |C:61.6%[S:42.8%,D:18.8%],F:16.0%,M:22.4%,n:425   |
+        |262    Complete BUSCOs (C)                       |
+        |182    Complete and single-copy BUSCOs (S)       |
+        |80     Complete and duplicated BUSCOs (D)        |
+        |68     Fragmented BUSCOs (F)                     |
+        |95     Missing BUSCOs (M)                        |
+        |425    Total BUSCO groups searched               |
+        --------------------------------------------------</code></pre>
+<p>The BUSCO result shows the composition of the expected gene content within the assembled transcriptome. The BUSCO result can be divided into Complete and Single-Copy, Complete and Duplicated, Fragmented or Missing BUSCOs.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Activity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Now we’ll generate a BUSCO plot.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Working directory: cd ~/Cpa_RNASeq/03_assembly/assessment</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">generate_plot.py</span> <span class="at">--working_directory</span> BUSCO_Viridiplantae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Estimated time usage: &gt; 1 min</p>
+</div>
+</div>
+<p>Expected graphical should be as follows. And explanation on each type of BUSCO results can be found at the <a href="https://busco.ezlab.org/busco_userguide.html#interpreting-the-results">BUSCO’s Documentation</a>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/39_busco_figure.png" class="img-fluid figure-img" style="width:70.0%"></p>
+</figure>
+</div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
@@ -308,6 +447,7 @@ Haas, Brian J, Alexie Papanicolaou, Moran Yassour, Manfred Grabherr, Philip D Bl
 Martin, Jeffrey A., and Zhong Wang. 2011. <span>“Next-Generation Transcriptome Assembly.”</span> <em>Nature Reviews Genetics</em> 12 (10): 671–82. <a href="https://doi.org/10.1038/nrg3068">https://doi.org/10.1038/nrg3068</a>.
 </div>
 </div>
+</section>
 </section>
 
 </main> <!-- /main -->
