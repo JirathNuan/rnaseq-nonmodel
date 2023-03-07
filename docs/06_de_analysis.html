@@ -287,6 +287,7 @@ Activity
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Cpa_RNASeq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The working directory should contain the following subdirectories.</p></li>
 </ol>
+<!-- -->
 <pre><code>        Cpa_RNASeq
         ├── 01_Rawdata
         ├── 02_QC
@@ -346,18 +347,13 @@ Activity
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>According to the previous part, now we’ll organize the directory to make it tidy by moving all the results to the directory <code>04_ DE _analysis</code>.</p>
-<pre><code>``` bash
-# make sure you're in ~/Cpa_RNASeq directory so that you can move the file correctly. 
-mv dark* normal* 04_DE_analysis/
-```
-
-Then enter to the directory `04_DE_analysis`
-
-``` bash
-cd 04_DE_analysis
-ls ./*
-```</code></pre>
+<p>According to the previous part, now we’ll organize the directory to make it tidy by moving all the results to the directory <code>04_DE_analysis</code>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make sure you're in ~/Cpa_RNASeq directory so that you can move the file correctly. </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> dark<span class="pp">*</span> normal<span class="pp">*</span> 04_DE_analysis/</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Then enter to the directory `04_DE_analysis`</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> 04_DE_analysis</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> ./<span class="pp">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>Expected result:</p>

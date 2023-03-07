@@ -29,14 +29,14 @@ Now we will align and count reads mapped to the reference assembled transcripts 
 
     The working directory should contain the following subdirectories.
 
-```
-        Cpa_RNASeq
-        ├── 01_Rawdata
-        ├── 02_QC
-        ├── 03_assembly
-        ├── 04_DE_analysis
-        └── 05_annotation
-```
+<!-- -->
+
+            Cpa_RNASeq
+            ├── 01_Rawdata
+            ├── 02_QC
+            ├── 03_assembly
+            ├── 04_DE_analysis
+            └── 05_annotation
 
 2.  Estimating Transcript Abundance
 
@@ -56,14 +56,12 @@ Parameter descriptions of `align_and_estimate_abundance.pl`: the assembled trans
 
 A list of read files will be contained in the metadata file sample_list.tsv in the parameter `--samples_file`, which we have prepared for you. In short, the sample list will be prepared in a tab-delimited text file indicating the relationships between biological replicates. For example,
 
-```
-dark    dark_1  01_Rawdata/SRR8306034_1.fastq   01_Rawdata/SRR8306034_2.fastq
-dark    dark_2  01_Rawdata/SRR8306029_1.fastq   01_Rawdata/SRR8306029_2.fastq
-dark    dark_3  01_Rawdata/SRR8306028_1.fastq   01_Rawdata/SRR8306028_2.fastq
-normal_light    normal_light_1  01_Rawdata/SRR8306033_1.fastq   01_Rawdata/SRR8306033_2.fastq
-normal_light    normal_light_2  01_Rawdata/SRR8306032_1.fastq   01_Rawdata/SRR8306032_2.fastq
-normal_light    normal_light_3  01_Rawdata/SRR8306035_1.fastq   01_Rawdata/SRR8306035_2.fastq
-```
+    dark    dark_1  01_Rawdata/SRR8306034_1.fastq   01_Rawdata/SRR8306034_2.fastq
+    dark    dark_2  01_Rawdata/SRR8306029_1.fastq   01_Rawdata/SRR8306029_2.fastq
+    dark    dark_3  01_Rawdata/SRR8306028_1.fastq   01_Rawdata/SRR8306028_2.fastq
+    normal_light    normal_light_1  01_Rawdata/SRR8306033_1.fastq   01_Rawdata/SRR8306033_2.fastq
+    normal_light    normal_light_2  01_Rawdata/SRR8306032_1.fastq   01_Rawdata/SRR8306032_2.fastq
+    normal_light    normal_light_3  01_Rawdata/SRR8306035_1.fastq   01_Rawdata/SRR8306035_2.fastq
 
 The first column indicates the study experimental groups, followed by their biological replicates in the second column, and the forward and reverse sequence read files belong to their biological replicate. It's important that the file path begins with the directory in which you'll be working so that the programs can correctly route to the files.
 
@@ -71,68 +69,61 @@ Next, define the read count estimation tool in `--est_method`, in this workshop 
 
 Output results are created in the current working directory separately for experimental groups and biological replicates.
 
-```
-dark_1
-    ├── aux_info/
-    ├── cmd_info.json
-    ├── lib_format_counts.json
-    ├── libParams/
-    ├── logs/
-    ├── quant.sf
-    └── quant.sf.genes
-.
-.
-.
-normal_light_3
-    ├── aux_info/
-    ├── cmd_info.json
-    ├── lib_format_counts.json
-    ├── libParams/
-    ├── logs/
-    ├── quant.sf
-    └── quant.sf.genes
-```
+    dark_1
+        ├── aux_info/
+        ├── cmd_info.json
+        ├── lib_format_counts.json
+        ├── libParams/
+        ├── logs/
+        ├── quant.sf
+        └── quant.sf.genes
+    .
+    .
+    .
+    normal_light_3
+        ├── aux_info/
+        ├── cmd_info.json
+        ├── lib_format_counts.json
+        ├── libParams/
+        ├── logs/
+        ├── quant.sf
+        └── quant.sf.genes
 
 ::: callout-note
 ## Activity
 
-According to the previous part, now we'll organize the directory to make it tidy by moving all the results to the directory `04_ DE _analysis`.
+According to the previous part, now we'll organize the directory to make it tidy by moving all the results to the directory `04_DE_analysis`.
 
-    ``` bash
-    # make sure you're in ~/Cpa_RNASeq directory so that you can move the file correctly. 
-    mv dark* normal* 04_DE_analysis/
-    ```
+``` bash
+# make sure you're in ~/Cpa_RNASeq directory so that you can move the file correctly. 
+mv dark* normal* 04_DE_analysis/
 
-    Then enter to the directory `04_DE_analysis`
-
-    ``` bash
-    cd 04_DE_analysis
-    ls ./*
-    ```
+#Then enter to the directory `04_DE_analysis`
+cd 04_DE_analysis
+ls ./*
+```
 :::
 
 Expected result:
 
-```
-(trinity) jiratchaya@pslab1:~/Cpa_RNASeq/04_DE_analysis$ ls ./*
-./dark_1:
-aux_info  cmd_info.json  lib_format_counts.json  libParams  logs  quant.sf  quant.sf.genes
+    (trinity) jiratchaya@pslab1:~/Cpa_RNASeq/04_DE_analysis$ ls ./*
+    ./dark_1:
+    aux_info  cmd_info.json  lib_format_counts.json  libParams  logs  quant.sf  quant.sf.genes
 
-./dark_2:
-aux_info  cmd_info.json  lib_format_counts.json  libParams  logs  quant.sf  quant.sf.genes
+    ./dark_2:
+    aux_info  cmd_info.json  lib_format_counts.json  libParams  logs  quant.sf  quant.sf.genes
 
-./dark_3:
-aux_info  cmd_info.json  lib_format_counts.json  libParams  logs  quant.sf  quant.sf.genes
+    ./dark_3:
+    aux_info  cmd_info.json  lib_format_counts.json  libParams  logs  quant.sf  quant.sf.genes
 
-./normal_light_1:
-aux_info  cmd_info.json  lib_format_counts.json  libParams  logs  quant.sf  quant.sf.genes
+    ./normal_light_1:
+    aux_info  cmd_info.json  lib_format_counts.json  libParams  logs  quant.sf  quant.sf.genes
 
-./normal_light_2:
-aux_info  cmd_info.json  lib_format_counts.json  libParams  logs  quant.sf  quant.sf.genes
+    ./normal_light_2:
+    aux_info  cmd_info.json  lib_format_counts.json  libParams  logs  quant.sf  quant.sf.genes
 
-./normal_light_3:
-aux_info  cmd_info.json  lib_format_counts.json  libParams  logs  quant.sf  quant.sf.genes
-```
+    ./normal_light_3:
+    aux_info  cmd_info.json  lib_format_counts.json  libParams  logs  quant.sf  quant.sf.genes
 
 after running salmon you'll find output files:
 
@@ -149,11 +140,9 @@ knitr::kable(df[1:10,]) %>%
   kableExtra::kable_styling(full_width = F, font_size = 11)
 ```
 
-
 ## Building Transcript and Gene Expression Matrices
 
 We use gene-level abundance matrices with the filename `quant.sf.genes`, which are available in all results directories. In this step, the utility `abundance_estimates_to_matrix.pl` is used to combine all separate count matrices from the file `quant.sf.genes` in all result directories into a single matrix file. By using salmon as `--est_method` and specifying the parameter `--gene_trans_map`, a gene abundance matrix is created.
-
 
 ::: callout-note
 ## Activity
@@ -192,13 +181,11 @@ We use gene-level abundance matrices with the filename `quant.sf.genes`, which a
 
 ## Quality Control of Sample Read Counts and Biological Replicates
 
-Once you've performed quantification for each experimental group, it's good to examine the data to ensure that your biological replicates are well correlated, and also to investigate relationships among your samples. 
+Once you've performed quantification for each experimental group, it's good to examine the data to ensure that your biological replicates are well correlated, and also to investigate relationships among your samples.
 
 It is critical that you identify any obvious differences between the relationships between your sample and replicates, such as those resulting from accidental mislabeling of sample replicates, strong outliers, or batch effects, prior to further data analysis.
 
 The Trinity's utility called `PtR` (pronounced as 'Peter', stands for Perl to R) can generate some exploratory data analysis that rely on count matrix, such as compare difference between replicate, compare difference between experimental groups, principal component analysis, and so on.
-
-
 
 ::: callout-note
 ## Activity
@@ -241,19 +228,15 @@ You're in `~/Cpa_RNASeq/04_DE_analysis`
         normal_light    normal_light_1
         normal_light    normal_light_2
         normal_light    normal_light_3
-
 :::
-
 
 ### Compare replicates for each of your samples
 
 This step will use PtR to reads the matrix of counts, performs a counts-per-million (CPM) data transformation followed by a log2 transform, and then generates a multi-page pdf file `named ${sample}.rep_compare.pdf` for each of your samples, including several useful plots
 
-
 ::: callout-note
+## Activity
 
-## Activity 
-    
     Compare replicates for each of your samples
 
     ``` bash
@@ -262,27 +245,23 @@ This step will use PtR to reads the matrix of counts, performs a counts-per-mill
     --min_rowSums 10 \
     --compare_replicates
     ```
-::: 
+:::
 
 These files will append more to your current working directories:
 
-```
--rw-rw---- 1 root PSLab    4695 Mar  6 14:37 salmon.isoform.counts.matrix.R
--rw-rw---- 1 root PSLab 1990182 Mar  6 14:37 dark.rep_compare.pdf
--rw-rw---- 1 root PSLab 1828692 Mar  6 14:37 normal_light.rep_compare.pdf
--rw-rw---- 1 root PSLab 3558147 Mar  6 14:37 salmon.isoform.counts.matrix.minRow10.CPM.log2.dat
-```
+    -rw-rw---- 1 root PSLab    4695 Mar  6 14:37 salmon.isoform.counts.matrix.R
+    -rw-rw---- 1 root PSLab 1990182 Mar  6 14:37 dark.rep_compare.pdf
+    -rw-rw---- 1 root PSLab 1828692 Mar  6 14:37 normal_light.rep_compare.pdf
+    -rw-rw---- 1 root PSLab 3558147 Mar  6 14:37 salmon.isoform.counts.matrix.minRow10.CPM.log2.dat
 
 The last 3 files are newly generated by this step. There's two PDF files separated by experimental groups, `dark.rep_compare.pdf` and `normal_light.rep_compare.pdf`, and raw data for plots in `.dat` file.
 
 ![Example result of comparing biological replicates in Dark samples. The figures were captured from `dark.rep_compare.pdf` file. (A) The sum of mapped fragments. (B) Pairwise comparisons of replicate log(CPM) values, in which the data points more than 2-fold different are highlighted in red. (C) The pairwise MA plots (x-axis: mean log(CPM), y-axis log(fold_change)). And, (D) A Replicate Pearson correlation heatmap.](/assets/32_trinity_compare_reps.png){fig-align="center" width="70%"}
 
-
 ### Compare Replicates Across Samples
 
 ::: callout-note
-
-## Activity 
+## Activity
 
 This command will generate a useful heatmap of pearson correlation matrix of samples from two different experimental groups.
 
@@ -297,29 +276,21 @@ This command will generate a useful heatmap of pearson correlation matrix of sam
 
 These files will append more to your current working directories:
 
-```
--rw-rw---- 1 root PSLab    4012 Mar  6 15:02 salmon.isoform.counts.matrix.R
--rw-rw---- 1 root PSLab 3558147 Mar  6 15:02 salmon.isoform.counts.matrix.minRow10.CPM.log2.dat
--rw-rw---- 1 root PSLab     678 Mar  6 15:02 salmon.isoform.counts.matrix.minRow10.CPM.log2.sample_cor.dat
--rw-rw---- 1 root PSLab    6429 Mar  6 15:02 salmon.isoform.counts.matrix.minRow10.CPM.log2.sample_cor_matrix.pdf
-```
+    -rw-rw---- 1 root PSLab    4012 Mar  6 15:02 salmon.isoform.counts.matrix.R
+    -rw-rw---- 1 root PSLab 3558147 Mar  6 15:02 salmon.isoform.counts.matrix.minRow10.CPM.log2.dat
+    -rw-rw---- 1 root PSLab     678 Mar  6 15:02 salmon.isoform.counts.matrix.minRow10.CPM.log2.sample_cor.dat
+    -rw-rw---- 1 root PSLab    6429 Mar  6 15:02 salmon.isoform.counts.matrix.minRow10.CPM.log2.sample_cor_matrix.pdf
 
 ![heatmap of pearson correlation coefficiant between Dark and Normal light samples.](/assets/33_sample_corr.png){fig-align="center" width="70%"}
 
-
-
-
 ### Principal Component Analysis (PCA)
 
-Another important analysis method to explore relationships among the sample replicates is Principal Component Analysis (PCA). 
+Another important analysis method to explore relationships among the sample replicates is Principal Component Analysis (PCA).
 
-You can find more explanation about PCA here:
-- https://blog.bioturing.com/2018/06/14/principal-component-analysis-explained-simply/
-- https://youtu.be/FgakZw6K1QQ
+You can find more explanation about PCA here: - https://blog.bioturing.com/2018/06/14/principal-component-analysis-explained-simply/ - https://youtu.be/FgakZw6K1QQ
 
 ::: callout-note
-
-## Activity 
+## Activity
 
 ``` bash
     PtR --matrix salmon.isoform.counts.matrix \
@@ -328,18 +299,15 @@ You can find more explanation about PCA here:
     --CPM --center_rows \
     --prin_comp 3
 ```
-
 :::
 
 These files will append more to your current working directories:
 
-```
--rw-rw---- 1 root PSLab    4789 Mar  6 15:18 salmon.isoform.counts.matrix.R
--rw-rw---- 1 root PSLab 4069112 Mar  6 15:18 salmon.isoform.counts.matrix.minRow10.CPM.log2.centered.dat
--rw-rw---- 1 root PSLab     756 Mar  6 15:18 salmon.isoform.counts.matrix.minRow10.CPM.log2.centered.PCA.prcomp.scores
--rw-rw---- 1 root PSLab 4163653 Mar  6 15:18 salmon.isoform.counts.matrix.minRow10.CPM.log2.centered.PCA.prcomp.loadings
--rw-rw---- 1 root PSLab    5446 Mar  6 15:18 salmon.isoform.counts.matrix.minRow10.CPM.log2.centered.prcomp.principal_components.pdf
-```
+    -rw-rw---- 1 root PSLab    4789 Mar  6 15:18 salmon.isoform.counts.matrix.R
+    -rw-rw---- 1 root PSLab 4069112 Mar  6 15:18 salmon.isoform.counts.matrix.minRow10.CPM.log2.centered.dat
+    -rw-rw---- 1 root PSLab     756 Mar  6 15:18 salmon.isoform.counts.matrix.minRow10.CPM.log2.centered.PCA.prcomp.scores
+    -rw-rw---- 1 root PSLab 4163653 Mar  6 15:18 salmon.isoform.counts.matrix.minRow10.CPM.log2.centered.PCA.prcomp.loadings
+    -rw-rw---- 1 root PSLab    5446 Mar  6 15:18 salmon.isoform.counts.matrix.minRow10.CPM.log2.centered.prcomp.principal_components.pdf
 
 You can find the PCA plot in `salmon.isoform.counts.matrix.minRow10.CPM.log2.centered.prcomp.principal_components.pdf`.
 
@@ -347,17 +315,15 @@ You can find the PCA plot in `salmon.isoform.counts.matrix.minRow10.CPM.log2.cen
 
 We set the number of principal components (PC) to be calculated for only first 3 PCs in `--prin_comp`. Which indicates that these PCs will be plotted, as shown above, with PC1 vs. PC2 and PC2 vs. PC3. In this example, the replicates cluster tightly according to sample type, which is very reassuring.
 
-
-
 ## Differential Expression Analysis
 
-Trinity also contains a built-in utility for DE analysis called `run_DE_analysis.pl`, in which use the count matrix and sample metadata file. Trinity provides support for several differential expression analysis tools, currently including edgeR, DESeq2, limma/voom, and ROTS. 
+Trinity also contains a built-in utility for DE analysis called `run_DE_analysis.pl`, in which use the count matrix and sample metadata file. Trinity provides support for several differential expression analysis tools, currently including edgeR, DESeq2, limma/voom, and ROTS.
 
-DE analysis in Trinity will perform pairwise comparison of gene/transcript expression. If the biological replicates are presented for each sample, you should indicate this as we already created in our metadata table `samples.txt`. Here we'll analyze DE genes in the 'transcript' level using the `salmon.isoform.counts.matrix` file. 
-
+DE analysis in Trinity will perform pairwise comparison of gene/transcript expression. If the biological replicates are presented for each sample, you should indicate this as we already created in our metadata table `samples.txt`. Here we'll analyze DE genes in the 'transcript' level using the `salmon.isoform.counts.matrix` file.
 
 ::: callout-note
 ## Activity
+
 DE analysis using DESeq2
 
 ``` bash
@@ -371,28 +337,24 @@ run_DE_analysis.pl \
 
 After run the above command, the following directory will append to your current working directory:
 
-```
-drwxrwx--- 1 root PSLab     688 Mar  6 15:42 DESeq2_result
-```
+    drwxrwx--- 1 root PSLab     688 Mar  6 15:42 DESeq2_result
+
 In this output directory, you'll find the following files for each of the pairwise comparisons performed:
 
-```
--rw-rw---- 1 root PSLab  972633 Mar  6 15:42 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.count_matrix
--rw-rw---- 1 root PSLab 4247784 Mar  6 15:42 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results
--rw-rw---- 1 root PSLab 2428272 Mar  6 15:42 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.MA_n_Volcano.pdf
--rw-rw---- 1 root PSLab    1845 Mar  6 15:42 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.Rscript
-```
+    -rw-rw---- 1 root PSLab  972633 Mar  6 15:42 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.count_matrix
+    -rw-rw---- 1 root PSLab 4247784 Mar  6 15:42 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results
+    -rw-rw---- 1 root PSLab 2428272 Mar  6 15:42 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.MA_n_Volcano.pdf
+    -rw-rw---- 1 root PSLab    1845 Mar  6 15:42 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.Rscript
 
 Result explanations:
 
-- `salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.Rscript` is the R-script executed to perform the DE analysis.
+-   `salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.Rscript` is the R-script executed to perform the DE analysis.
 
-- `salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.count_matrix` is an integer matrix of read count derived from the input file `salmon.isoform.counts.matrix`.
+-   `salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.count_matrix` is an integer matrix of read count derived from the input file `salmon.isoform.counts.matrix`.
 
-- `salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results` is the DE analysis results, including log fold change and statistical significance.
+-   `salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results` is the DE analysis results, including log fold change and statistical significance.
 
-- `salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.MA_n_Volcano.pdf` is MA and Volcano plots features found DE at the defined FDR will be colored red.
-
+-   `salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.MA_n_Volcano.pdf` is MA and Volcano plots features found DE at the defined FDR will be colored red.
 
 Here's an example of DE analysis result file (`salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results`):
 
@@ -403,15 +365,13 @@ knitr::kable(df[1:10,]) %>%
   kableExtra::kable_styling(full_width = F, font_size = 11)
 ```
 
-
 An example of volcano plot for transcript-level differentially expression analysis.
 
 ![(left) MA plot and (right) volcano plot.](/assets/35_DE_plots.png)
 
-
 ## Extracting and clustering differentially expressed transcripts
 
-An initial step in analyzing differential expression is to extract those transcripts that are most differentially expressed (most significant FDR and fold-changes) and to cluster the transcripts according to their patterns of differential expression across the samples. 
+An initial step in analyzing differential expression is to extract those transcripts that are most differentially expressed (most significant FDR and fold-changes) and to cluster the transcripts according to their patterns of differential expression across the samples.
 
 ::: callout-note
 ## Activity
@@ -429,55 +389,46 @@ analyze_diff_expr.pl \
 ```
 :::
 
-The above command use an integer count matrix from DE analysis, and define criteria for extracting differentially expressed transcripts. For example, set p-value cutoff for FDR in `-P` to 0.001, set minimum absolute log 2-fold change criteria in `-C` to 2, meaning that it will extracted only the DE transcripts that are 2^2 = 4-fold, and use only top 10,000 among all differentially transcripts in `--max_genes_clust` for hierarchical clustering analysis. However, user can customize these criteria based on their interest.
+The above command use an integer count matrix from DE analysis, and define criteria for extracting differentially expressed transcripts. For example, set p-value cutoff for FDR in `-P` to 0.001, set minimum absolute log 2-fold change criteria in `-C` to 2, meaning that it will extracted only the DE transcripts that are 2\^2 = 4-fold, and use only top 10,000 among all differentially transcripts in `--max_genes_clust` for hierarchical clustering analysis. However, user can customize these criteria based on their interest.
 
 The following results will append to the current working directory `DESeq2_result`
 
-```
--rw-rw---- 1 root PSLab      120 Mar  6 16:34 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.samples
--rw-rw---- 1 root PSLab   332012 Mar  6 16:34 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P0.001_C2.dark-UP.subset
--rw-rw---- 1 root PSLab    42038 Mar  6 16:34 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P0.001_C2.normal_light-UP.subset
--rw-rw---- 1 root PSLab   373901 Mar  6 16:34 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P0.001_C2.DE.subset
--rw-rw---- 1 root PSLab       51 Mar  6 16:34 DE_feature_counts.P0.001_C2.matrix
--rw-rw---- 1 root PSLab    73959 Mar  6 16:34 diffExpr.P0.001_C2.matrix
--rw-rw---- 1 root PSLab     4649 Mar  6 16:34 diffExpr.P0.001_C2.matrix.R
--rw-rw---- 1 root PSLab   246973 Mar  6 16:34 diffExpr.P0.001_C2.matrix.log2.centered.dat
--rw-rw---- 1 root PSLab      698 Mar  6 16:34 diffExpr.P0.001_C2.matrix.log2.centered.sample_cor.dat
--rw-rw---- 1 root PSLab     6399 Mar  6 16:34 diffExpr.P0.001_C2.matrix.log2.centered.sample_cor_matrix.pdf
--rw-rw---- 1 root PSLab   101250 Mar  6 16:34 diffExpr.P0.001_C2.matrix.log2.centered.genes_vs_samples_heatmap.pdf
--rw-rw---- 1 root PSLab 14777602 Mar  6 16:34 diffExpr.P0.001_C2.matrix.RData
-```
+    -rw-rw---- 1 root PSLab      120 Mar  6 16:34 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.samples
+    -rw-rw---- 1 root PSLab   332012 Mar  6 16:34 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P0.001_C2.dark-UP.subset
+    -rw-rw---- 1 root PSLab    42038 Mar  6 16:34 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P0.001_C2.normal_light-UP.subset
+    -rw-rw---- 1 root PSLab   373901 Mar  6 16:34 salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P0.001_C2.DE.subset
+    -rw-rw---- 1 root PSLab       51 Mar  6 16:34 DE_feature_counts.P0.001_C2.matrix
+    -rw-rw---- 1 root PSLab    73959 Mar  6 16:34 diffExpr.P0.001_C2.matrix
+    -rw-rw---- 1 root PSLab     4649 Mar  6 16:34 diffExpr.P0.001_C2.matrix.R
+    -rw-rw---- 1 root PSLab   246973 Mar  6 16:34 diffExpr.P0.001_C2.matrix.log2.centered.dat
+    -rw-rw---- 1 root PSLab      698 Mar  6 16:34 diffExpr.P0.001_C2.matrix.log2.centered.sample_cor.dat
+    -rw-rw---- 1 root PSLab     6399 Mar  6 16:34 diffExpr.P0.001_C2.matrix.log2.centered.sample_cor_matrix.pdf
+    -rw-rw---- 1 root PSLab   101250 Mar  6 16:34 diffExpr.P0.001_C2.matrix.log2.centered.genes_vs_samples_heatmap.pdf
+    -rw-rw---- 1 root PSLab 14777602 Mar  6 16:34 diffExpr.P0.001_C2.matrix.RData
 
 Result explanations:
 
-- `salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.samples` is identical to the metadata `samples.txt` file.
+-   `salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.samples` is identical to the metadata `samples.txt` file.
 
-- `salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P0.001_C2.dark-UP.subset` is the subset of expression matrix of up-regulated transcripts in Dark group, which are down-regulated in Normal light group.
+-   `salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P0.001_C2.dark-UP.subset` is the subset of expression matrix of up-regulated transcripts in Dark group, which are down-regulated in Normal light group.
 
-- `salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P0.001_C2.normal_light-UP.subset` is the subset of expression matrix of up-regulated transcripts in Normal light group, which are down-regulated in Dark group.
+-   `salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P0.001_C2.normal_light-UP.subset` is the subset of expression matrix of up-regulated transcripts in Normal light group, which are down-regulated in Dark group.
 
-- `salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P0.001_C2.DE.subset` is a summary of DE transcripts results containing columns of significant values, and its normalized expression value.
+-   `salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P0.001_C2.DE.subset` is a summary of DE transcripts results containing columns of significant values, and its normalized expression value.
 
-- `diffExpr.P0.001_C2.matrix.log2.centered.sample_cor_matrix.pdf` is the sample correlation matrix, as follow.
+-   `diffExpr.P0.001_C2.matrix.log2.centered.sample_cor_matrix.pdf` is the sample correlation matrix, as follow.
 
 ![Sample correlation matrix visualized only for differentially expressed transcripts.](/assets/35_DE_sample_cor.png)
 
-
-- `diffExpr.P0.001_C2.matrix.log2.centered.genes_vs_samples_heatmap.pdf` is heatmap of differentially expressed transcripts. 
+-   `diffExpr.P0.001_C2.matrix.log2.centered.genes_vs_samples_heatmap.pdf` is heatmap of differentially expressed transcripts.
 
 ![Heatmap of differentially expressed transcripts.](/assets/36_DE_heatmap.png)
 
-
-
-
-
-
-## DE gene patterning and clustering analysis 
+## DE gene patterning and clustering analysis
 
 In the heat map of differentially expressed transcripts, there is a clear difference between the DE transcripts under dark and normal light conditions. Therefore, using `define_clusters_by_cutting_tree.pl`, we can divide these genes into clusters based on the same trend of expression values as follows.
 
 ::: callout-note
-
 ## Activity
 
 Automatically Partitioning Genes into Expression Clusters
@@ -493,25 +444,18 @@ There are three different methods for dividing genes into clusters, K-Means clus
 
 The following results will append to the current working directory `DESeq2_result` which are files and `diffExpr.P0.001_C2.matrix.RData.clusters_fixed_P_60/` directory.
 
-```
--rw-rw---- 1 root PSLab    45837 Mar  6 16:51 clusters_fixed_P_60.heatmap.heatmap_gene_order.txt
--rw-rw---- 1 root PSLab    61467 Mar  6 16:51 clusters_fixed_P_60.heatmap.gene_cluster_colors.dat
--rw-rw---- 1 root PSLab   110890 Mar  6 16:51 clusters_fixed_P_60.heatmap.heatmap.pdf
-drwxrwx--- 1 root PSLab      400 Mar  6 16:51 diffExpr.P0.001_C2.matrix.RData.clusters_fixed_P_60/
-```
+    -rw-rw---- 1 root PSLab    45837 Mar  6 16:51 clusters_fixed_P_60.heatmap.heatmap_gene_order.txt
+    -rw-rw---- 1 root PSLab    61467 Mar  6 16:51 clusters_fixed_P_60.heatmap.gene_cluster_colors.dat
+    -rw-rw---- 1 root PSLab   110890 Mar  6 16:51 clusters_fixed_P_60.heatmap.heatmap.pdf
+    drwxrwx--- 1 root PSLab      400 Mar  6 16:51 diffExpr.P0.001_C2.matrix.RData.clusters_fixed_P_60/
 
+List of files in `diffExpr.P0.001_C2.matrix.RData.clusters_fixed_P_60/` directory are:
 
-List of files in  `diffExpr.P0.001_C2.matrix.RData.clusters_fixed_P_60/` directory are: 
-
-```
--rw-rw---- 1 root PSLab  43915 Mar  6 16:51 my_cluster_plots.pdf
--rw-rw---- 1 root PSLab 220780 Mar  6 16:51 subcluster_1_log2_medianCentered_fpkm.matrix
--rw-rw---- 1 root PSLab  26259 Mar  6 16:51 subcluster_2_log2_medianCentered_fpkm.matrix
--rw-rw---- 1 root PSLab    816 Mar  6 16:51 __tmp_plot_clusters.R
-```
+    -rw-rw---- 1 root PSLab  43915 Mar  6 16:51 my_cluster_plots.pdf
+    -rw-rw---- 1 root PSLab 220780 Mar  6 16:51 subcluster_1_log2_medianCentered_fpkm.matrix
+    -rw-rw---- 1 root PSLab  26259 Mar  6 16:51 subcluster_2_log2_medianCentered_fpkm.matrix
+    -rw-rw---- 1 root PSLab    816 Mar  6 16:51 __tmp_plot_clusters.R
 
 The DE transcript partiitoning and clustering is located in `my_cluster_plots.pdf`
 
 ![DE transcript partiitoning and clustering analysis](/assets/37_DE_partition.png)
-
-

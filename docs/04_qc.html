@@ -358,7 +358,8 @@ Activity
 <p>Run FastQC all file at once. Here, we’ll use a wildcard <code>*.fastq</code> to select all FASTQ files in 01_Rawdata directory. We also specify number of CPU threads in <code>--threads</code> and QC output files in 02_QC/fastQC_before_trim using <code>--outdir</code> argument.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="at">--outdir</span> 02_QC/fastQC_before_trim <span class="dt">\</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>--threads 2 <span class="dt">\</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>01_Rawdata/<span class="pp">*</span>.fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>/opt/Cpa_RNASeq/01_Rawdata/<span class="pp">*</span>.fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Estimated time: ~10min</p>
 </div>
 </div>
 </section>
@@ -507,6 +508,7 @@ Activity
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">multiqc</span> <span class="at">--filename</span> QCreport_before_trim <span class="dt">\</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>--outdir 02_QC/ <span class="dt">\</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>--dirs 02_QC/fastQC_before_trim/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Estimated time: &gt; 1 min</p>
 <p>Output files:</p>
 <pre><code>- QCreport_before_trim_data
    ├── multiqc_citations.txt

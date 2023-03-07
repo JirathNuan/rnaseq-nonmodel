@@ -82,8 +82,11 @@ Run FastQC all file at once. Here, we'll use a wildcard `*.fastq` to select all 
 ``` bash
 fastqc --outdir 02_QC/fastQC_before_trim \
 --threads 2 \
-01_Rawdata/*.fastq
+/opt/Cpa_RNASeq/01_Rawdata/*.fastq
 ```
+
+Estimated time: ~10min
+
 :::
 
 ## Interpreting FastQC results
@@ -192,6 +195,8 @@ multiqc --filename QCreport_before_trim \
 --outdir 02_QC/ \
 --dirs 02_QC/fastQC_before_trim/
 ```
+
+Estimated time: > 1 min
 
 Output files:
 
