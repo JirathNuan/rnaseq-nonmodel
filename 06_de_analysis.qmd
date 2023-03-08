@@ -23,34 +23,37 @@ Now we will align and count reads mapped to the reference assembled transcripts 
 
 1.  Go to working directory
 
-    ``` bash
-    cd ~/Cpa_RNASeq
-    ```
+``` bash
+cd ~/Cpa_RNASeq
+```
 
-    The working directory should contain the following subdirectories.
+The working directory should contain the following subdirectories.
 
-<!-- -->
-
-            Cpa_RNASeq
-            ├── 01_Rawdata
-            ├── 02_QC
-            ├── 03_assembly
-            ├── 04_DE_analysis
-            └── 05_annotation
+```
+Cpa_RNASeq
+    ├── 01_Rawdata
+    ├── 02_QC
+    ├── 03_assembly
+    ├── 04_DE_analysis
+    └── 05_annotation
+```
 
 2.  Estimating Transcript Abundance
 
-    ``` bash
-    align_and_estimate_abundance.pl \
-    --transcripts 03_assembly/trinity_out_dir.Trinity.fasta \
-    --seqType fq \
-    --samples_file sample_list.tsv \
-    --est_method salmon \
-    --gene_trans_map 03_assembly/trinity_out_dir.Trinity.fasta.gene_trans_map \
-    --thread_count 2 \
-    --prep_reference
-    ```
+``` bash
+align_and_estimate_abundance.pl \
+--transcripts 03_assembly/Trinity_2023-03-08.Trinity.fasta \
+--seqType fq \
+--samples_file /opt/Cpa_RNASeq/sample_list.tsv \
+--est_method salmon \
+--gene_trans_map 03_assembly/Trinity_2023-03-08.Trinity.fasta.gene_trans_map \
+--thread_count 2 \
+--prep_reference
+```
 :::
+
+Estimated time usage: ~ 15 min per user
+
 
 Parameter descriptions of `align_and_estimate_abundance.pl`: the assembled transcripts flagged in `--transcripts`, `--seqType` indicates file format of reads that will be mappped to the reference transcripts.
 
@@ -98,7 +101,7 @@ According to the previous part, now we'll organize the directory to make it tidy
 # make sure you're in ~/Cpa_RNASeq directory so that you can move the file correctly. 
 mv dark* normal* 04_DE_analysis/
 
-#Then enter to the directory `04_DE_analysis`
+# Then enter to the directory `04_DE_analysis`
 cd 04_DE_analysis
 ls ./*
 ```
@@ -151,7 +154,7 @@ We use gene-level abundance matrices with the filename `quant.sf.genes`, which a
 
     ``` bash
     abundance_estimates_to_matrix.pl --est_method salmon \
-    --gene_trans_map ../03_assembly/trinity_out_dir.Trinity.fasta.gene_trans_map \
+    --gene_trans_map ../03_assembly/Trinity_2023-03-08.Trinity.fasta.gene_trans_map \
     --name_sample_by_basedir \
     */quant.sf
     ```
@@ -202,21 +205,10 @@ You're in `~/Cpa_RNASeq/04_DE_analysis`
 
     The sample metadata table for analysis DE is different from the table used to estimate abundance. We only need the first two columns from this file to create a metadata table for analysis from DE. Therefore, we can use the following Bash command to create and edit a new file.
 
-    ``` bash
-    # Go to ~/Cpa_RNASeq directory by change to upper directory
-    cd ..
-    ```
-
     Extract first 2 columns of the metadata for estimating read count to to a new file in `04_DE_analysis`
 
     ``` bash
-    cut -f 1-2 sample_list.tsv > 04_DE_analysis/samples.txt
-    ```
-
-    Then dive back into 04_DE_analysis directory
-
-    ``` bash
-    cd 04_DE_analysis
+    cut -f 1-2 /opt/Cpa_RNASeq/sample_list.tsv > samples.txt
     ```
 
     See expected result file
@@ -240,6 +232,7 @@ This step will use PtR to reads the matrix of counts, performs a counts-per-mill
     Compare replicates for each of your samples
 
     ``` bash
+    # Current workdir: /home/jiratchaya/Cpa_RNASeq/04_DE_analysis
     PtR --matrix salmon.isoform.counts.matrix \
     --samples samples.txt --log2 --CPM \
     --min_rowSums 10 \
@@ -383,8 +376,8 @@ Extracting and clustering differentially expressed transcripts can run using the
 ``` bash
 cd DESeq2_result/
 analyze_diff_expr.pl \
---matrix salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.count_matrix \
--P 0.001 \
+--matrix ../salmon.isoform.counts.matrix \
+-P 1e-3 \
 -C 2 \
 --samples ../samples.txt \
 --max_genes_clust 10000
@@ -437,7 +430,7 @@ Automatically Partitioning Genes into Expression Clusters
 
 ``` bash
 define_clusters_by_cutting_tree.pl \
--R diffExpr.P0.001_C2.matrix.RData \
+-R diffExpr.*.matrix.RData \
 --Ptree 60
 ```
 :::
@@ -461,3 +454,35 @@ List of files in `diffExpr.P0.001_C2.matrix.RData.clusters_fixed_P_60/` director
 The DE transcript partiitoning and clustering is located in `my_cluster_plots.pdf`
 
 ![DE transcript partiitoning and clustering analysis](/assets/37_DE_partition.png)
+
+
+
+Then, we'll subset the assembled transcriptome for only differentially expressed genes for functional annotation analysis in the next chapter.
+
+
+::: callout-note
+
+## Activity
+
+We'll subset the transcriptome assembly using the following command. By extract only the first column of DEG table. The current working directory is `~/Cpa_RNASeq/04_DE_analysis/DESeq2_result`.
+
+``` bash
+awk '{print $1}' salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.*.DE.subset > DEG_seqName.txt
+```
+
+Then, go to parent working directory
+
+``` bash
+cd ..
+```
+
+And extract DEG sequence from assembly file look up by DEG sequence name that we picked up from the previous command.
+
+```bash
+retrieve_sequences_from_fasta.pl DESeq2_result/DEG_seqName.txt \
+../03_assembly/Trinity_2023-03-08.Trinity.fasta > DEG_sequence.fasta
+```
+
+Estimated time usage: ~2 min
+
+:::

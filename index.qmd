@@ -2,6 +2,4 @@
 
 Welcome to the book of Transcriptome Data Analysis in Non-Model Organisms.
 
-![A confusion matrix](https://pbs.twimg.com/media/FJfsxC8WYA4Rl8W.jpg:large)
-
-We'll update this page ASAP!
+![A confusion matrix. From twitter [\@ninadoak](https://twitter.com/ninadoak/status/1483915521116549122/photo/1).](assets/cover.jpg){fig-align="center" width="100%"}

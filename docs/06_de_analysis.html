@@ -283,30 +283,30 @@ Activity
 <div class="callout-body-container callout-body">
 <p>Now we will align and count reads mapped to the reference assembled transcripts using buit-in utility <code>align_and_estimate_abundance.pl</code> using the following commands.</p>
 <ol type="1">
-<li><p>Go to working directory</p>
+<li>Go to working directory</li>
+</ol>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Cpa_RNASeq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The working directory should contain the following subdirectories.</p></li>
-</ol>
-<!-- -->
-<pre><code>        Cpa_RNASeq
-        ├── 01_Rawdata
-        ├── 02_QC
-        ├── 03_assembly
-        ├── 04_DE_analysis
-        └── 05_annotation</code></pre>
+<p>The working directory should contain the following subdirectories.</p>
+<pre><code>Cpa_RNASeq
+    ├── 01_Rawdata
+    ├── 02_QC
+    ├── 03_assembly
+    ├── 04_DE_analysis
+    └── 05_annotation</code></pre>
 <ol start="2" type="1">
-<li><p>Estimating Transcript Abundance</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">align_and_estimate_abundance.pl</span> <span class="dt">\</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>--transcripts 03_assembly/trinity_out_dir.Trinity.fasta <span class="dt">\</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>--seqType fq <span class="dt">\</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>--samples_file sample_list.tsv <span class="dt">\</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>--est_method salmon <span class="dt">\</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>--gene_trans_map 03_assembly/trinity_out_dir.Trinity.fasta.gene_trans_map <span class="dt">\</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>--thread_count 2 <span class="dt">\</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>--prep_reference</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li>Estimating Transcript Abundance</li>
 </ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">align_and_estimate_abundance.pl</span> <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>--transcripts 03_assembly/Trinity_2023-03-08.Trinity.fasta <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>--seqType fq <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>--samples_file /opt/Cpa_RNASeq/sample_list.tsv <span class="dt">\</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>--est_method salmon <span class="dt">\</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>--gene_trans_map 03_assembly/Trinity_2023-03-08.Trinity.fasta.gene_trans_map <span class="dt">\</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>--thread_count 2 <span class="dt">\</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>--prep_reference</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
+<p>Estimated time usage: ~ 15 min per user</p>
 <p>Parameter descriptions of <code>align_and_estimate_abundance.pl</code>: the assembled transcripts flagged in <code>--transcripts</code>, <code>--seqType</code> indicates file format of reads that will be mappped to the reference transcripts.</p>
 <p>A list of read files will be contained in the metadata file sample_list.tsv in the parameter <code>--samples_file</code>, which we have prepared for you. In short, the sample list will be prepared in a tab-delimited text file indicating the relationships between biological replicates. For example,</p>
 <pre><code>dark    dark_1  01_Rawdata/SRR8306034_1.fastq   01_Rawdata/SRR8306034_2.fastq
@@ -351,7 +351,7 @@ Activity
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make sure you're in ~/Cpa_RNASeq directory so that you can move the file correctly. </span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> dark<span class="pp">*</span> normal<span class="pp">*</span> 04_DE_analysis/</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Then enter to the directory `04_DE_analysis`</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Then enter to the directory `04_DE_analysis`</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> 04_DE_analysis</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> ./<span class="pp">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -487,7 +487,7 @@ Activity
 <ol type="1">
 <li><p>Create abundance matrix</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">abundance_estimates_to_matrix.pl</span> <span class="at">--est_method</span> salmon <span class="dt">\</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>--gene_trans_map ../03_assembly/trinity_out_dir.Trinity.fasta.gene_trans_map <span class="dt">\</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>--gene_trans_map ../03_assembly/Trinity_2023-03-08.Trinity.fasta.gene_trans_map <span class="dt">\</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>--name_sample_by_basedir <span class="dt">\</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="pp">*</span>/quant.sf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Expected result:</p>
@@ -535,12 +535,8 @@ Activity
 <ol type="1">
 <li><p>Prepare sample metadata from differential expression (DE) analysis</p>
 <p>The sample metadata table for analysis DE is different from the table used to estimate abundance. We only need the first two columns from this file to create a metadata table for analysis from DE. Therefore, we can use the following Bash command to create and edit a new file.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Go to ~/Cpa_RNASeq directory by change to upper directory</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Extract first 2 columns of the metadata for estimating read count to to a new file in <code>04_DE_analysis</code></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f</span> 1-2 sample_list.tsv <span class="op">&gt;</span> 04_DE_analysis/samples.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Then dive back into 04_DE_analysis directory</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> 04_DE_analysis</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f</span> 1-2 /opt/Cpa_RNASeq/sample_list.tsv <span class="op">&gt;</span> samples.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>See expected result file</p>
 <pre><code>(trinity) jiratchaya@pslab1:~/Cpa_RNASeq/04_DE_analysis$ cat samples.txt
 dark    dark_1
@@ -568,6 +564,7 @@ Activity
 <pre><code>Compare replicates for each of your samples
 
 ``` bash
+# Current workdir: /home/jiratchaya/Cpa_RNASeq/04_DE_analysis
 PtR --matrix salmon.isoform.counts.matrix \
 --samples samples.txt --log2 --CPM \
 --min_rowSums 10 \
@@ -601,11 +598,11 @@ Activity
 </div>
 <div class="callout-body-container callout-body">
 <p>This command will generate a useful heatmap of pearson correlation matrix of samples from two different experimental groups.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">PtR</span> <span class="at">--matrix</span> salmon.isoform.counts.matrix <span class="dt">\</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>--min_rowSums 10 <span class="dt">\</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>--samples_file samples.txt <span class="dt">\</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>--log2 <span class="at">--CPM</span> <span class="dt">\</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>--sample_cor_matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">PtR</span> <span class="at">--matrix</span> salmon.isoform.counts.matrix <span class="dt">\</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>--min_rowSums 10 <span class="dt">\</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>--samples_file samples.txt <span class="dt">\</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>--log2 <span class="at">--CPM</span> <span class="dt">\</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>--sample_cor_matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>These files will append more to your current working directories:</p>
@@ -634,11 +631,11 @@ Activity
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>    <span class="ex">PtR</span> <span class="at">--matrix</span> salmon.isoform.counts.matrix <span class="dt">\</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--samples_file</span> samples.txt <span class="dt">\</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--min_rowSums</span> 10 <span class="at">--log2</span> <span class="dt">\</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--CPM</span> <span class="at">--center_rows</span> <span class="dt">\</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--prin_comp</span> 3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>    <span class="ex">PtR</span> <span class="at">--matrix</span> salmon.isoform.counts.matrix <span class="dt">\</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--samples_file</span> samples.txt <span class="dt">\</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--min_rowSums</span> 10 <span class="at">--log2</span> <span class="dt">\</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--CPM</span> <span class="at">--center_rows</span> <span class="dt">\</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--prin_comp</span> 3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>These files will append more to your current working directories:</p>
@@ -672,11 +669,11 @@ Activity
 </div>
 <div class="callout-body-container callout-body">
 <p>DE analysis using DESeq2</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">run_DE_analysis.pl</span> <span class="dt">\</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>--matrix salmon.isoform.counts.matrix <span class="dt">\</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>--method DESeq2 <span class="dt">\</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>--samples_file samples.txt <span class="dt">\</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>--output DESeq2_result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">run_DE_analysis.pl</span> <span class="dt">\</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>--matrix salmon.isoform.counts.matrix <span class="dt">\</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>--method DESeq2 <span class="dt">\</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>--samples_file samples.txt <span class="dt">\</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>--output DESeq2_result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>After run the above command, the following directory will append to your current working directory:</p>
@@ -871,13 +868,13 @@ Activity
 </div>
 <div class="callout-body-container callout-body">
 <p>Extracting and clustering differentially expressed transcripts can run using the following from within the DE output directory, by running the following script:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> DESeq2_result/</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="ex">analyze_diff_expr.pl</span> <span class="dt">\</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>--matrix salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.count_matrix <span class="dt">\</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>-P 0.001 <span class="dt">\</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>-C 2 <span class="dt">\</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>--samples ../samples.txt <span class="dt">\</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>--max_genes_clust 10000</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> DESeq2_result/</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ex">analyze_diff_expr.pl</span> <span class="dt">\</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>--matrix ../salmon.isoform.counts.matrix <span class="dt">\</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>-P 1e-3 <span class="dt">\</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>-C 2 <span class="dt">\</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>--samples ../samples.txt <span class="dt">\</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>--max_genes_clust 10000</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>The above command use an integer count matrix from DE analysis, and define criteria for extracting differentially expressed transcripts. For example, set p-value cutoff for FDR in <code>-P</code> to 0.001, set minimum absolute log 2-fold change criteria in <code>-C</code> to 2, meaning that it will extracted only the DE transcripts that are 2^2 = 4-fold, and use only top 10,000 among all differentially transcripts in <code>--max_genes_clust</code> for hierarchical clustering analysis. However, user can customize these criteria based on their interest.</p>
@@ -932,9 +929,9 @@ Activity
 </div>
 <div class="callout-body-container callout-body">
 <p>Automatically Partitioning Genes into Expression Clusters</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">define_clusters_by_cutting_tree.pl</span> <span class="dt">\</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>-R diffExpr.P0.001_C2.matrix.RData <span class="dt">\</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>--Ptree 60</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">define_clusters_by_cutting_tree.pl</span> <span class="dt">\</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>-R diffExpr.<span class="pp">*</span>.matrix.RData <span class="dt">\</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>--Ptree 60</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>There are three different methods for dividing genes into clusters, K-Means clustering, hierarchical clustering (as used in the heatmap), and the recommended method of using criteria to truncate tree branch lengths that fall below the criteria by using ‘–Ptree’.</p>
@@ -954,6 +951,27 @@ drwxrwx--- 1 root PSLab      400 Mar  6 16:51 diffExpr.P0.001_C2.matrix.RData.cl
 <p><img src=".\assets/37_DE_partition.png" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">DE transcript partiitoning and clustering analysis</figcaption><p></p>
 </figure>
+</div>
+<p>Then, we’ll subset the assembled transcriptome for only differentially expressed genes for functional annotation analysis in the next chapter.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Activity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We’ll subset the transcriptome assembly using the following command. By extract only the first column of DEG table. The current working directory is <code>~/Cpa_RNASeq/04_DE_analysis/DESeq2_result</code>.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print $1}'</span> salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.<span class="pp">*</span>.DE.subset <span class="op">&gt;</span> DEG_seqName.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then, go to parent working directory</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>And extract DEG sequence from assembly file look up by DEG sequence name that we picked up from the previous command.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">retrieve_sequences_from_fasta.pl</span> DESeq2_result/DEG_seqName.txt <span class="dt">\</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>../03_assembly/Trinity_2023-03-08.Trinity.fasta <span class="op">&gt;</span> DEG_sequence.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Estimated time usage: ~2 min</p>
+</div>
 </div>
 
 

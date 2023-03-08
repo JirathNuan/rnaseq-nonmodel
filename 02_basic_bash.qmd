@@ -6,7 +6,7 @@ Shell scripts (or shell or UNIX) are widely used in bioinformatics because they'
 
 In Unix-like operating systems, the Linux file system defines the directory structure and contents. Even if they're located on different physical or virtual hard disks, all files and directories are located under the root directory.
 
-![Schematic hierarchy of Linux file systems. The figure is adopted from <https://www.geeksforgeeks.org/linux-file-hierarchy-structure>.](https://media.geeksforgeeks.org/wp-content/uploads/linuxDir.jpg)
+![Schematic hierarchy of Linux file systems. The figure is adopted from <https://www.geeksforgeeks.org/linux-file-hierarchy-structure>.](assets/04_lfs.jpg)
 
 Root (`/`)
 
@@ -358,7 +358,7 @@ Don't worry\~ the `01_Rawdata` is still with us
 
 > 🚨 **Danger zone:** Be sure to check the path of the location where you want to delete something with the command `rm -rf`, otherwise you'll unintentionally delete necessary files or directories.
 >
-> [![](https://i.redd.it/346ib6l1exy41.png){fig-align="center" width="70%"}](https://www.reddit.com/r/linuxmemes/comments/gk8k2x/why_i_prefer_using_rm_i_or_deleting_the_entire/)
+> ![Remove everything with sudo privilege. From meme-arsenal.](assets/41_rmrf_meme.jpg){fig-align="center"}
 
 ### Downloading file from URL {.unnumbered}
 
@@ -454,8 +454,6 @@ History is able to keep track of the command lines you use, associate any data w
 
 When typing file or directory names, it's easy to mistype. Instead, we can use 'tab' to complete what we want to type. The shell will try to fill in the rest of a directory or file name if you press tab after typing.
 
-![Using tab autocomplete in bash.](https://i.stack.imgur.com/jKJz0.gif){fig-align="center"}
-
 ### Have no idea what this command can do
 
 Basically, the built-in Linux system commands store usage in their command manual. You can call `man` followed by a command you want to learn more about. for example `man curl`.
@@ -468,7 +466,7 @@ When we run programs through the Unix shell, they run until they terminate succe
 
 In addition, processes are also terminated if the connection to the servers is interrupted, the network connection drops immediately, or the power fails. Since we're constantly working with remote computers in our daily work in bioinformatics, we need a way to prevent the accidental termination of long-running applications. Leaving the local terminal's connection to a remote computer open while a program is running is an unsafe solution, even the most reliable networks can experience short outages.
 
-![How tmux increase you pruductivity :/](https://external-preview.redd.it/qevOpeiiyII34yThEPkMRIg6vL72zz-gt-zdQrfd-Us.jpg?auto=webp&v=enabled&s=e65d4473b8702e6437d5067d88f64d31a9822f51)
+![How tmux increase you pruductivity :/ (From [Billy uses tmux](https://www.reddit.com/r/ProgrammerHumor/comments/1klwgh/billy_uses_tmux/) in Reddit)](assets/42_tmux.jpg){fig-align="center"}
 
 Some software offers the user the possibility to run their work as a background process, e.g. Nohup, Screen and Tmux. In this workshop, we propose **Terminal Multiplexer (Tmux)**, which allows you to create a session with multiple windows, each of which can run its own processes. The Tmux sessions are persistent, which means that all the windows and their processes can be easily restored by reattaching the session.
 

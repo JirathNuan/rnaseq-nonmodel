@@ -31,7 +31,11 @@ format:
     theme: minimal
     fontsize: 1em
   pdf:
-    documentclass: scrreprt
+    documentclass: article
+    pdf-engine: wkhtmltopdf
+    papersize: A4
+    number-sections: false
+
 
 editor: visual
 

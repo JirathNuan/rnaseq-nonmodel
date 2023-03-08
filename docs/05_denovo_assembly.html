@@ -283,19 +283,53 @@ div.csl-indent {
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>--output 03_assembly</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Trinity <code>insilico_read_normalization.pl</code> uses forward and reverse reads input from <code>--left</code> and <code>–-right</code> parameters by reduce the maximum coverage depth (<code>--max_cov</code>) observed to 10x, and retain only paired reads in <code>--pairs_together</code>.</p>
 <p>The output file given as follow:</p>
-<pre><code>&lt;ls 03_assembly&gt;</code></pre>
+<pre><code>-rw-r--r--  1 jiratchaya jiratchaya 1005390788 Mar  8 10:34 left.fq
+-rw-r--r--  1 jiratchaya jiratchaya 1005390788 Mar  8 10:34 right.fq</code></pre>
 <section id="running-trinity" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="running-trinity"><span class="header-section-number">5.1</span> Running Trinity</h2>
 <p>Trinity is run via the script <code>Trinity</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Trinity</span> <span class="at">--seqType</span> fq <span class="dt">\</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>--max_memory 6G <span class="dt">\</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>--CPU 2 <span class="dt">\</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>--left 01_rawdata/left.fq <span class="dt">\</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>--right 01_rawdata/right.fq <span class="dt">\</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>--no_normalize_reads</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>--left /opt/Cpa_RNASeq/insilico_norm_reads/left.fq <span class="dt">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>--right /opt/Cpa_RNASeq/insilico_norm_reads/right.fq <span class="dt">\</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>--output Trinity_2023-03-08</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Estimated time usage: ~24 hr</p>
 <p>By this command, Trinity take the input forward and reverse reads from <code>--left</code> and <code>–-right</code>, respectively. By default, de novo assembly with Trinity will perform in silico read normalization by itself. Since we have already normalized the sequence reads file prior to assembly, this step will skip the normalization step by add <code>--no_normalize_reads</code> to the command. All other arguments will use with the default parameters.</p>
-<p>The given results in <code>03_assembly</code> directory are:</p>
-<p>xxxxxxxx.</p>
+<p>The given results in <code>~/Cpa_RNASeq/03_assembly</code> directory are:</p>
+<pre><code>-rw-r--r--  1 jiratchaya jiratchaya  77M Mar  8 11:34 Trinity_2023-03-08.Trinity.fasta
+-rw-r--r--  1 jiratchaya jiratchaya 3.0M Mar  8 11:34 Trinity_2023-03-08.Trinity.fasta.gene_trans_map</code></pre>
+<ul>
+<li><p><code>*.Trinity.fasta</code> is the assembled transcript files</p></li>
+<li><p><code>*.Trinity.fasta.gene_trans_map</code> is tab-separated file of trinit genes (left column) and the belonging transcript (right column)</p></li>
+</ul>
+<pre><code>jiratchaya@pslab1:~/Cpa_RNASeq/03_assembly$ head Trinity_2023-03-08.Trinity.fasta.gene_trans_map
+TRINITY_DN43810_c0_g1   TRINITY_DN43810_c0_g1_i1
+TRINITY_DN43890_c0_g1   TRINITY_DN43890_c0_g1_i1
+TRINITY_DN43840_c0_g1   TRINITY_DN43840_c0_g1_i1
+TRINITY_DN43847_c0_g1   TRINITY_DN43847_c0_g1_i1
+TRINITY_DN43815_c0_g1   TRINITY_DN43815_c0_g1_i1
+TRINITY_DN43872_c0_g1   TRINITY_DN43872_c0_g1_i1
+TRINITY_DN43845_c0_g1   TRINITY_DN43845_c0_g1_i1
+TRINITY_DN43867_c0_g1   TRINITY_DN43867_c0_g1_i1
+TRINITY_DN43843_c0_g1   TRINITY_DN43843_c0_g1_i1
+TRINITY_DN43844_c0_g1   TRINITY_DN43844_c0_g1_i1</code></pre>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Remarks
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The de novo assembly part may take hours to days to proceed since this process in one of the time and resource-consuming in transcriptome data analysis. So that’s OK if we couldn’t accomplish the assembly as of the limited time for this workshop.</p>
+<p>We have prepared the assembled transcripts for further analyses. You can use the following command to copy assembly files to your working directory.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your current working directory: ~/Cpa_RNASeq/ </span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> /opt/Cpa_RNASeq/denovo_assembly/Trinity_2023-03-08.Trinity.fasta<span class="pp">*</span> 03_assembly/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </section>
 <section id="transcript-assembly-quality-assessment" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="transcript-assembly-quality-assessment"><span class="header-section-number">5.2</span> Transcript Assembly Quality Assessment</h2>
@@ -314,12 +348,12 @@ Activity
 </div>
 <div class="callout-body-container callout-body">
 <p>The following script in the Trinity toolkit will compute these values for you like so:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Go to assembly directory</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Cpa_RNASeq/03_assembly</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run TrinityStats</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">TrinityStats.pl</span> trinity_out_dir.Trinity.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Expected time used: &gt; 1 min</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Go to assembly directory</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Cpa_RNASeq/03_assembly</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run TrinityStats</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">TrinityStats.pl</span> Trinity_2023-03-08.Trinity.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Expected time used: &lt; 1 min</p>
 </div>
 </div>
 <p>Expected output from the terminal screen:</p>
@@ -374,25 +408,24 @@ Activity
 </div>
 <div class="callout-body-container callout-body">
 <p>BUSCO v4 and v5 use lineage datasets information from <a href="https://www.ezlab.org/orthodb.html">OrthoDB</a> v10. You can search all available lineage datasets using the following command:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Activate conda environment</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate busco</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># List all lineage datasets in OrthoDB v10</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">busco</span> <span class="at">--list-datasets</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Activate conda environment</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate busco</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># List all lineage datasets in OrthoDB v10</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ex">busco</span> <span class="at">--list-datasets</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>As of March 2023, more than 100 lineage datasets available in OrthoDB v10.</p>
 <p>Generally the lineage to select for your assessments should be the most specific lineage available, e.g.&nbsp;for assessing Cyanophora transcriptome assembly data you may choose the Viridiplantae or Chlorophyta lineages rather than the metazoa lineage. Here we’ll select Viridiplantae lineage dataset to evaluate the single-copy orthologs in Cyanophora assembled transcriptome using the following command.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Go to current working directory</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Cpa_RNASeq/03_assembly</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a directory of assessment results</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> assessment</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> assessment</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Run BUSCO</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="ex">busco</span> <span class="at">--mode</span> transcriptome <span class="dt">\</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>--in ../trinity_out_dir.Trinity.fasta <span class="dt">\</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>--lineage_dataset viridiplantae_odb10 <span class="dt">\</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>--out BUSCO_Viridiplantae <span class="dt">\</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>--cpu 2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Go to current working directory</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Cpa_RNASeq/03_assembly</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Run BUSCO</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">busco</span> <span class="at">--mode</span> transcriptome <span class="dt">\</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>--in Trinity_2023-03-08.Trinity.fasta <span class="dt">\</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>--lineage_dataset /opt/Cpa_RNASeq/busco_downloads/lineages/viridiplantae_odb10 <span class="dt">\</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>--out BUSCO_Viridiplantae <span class="dt">\</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>--cpu 2 <span class="dt">\</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>--offline</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Estimated time usage: ~30-35 min</p>
 <p>In this command, BUSCO runs in transcriptome mode by the required input file.</p>
+<p>If we didn’t make it in time, the backup data in backup BUSCO results will keep in: <code>/opt/Cpa_RNASeq/BUSCO_Viridiplantae/</code>, and BUSCO Viridiplantae lineage dataset is also in <code>/opt/Cpa_RNASeq/busco_downloads/</code>.</p>
 </div>
 </div>
 <p>The classification results from BUSCO will save to <code>BUSCO_Viridiplantae</code> in your working directory, as well as print out to the terminal as follow:</p>
@@ -423,9 +456,9 @@ Activity
 </div>
 <div class="callout-body-container callout-body">
 <p>Now we’ll generate a BUSCO plot.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Working directory: cd ~/Cpa_RNASeq/03_assembly/assessment</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">generate_plot.py</span> <span class="at">--working_directory</span> BUSCO_Viridiplantae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Estimated time usage: &gt; 1 min</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Working directory: cd ~/Cpa_RNASeq/03_assembly/assessment</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">generate_plot.py</span> <span class="at">--working_directory</span> BUSCO_Viridiplantae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Estimated time usage: &lt; 1 min</p>
 </div>
 </div>
 <p>Expected graphical should be as follows. And explanation on each type of BUSCO results can be found at the <a href="https://busco.ezlab.org/busco_userguide.html#interpreting-the-results">BUSCO’s Documentation</a>.</p>

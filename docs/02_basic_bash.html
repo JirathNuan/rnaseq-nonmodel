@@ -266,7 +266,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In Unix-like operating systems, the Linux file system defines the directory structure and contents. Even if they’re located on different physical or virtual hard disks, all files and directories are located under the root directory.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://media.geeksforgeeks.org/wp-content/uploads/linuxDir.jpg" class="img-fluid figure-img"></p>
+<p><img src="assets/04_lfs.jpg" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">Schematic hierarchy of Linux file systems. The figure is adopted from <a href="https://www.geeksforgeeks.org/linux-file-hierarchy-structure" class="uri">https://www.geeksforgeeks.org/linux-file-hierarchy-structure</a>.</figcaption><p></p>
 </figure>
 </div>
@@ -522,7 +522,8 @@ drwxr-xr-x 2 jiratchaya jiratchaya 4096 Mar  1 21:59 02_QC
 <p>🚨 <strong>Danger zone:</strong> Be sure to check the path of the location where you want to delete something with the command <code>rm -rf</code>, otherwise you’ll unintentionally delete necessary files or directories.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://www.reddit.com/r/linuxmemes/comments/gk8k2x/why_i_prefer_using_rm_i_or_deleting_the_entire/"><img src="https://i.redd.it/346ib6l1exy41.png" class="img-fluid figure-img" style="width:70.0%"></a></p>
+<p><img src="assets/41_rmrf_meme.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Remove everything with sudo privilege. From meme-arsenal.</figcaption><p></p>
 </figure>
 </div>
 </blockquote>
@@ -616,12 +617,6 @@ drwxr-xr-x 2 jiratchaya jiratchaya  4096 Mar  1 21:59 02_QC
 <section id="shortcut-tab-completion" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="shortcut-tab-completion">Shortcut: Tab Completion</h3>
 <p>When typing file or directory names, it’s easy to mistype. Instead, we can use ‘tab’ to complete what we want to type. The shell will try to fill in the rest of a directory or file name if you press tab after typing.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://i.stack.imgur.com/jKJz0.gif" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Using tab autocomplete in bash.</figcaption><p></p>
-</figure>
-</div>
 </section>
 <section id="have-no-idea-what-this-command-can-do" class="level3" data-number="2.2.1">
 <h3 data-number="2.2.1" class="anchored" data-anchor-id="have-no-idea-what-this-command-can-do"><span class="header-section-number">2.2.1</span> Have no idea what this command can do</h3>
@@ -640,8 +635,8 @@ drwxr-xr-x 2 jiratchaya jiratchaya  4096 Mar  1 21:59 02_QC
 <p>In addition, processes are also terminated if the connection to the servers is interrupted, the network connection drops immediately, or the power fails. Since we’re constantly working with remote computers in our daily work in bioinformatics, we need a way to prevent the accidental termination of long-running applications. Leaving the local terminal’s connection to a remote computer open while a program is running is an unsafe solution, even the most reliable networks can experience short outages.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://external-preview.redd.it/qevOpeiiyII34yThEPkMRIg6vL72zz-gt-zdQrfd-Us.jpg?auto=webp&amp;v=enabled&amp;s=e65d4473b8702e6437d5067d88f64d31a9822f51" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">How tmux increase you pruductivity :/</figcaption><p></p>
+<p><img src="assets/42_tmux.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">How tmux increase you pruductivity :/ (From <a href="https://www.reddit.com/r/ProgrammerHumor/comments/1klwgh/billy_uses_tmux/">Billy uses tmux</a> in Reddit)</figcaption><p></p>
 </figure>
 </div>
 <p>Some software offers the user the possibility to run their work as a background process, e.g.&nbsp;Nohup, Screen and Tmux. In this workshop, we propose <strong>Terminal Multiplexer (Tmux)</strong>, which allows you to create a session with multiple windows, each of which can run its own processes. The Tmux sessions are persistent, which means that all the windows and their processes can be easily restored by reattaching the session.</p>

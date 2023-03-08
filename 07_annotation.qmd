@@ -1,1 +1,194 @@
 # Transcriptome Assembly Annotation
+
+In the absence of a well-annotated reference genome of the species of your choice, researchers will need to generate a draft genome or transcriptome through a de novo approach. Subsequent analyses after assessing the completeness of the assembly include differential gene expression analysis (quantitative approach), functional annotation (qualitative), and many others depending on your experimental design. Functional annotation involves searching for the biological meaning of the biological sequence of interest using known data sets or predicting a new one.
+
+Functional annotation of non-model organisms is usually compared with neighboring species that have a well-annotated reference genome in terms of functions. For example, complete genome/transcriptome datasets of the black tiger shrimp Penaeus monodon or the Caridian shrimp *Marsupenaeus japonicus* can be used as reference datasets for annotating the transcriptomes of the banana shrimp *Fenneropenaeus merguiensis*. Information from the taxonomic rank, e.g., a complete genome/transcriptome of the phylum Arthropoda or subphylum Crustacea, can also be used to annotate the banana shrimp dataset. In addition, orthologous data from the associated kingdom, such as the eukaryote dataset, can be used to annotate the banana shrimp dataset.
+
+Functional annotation is task to find the biological meaning such as biochemical and biological function of proteins or CDS. Possible analyses to annotate genes can be for example:
+
+-   **Sequence similarity searching:** such as [BLAST](https://blast.ncbi.nlm.nih.gov/blast/Blast.cgi), [HMMER](http://hmmer.org/), [Diamond](https://github.com/bbuchfink/diamond), and many more. This approach uses biological sequences of interest (proteins or nucleotides) as query sequences to search a database of known sequence annotations (called subject sequences) and check how similar your query is to the subject sequence.
+
+-   **Gene Ontology (GO) annotation:** is functional classification of genes into 3 major classes; cellular component, biological process, and molecular function. More information please see [Gene Ontology Overview](http://geneontology.org/docs/ontology-documentation/).
+
+-   **Biological pathway and interaction network:** by searching the orthologous protein from pathway and biological interaction network such as [KEGG pathway](https://www.genome.jp/kegg/pathway.html), [STRING](https://string-db.org/), [Reactome](https://reactome.org/), and many more. This approach provide information of the gene/protein of interest interacting with others within the same pathway of gene set.
+
+## Functional Annotation using EggNOG-mapper
+
+EggNOG-mapper is a tool for functional annotation analysis in biological sequences, which can be proteomes, genomes, transcriptomes or metagenomes. EggNOG-mapper uses the EggNOG database as a reference for searching orthologous identifiers. Many search algorithms have been deployed to search against EggNOG database, such as diamond (fast and comparable), MMseqs2 fast and comparable, and HMMER3 (slowest). 
+
+Once user have already installed EggNog-mapper, you will need to download EggNOG database to your local machine using the following command. But in this workshop, **we already prepared it for you :)**
+
+``` bash
+download_eggnog_data.py -D -M -y -f --data_dir eggnog_db/
+```
+The following command `download_eggnog_data.py` tries to download the diamond search database by default, but in this workshop we will use the MMSeqs2 search tool, so we can skip downloading the diamond database with `-D` and download the MMSeqs2 database using `-M` instead.
+
+
+::: callout-note
+
+## Activity
+
+After preparing the EggNOG database, we can run the EggNog mapper via the file `emapper.py` as in the following command, specifying the required arguments for the path of the downloaded EggNOG database in `--data_dir`, the input type (`--itype`) and the search algorithm MMSeqs2 (`-m`). You can see usage of emapper.py by type emapper.py --help in your terminal, or have a look at [A few recipes of using EggNOG-mapper](https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.5-to-v2.1.10#a-few-recipes).
+
+``` bash
+# current directory: ~/Cpa_RNASeq
+# Activate conda environment
+conda activate emapper
+# Run EggNOG-mapper
+emapper.py --cpu 2 \
+--data_dir /opt/Cpa_RNASeq/eggNOG_db/ \
+--output_dir 05_annotation/ \
+-m diamond \
+--evalue 1e-5 \
+-i 03_assembly/Trinity_2023-03-08.Trinity.fasta \
+--no_file_comments \
+--itype CDS \
+--excel \
+--output Cyanophora_emapper_20230307
+```
+
+Estimated time usage: > 1 hr
+
+Expected output files:
+
+```
+-rw-r--r--  1 jiratchaya jiratchaya 20287555 Mar  8 22:54 Cyanophora_emapper_20230307.emapper.annotations
+-rw-r--r--  1 jiratchaya jiratchaya  5060493 Mar  8 22:54 Cyanophora_emapper_20230307.emapper.annotations.xlsx
+-rw-r--r--  1 jiratchaya jiratchaya  5333975 Mar  8 22:54 Cyanophora_emapper_20230307.emapper.hits
+-rw-r--r--  1 jiratchaya jiratchaya  2528455 Mar  8 22:54 Cyanophora_emapper_20230307.emapper.seed_orthologs
+```
+
+Output explanations:
+
+-  `*.emapper.annotations` is a result file from the annotation phase. Each row represents the annotation reported for a given query. 
+
+-  `*.emapper.annotations.xlsx` is as same as `*.emapper.annotations` but in Excel format.
+
+-  `*.emapper.hits` is a result file from the MMseqs2 search phase.
+
+-  `.emapper.seed_orthologs` is a result file from parsing the hits. Each line associates a query with a seed ortholog. This file has the same format regardless of which searcher was used, except that it can be in short format (4 fields) or full format.
+
+
+
+:::
+
+
+## Homology Searching using NCBI BLAST
+
+BLAST (Basic Local Alignment Search Tools) is usually a first choice as sa sequence similarity search tool. BLAST search for region that similar to both of our sequence of interest, which can be nucleotides or proteins. BLAST can be used to infer functional and evolutionary relationships between sequences as well as help identify members of gene families.
+
+![Types of BLAST available in [NCBI-BLAST Web Service](https://blast.ncbi.nlm.nih.gov/Blast.cgi)](/assets/40_blast_type.png).
+
+Several types of BLAST search algorithms classified by type of query sequence (protein/nucleotide sequence you want to search for) and th expected subject sequence (protein/nucleotide in BLAST database expected to match with the query sequence) such as the following table
+
+| Search algorithms  |  Input type  | Output type | 
+| -------------------|--------------|-------------|
+| BLASTN | Nucleotide | Nucleotide | 
+| BLASTX | CDS | Protein |
+| TBLASTN | Protein | CDS |
+| BLASTP | Protein | Protein |
+
+-  **BLASTN (Nucleotide BLAST)** compares nucleotide sequences to nucleotide sequences in databases such as Nt, 16S rRNA, ITS, and custom nucleotide databases. A useful example of using BLASTN is to search for phylogenetic relationships between the query sequence and neighboring species and infer the evolutionary relationship between them.
+
+-  **BLASTX (Translated BLAST)** uses the nucleotide query sequence to search protein databases such as Nr, Uniprot, Protein Databank (PDB), and custom protein databases. BLASTX translates the query into six reading frames (-3, -2, -1, 1, 2, 3) before searching. Therefore, the time required for BLASTX is about 6 times slower than the straightforward BLAST. A useful example of using BLASTX is to search for possible translation frames in de novo transcriptome assembly. 
+
+-  **TBLASTN (Translated BLAST)** uses protein query sequence to search nucleotide databases by translating into six reading frames. TBLASTN provides benefit in searching for coding sequence (CDS) along with its open reading frame from protein sequence.
+
+- **BLASTP (Protein BLAST)** compares protein query sequences with protein sequences in databases. A useful example of using BLASTP is to search for protein sequence similarities to infer their functions from conserved domains observed in the sequence. 
+
+
+::: callout-note
+
+## Activity
+
+In this workshop, we' will use the nucleotide database BLAST using custom nucleotide data. In short, we'll subdivide whole nucleotide sequences and create the database BLAST from the NCBI nucleotide collection database belonging to the phylum Chlorophyta, Rhodophyta and Glaucophyta. **We have already prepared these databases for you**  by using the following command:
+
+```
+makeblastdb -in [input_seq.fasta] -dbtype [nucl|prot] 
+```
+
+Database paths:
+
+-  Chlorophyta BLASTN database: `/opt/Cpa_RNASeq/BLAST_DB/Chlorophyta.fna`
+
+-  Rhodophyta BLASTN database: `/opt/Cpa_RNASeq/BLAST_DB/Rhodophyta.fna`
+
+-  Glaucophyta BLASTN database: `/opt/Cpa_RNASeq/BLAST_DB/Glaucophyta.fna`
+
+
+Depending on your interest, you can choose which phylum you want to use as BLAST database as above. Then we' will investigate it together!
+
+
+### BLASTN
+
+``` bash
+# Current working directory: ~/Cpa_RNASeq
+blastn -db [database_of_interest] \
+-query 04_DE_analysis/DEG_sequence.fasta \
+-out 05_annotation/BLASTN_DEG_[phylum_of_interest].tsv \
+-evalue 1e-5 \
+-outfmt "7 std qcovhsp stitle" \
+-max_target_seqs 5 \
+-num_threads 2
+```
+
+Estimated time: < 10 mins
+
+By this command, you'll search query sequence in your database of interest. The result will collected using BLAST if E-value <= 1e-5. 
+
+:::
+
+Here we' specify the output format 7, which results in the table file containing the comment lines that start with the '#' character.
+
+Example BLASTN output format `7 std qcovhsp stitle`:
+
+```
+$ head -n 15 BLASTN_DEG_Chlorophyta.tsv
+# BLASTN 2.13.0+
+# Query: sampleA
+# Database: /opt/Cpa_RNASeq/BLASTN/Chlorophyta.fna
+# 0 hits found
+# BLASTN 2.13.0+
+# Query: TRINITY_DN281_c0_g1_i1
+# Database: /opt/Cpa_RNASeq/BLASTN/Chlorophyta.fna
+# Fields: query acc.ver, subject acc.ver, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score, % query coverage per hsp, subject title
+# 10 hits found
+TRINITY_DN281_c0_g1_i1  XM_043068042.1  99.797  1972    0       1       1       1968    2126    155     0.0     3616    100     XM_043068042.1 Chlamydomonas reinhardtii uncharacterized protein (CHLRE_12g498600v5), mRNA
+TRINITY_DN281_c0_g1_i1  DQ122889.1      94.995  1918    84      5       1       1913    1936    26      0.0     3000    97      DQ122889.1 Chlamydomonas incerta elongation factor alpha-like protein (efl) mRNA, complete cds
+TRINITY_DN281_c0_g1_i1  XM_001696516.2  98.929  1400    15      0       514     1913    1539    140     0.0     2503    71      XM_001696516.2 Chlamydomonas reinhardtii uncharacterized protein (CHLRE_06g263450v5), mRNA
+TRINITY_DN281_c0_g1_i1  XM_043062829.1  98.929  1400    15      0       514     1913    1539    140     0.0     2503    71      XM_043062829.1 Chlamydomonas reinhardtii uncharacterized protein (CHLRE_06g263450v5), mRNA
+TRINITY_DN281_c0_g1_i1  CP097822.1      100.000 1261    0       0       1       1261    3287383 3286123 0.0     2329    64      CP097822.1 Chlamydomonas reinhardtii strain CC-5816 chromosome 12
+TRINITY_DN281_c0_g1_i1  CP097822.1      100.000 251     0       0       1260    1510    3285932 3285682 2.34e-128       464     13      CP097822.1 Chlamydomonas reinhardtii strain CC-5816 chromosome 12
+```
+
+The result file can be further open with spreadsheet software such as Microsoft Excel, by skipping the comment lines. The column name is described in `# Fields:` comment line, containing the following fields:
+
+| Field names |  Descriptions |
+|--------|----------|
+query acc.ver  |  Query sequence ID |
+subject acc.ver  |  Subject sequence ID |
+% identity  |  Percentage identity |
+alignment length  |  Alignment length |
+mismatches  |  Number of mismatches |
+gap opens  |  Number of gap openings |
+q. start  |  Query sequence alignment start position |
+q. end  |  Query sequence alignment end position |
+s. start  |  Subject sequence alignment start position |
+s. end  |  Subject sequence alignment end position |
+evalue  |  Expect value |
+bit score  |  Bit score |
+% query coverage per hsp  |  Query Coverage Per High Scoring Pairs |
+subject title  |  Subject sequence name |
+
+You can specify options to include in this tabular format by type the folowing command and take a look at the terminal. 
+
+```bash
+blastn -help
+```
+
+
+## Reference sources
+
+-   [De novo transcriptome assembly, annotation, and differential expression analysis](https://training.galaxyproject.org/training-material/topics/transcriptomics/tutorials/full-de-novo/tutorial.html) from Galaxy Training!
+
+-  NCBI Bioinformatics Resources: [An Introduction: BLAST: Compare & identify sequences](https://guides.lib.berkeley.edu/ncbi/blast). Berkeley Library, Universiry of California. 

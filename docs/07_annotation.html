@@ -20,6 +20,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -147,7 +210,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#functional-annotation-using-eggnog-mapper" id="toc-functional-annotation-using-eggnog-mapper" class="nav-link active" data-scroll-target="#functional-annotation-using-eggnog-mapper"><span class="toc-section-number">7.1</span>  Functional Annotation using EggNOG-mapper</a></li>
+  <li><a href="#homology-searching-using-ncbi-blast" id="toc-homology-searching-using-ncbi-blast" class="nav-link" data-scroll-target="#homology-searching-using-ncbi-blast"><span class="toc-section-number">7.2</span>  Homology Searching using NCBI BLAST</a></li>
+  <li><a href="#reference-sources" id="toc-reference-sources" class="nav-link" data-scroll-target="#reference-sources"><span class="toc-section-number">7.3</span>  Reference sources</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/JirathNuan/rnaseq-nonmodel/edit/main/07_annotation.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -169,8 +240,234 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<p>In the absence of a well-annotated reference genome of the species of your choice, researchers will need to generate a draft genome or transcriptome through a de novo approach. Subsequent analyses after assessing the completeness of the assembly include differential gene expression analysis (quantitative approach), functional annotation (qualitative), and many others depending on your experimental design. Functional annotation involves searching for the biological meaning of the biological sequence of interest using known data sets or predicting a new one.</p>
+<p>Functional annotation of non-model organisms is usually compared with neighboring species that have a well-annotated reference genome in terms of functions. For example, complete genome/transcriptome datasets of the black tiger shrimp Penaeus monodon or the Caridian shrimp <em>Marsupenaeus japonicus</em> can be used as reference datasets for annotating the transcriptomes of the banana shrimp <em>Fenneropenaeus merguiensis</em>. Information from the taxonomic rank, e.g., a complete genome/transcriptome of the phylum Arthropoda or subphylum Crustacea, can also be used to annotate the banana shrimp dataset. In addition, orthologous data from the associated kingdom, such as the eukaryote dataset, can be used to annotate the banana shrimp dataset.</p>
+<p>Functional annotation is task to find the biological meaning such as biochemical and biological function of proteins or CDS. Possible analyses to annotate genes can be for example:</p>
+<ul>
+<li><p><strong>Sequence similarity searching:</strong> such as <a href="https://blast.ncbi.nlm.nih.gov/blast/Blast.cgi">BLAST</a>, <a href="http://hmmer.org/">HMMER</a>, <a href="https://github.com/bbuchfink/diamond">Diamond</a>, and many more. This approach uses biological sequences of interest (proteins or nucleotides) as query sequences to search a database of known sequence annotations (called subject sequences) and check how similar your query is to the subject sequence.</p></li>
+<li><p><strong>Gene Ontology (GO) annotation:</strong> is functional classification of genes into 3 major classes; cellular component, biological process, and molecular function. More information please see <a href="http://geneontology.org/docs/ontology-documentation/">Gene Ontology Overview</a>.</p></li>
+<li><p><strong>Biological pathway and interaction network:</strong> by searching the orthologous protein from pathway and biological interaction network such as <a href="https://www.genome.jp/kegg/pathway.html">KEGG pathway</a>, <a href="https://string-db.org/">STRING</a>, <a href="https://reactome.org/">Reactome</a>, and many more. This approach provide information of the gene/protein of interest interacting with others within the same pathway of gene set.</p></li>
+</ul>
+<section id="functional-annotation-using-eggnog-mapper" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="functional-annotation-using-eggnog-mapper"><span class="header-section-number">7.1</span> Functional Annotation using EggNOG-mapper</h2>
+<p>EggNOG-mapper is a tool for functional annotation analysis in biological sequences, which can be proteomes, genomes, transcriptomes or metagenomes. EggNOG-mapper uses the EggNOG database as a reference for searching orthologous identifiers. Many search algorithms have been deployed to search against EggNOG database, such as diamond (fast and comparable), MMseqs2 fast and comparable, and HMMER3 (slowest).</p>
+<p>Once user have already installed EggNog-mapper, you will need to download EggNOG database to your local machine using the following command. But in this workshop, <strong>we already prepared it for you :)</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">download_eggnog_data.py</span> <span class="at">-D</span> <span class="at">-M</span> <span class="at">-y</span> <span class="at">-f</span> <span class="at">--data_dir</span> eggnog_db/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The following command <code>download_eggnog_data.py</code> tries to download the diamond search database by default, but in this workshop we will use the MMSeqs2 search tool, so we can skip downloading the diamond database with <code>-D</code> and download the MMSeqs2 database using <code>-M</code> instead.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Activity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>After preparing the EggNOG database, we can run the EggNog mapper via the file <code>emapper.py</code> as in the following command, specifying the required arguments for the path of the downloaded EggNOG database in <code>--data_dir</code>, the input type (<code>--itype</code>) and the search algorithm MMSeqs2 (<code>-m</code>). You can see usage of emapper.py by type emapper.py –help in your terminal, or have a look at <a href="https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.5-to-v2.1.10#a-few-recipes">A few recipes of using EggNOG-mapper</a>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># current directory: ~/Cpa_RNASeq</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Activate conda environment</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate emapper</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run EggNOG-mapper</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">emapper.py</span> <span class="at">--cpu</span> 2 <span class="dt">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>--data_dir /opt/Cpa_RNASeq/eggNOG_db/ <span class="dt">\</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>--output_dir 05_annotation/ <span class="dt">\</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>-m diamond <span class="dt">\</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>--evalue 1e-5 <span class="dt">\</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>-i 03_assembly/Trinity_2023-03-08.Trinity.fasta <span class="dt">\</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>--no_file_comments <span class="dt">\</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>--itype CDS <span class="dt">\</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>--excel <span class="dt">\</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>--output Cyanophora_emapper_20230307</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Estimated time usage: &gt; 1 hr</p>
+<p>Expected output files:</p>
+<pre><code>-rw-r--r--  1 jiratchaya jiratchaya 20287555 Mar  8 22:54 Cyanophora_emapper_20230307.emapper.annotations
+-rw-r--r--  1 jiratchaya jiratchaya  5060493 Mar  8 22:54 Cyanophora_emapper_20230307.emapper.annotations.xlsx
+-rw-r--r--  1 jiratchaya jiratchaya  5333975 Mar  8 22:54 Cyanophora_emapper_20230307.emapper.hits
+-rw-r--r--  1 jiratchaya jiratchaya  2528455 Mar  8 22:54 Cyanophora_emapper_20230307.emapper.seed_orthologs</code></pre>
+<p>Output explanations:</p>
+<ul>
+<li><p><code>*.emapper.annotations</code> is a result file from the annotation phase. Each row represents the annotation reported for a given query.</p></li>
+<li><p><code>*.emapper.annotations.xlsx</code> is as same as <code>*.emapper.annotations</code> but in Excel format.</p></li>
+<li><p><code>*.emapper.hits</code> is a result file from the MMseqs2 search phase.</p></li>
+<li><p><code>.emapper.seed_orthologs</code> is a result file from parsing the hits. Each line associates a query with a seed ortholog. This file has the same format regardless of which searcher was used, except that it can be in short format (4 fields) or full format.</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="homology-searching-using-ncbi-blast" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="homology-searching-using-ncbi-blast"><span class="header-section-number">7.2</span> Homology Searching using NCBI BLAST</h2>
+<p>BLAST (Basic Local Alignment Search Tools) is usually a first choice as sa sequence similarity search tool. BLAST search for region that similar to both of our sequence of interest, which can be nucleotides or proteins. BLAST can be used to infer functional and evolutionary relationships between sequences as well as help identify members of gene families.</p>
+<p><img src=".\assets/40_blast_type.png" class="img-fluid" alt="Types of BLAST available in NCBI-BLAST Web Service">.</p>
+<p>Several types of BLAST search algorithms classified by type of query sequence (protein/nucleotide sequence you want to search for) and th expected subject sequence (protein/nucleotide in BLAST database expected to match with the query sequence) such as the following table</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Search algorithms</th>
+<th>Input type</th>
+<th>Output type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>BLASTN</td>
+<td>Nucleotide</td>
+<td>Nucleotide</td>
+</tr>
+<tr class="even">
+<td>BLASTX</td>
+<td>CDS</td>
+<td>Protein</td>
+</tr>
+<tr class="odd">
+<td>TBLASTN</td>
+<td>Protein</td>
+<td>CDS</td>
+</tr>
+<tr class="even">
+<td>BLASTP</td>
+<td>Protein</td>
+<td>Protein</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>BLASTN (Nucleotide BLAST)</strong> compares nucleotide sequences to nucleotide sequences in databases such as Nt, 16S rRNA, ITS, and custom nucleotide databases. A useful example of using BLASTN is to search for phylogenetic relationships between the query sequence and neighboring species and infer the evolutionary relationship between them.</p></li>
+<li><p><strong>BLASTX (Translated BLAST)</strong> uses the nucleotide query sequence to search protein databases such as Nr, Uniprot, Protein Databank (PDB), and custom protein databases. BLASTX translates the query into six reading frames (-3, -2, -1, 1, 2, 3) before searching. Therefore, the time required for BLASTX is about 6 times slower than the straightforward BLAST. A useful example of using BLASTX is to search for possible translation frames in de novo transcriptome assembly.</p></li>
+<li><p><strong>TBLASTN (Translated BLAST)</strong> uses protein query sequence to search nucleotide databases by translating into six reading frames. TBLASTN provides benefit in searching for coding sequence (CDS) along with its open reading frame from protein sequence.</p></li>
+<li><p><strong>BLASTP (Protein BLAST)</strong> compares protein query sequences with protein sequences in databases. A useful example of using BLASTP is to search for protein sequence similarities to infer their functions from conserved domains observed in the sequence.</p></li>
+</ul>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Activity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In this workshop, we’ will use the nucleotide database BLAST using custom nucleotide data. In short, we’ll subdivide whole nucleotide sequences and create the database BLAST from the NCBI nucleotide collection database belonging to the phylum Chlorophyta, Rhodophyta and Glaucophyta. <strong>We have already prepared these databases for you</strong> by using the following command:</p>
+<pre><code>makeblastdb -in [input_seq.fasta] -dbtype [nucl|prot] </code></pre>
+<p>Database paths:</p>
+<ul>
+<li><p>Chlorophyta BLASTN database: <code>/opt/Cpa_RNASeq/BLAST_DB/Chlorophyta.fna</code></p></li>
+<li><p>Rhodophyta BLASTN database: <code>/opt/Cpa_RNASeq/BLAST_DB/Rhodophyta.fna</code></p></li>
+<li><p>Glaucophyta BLASTN database: <code>/opt/Cpa_RNASeq/BLAST_DB/Glaucophyta.fna</code></p></li>
+</ul>
+<p>Depending on your interest, you can choose which phylum you want to use as BLAST database as above. Then we’ will investigate it together!</p>
+<section id="blastn" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="blastn"><span class="header-section-number">7.2.1</span> BLASTN</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Current working directory: ~/Cpa_RNASeq</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">blastn</span> <span class="at">-db</span> [database_of_interest] <span class="dt">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>-query 04_DE_analysis/DEG_sequence.fasta <span class="dt">\</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>-out 05_annotation/BLASTN_DEG_[phylum_of_interest].tsv <span class="dt">\</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>-evalue 1e-5 <span class="dt">\</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>-outfmt <span class="st">"7 std qcovhsp stitle"</span> <span class="dt">\</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>-max_target_seqs 5 <span class="dt">\</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>-num_threads 2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Estimated time: &lt; 10 mins</p>
+<p>By this command, you’ll search query sequence in your database of interest. The result will collected using BLAST if E-value &lt;= 1e-5.</p>
+</section>
+</div>
+</div>
+<p>Here we’ specify the output format 7, which results in the table file containing the comment lines that start with the ‘#’ character.</p>
+<p>Example BLASTN output format <code>7 std qcovhsp stitle</code>:</p>
+<pre><code>$ head -n 15 BLASTN_DEG_Chlorophyta.tsv
+# BLASTN 2.13.0+
+# Query: sampleA
+# Database: /opt/Cpa_RNASeq/BLASTN/Chlorophyta.fna
+# 0 hits found
+# BLASTN 2.13.0+
+# Query: TRINITY_DN281_c0_g1_i1
+# Database: /opt/Cpa_RNASeq/BLASTN/Chlorophyta.fna
+# Fields: query acc.ver, subject acc.ver, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score, % query coverage per hsp, subject title
+# 10 hits found
+TRINITY_DN281_c0_g1_i1  XM_043068042.1  99.797  1972    0       1       1       1968    2126    155     0.0     3616    100     XM_043068042.1 Chlamydomonas reinhardtii uncharacterized protein (CHLRE_12g498600v5), mRNA
+TRINITY_DN281_c0_g1_i1  DQ122889.1      94.995  1918    84      5       1       1913    1936    26      0.0     3000    97      DQ122889.1 Chlamydomonas incerta elongation factor alpha-like protein (efl) mRNA, complete cds
+TRINITY_DN281_c0_g1_i1  XM_001696516.2  98.929  1400    15      0       514     1913    1539    140     0.0     2503    71      XM_001696516.2 Chlamydomonas reinhardtii uncharacterized protein (CHLRE_06g263450v5), mRNA
+TRINITY_DN281_c0_g1_i1  XM_043062829.1  98.929  1400    15      0       514     1913    1539    140     0.0     2503    71      XM_043062829.1 Chlamydomonas reinhardtii uncharacterized protein (CHLRE_06g263450v5), mRNA
+TRINITY_DN281_c0_g1_i1  CP097822.1      100.000 1261    0       0       1       1261    3287383 3286123 0.0     2329    64      CP097822.1 Chlamydomonas reinhardtii strain CC-5816 chromosome 12
+TRINITY_DN281_c0_g1_i1  CP097822.1      100.000 251     0       0       1260    1510    3285932 3285682 2.34e-128       464     13      CP097822.1 Chlamydomonas reinhardtii strain CC-5816 chromosome 12</code></pre>
+<p>The result file can be further open with spreadsheet software such as Microsoft Excel, by skipping the comment lines. The column name is described in <code># Fields:</code> comment line, containing the following fields:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Field names</th>
+<th>Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>query acc.ver</td>
+<td>Query sequence ID</td>
+</tr>
+<tr class="even">
+<td>subject acc.ver</td>
+<td>Subject sequence ID</td>
+</tr>
+<tr class="odd">
+<td>% identity</td>
+<td>Percentage identity</td>
+</tr>
+<tr class="even">
+<td>alignment length</td>
+<td>Alignment length</td>
+</tr>
+<tr class="odd">
+<td>mismatches</td>
+<td>Number of mismatches</td>
+</tr>
+<tr class="even">
+<td>gap opens</td>
+<td>Number of gap openings</td>
+</tr>
+<tr class="odd">
+<td>q. start</td>
+<td>Query sequence alignment start position</td>
+</tr>
+<tr class="even">
+<td>q. end</td>
+<td>Query sequence alignment end position</td>
+</tr>
+<tr class="odd">
+<td>s. start</td>
+<td>Subject sequence alignment start position</td>
+</tr>
+<tr class="even">
+<td>s. end</td>
+<td>Subject sequence alignment end position</td>
+</tr>
+<tr class="odd">
+<td>evalue</td>
+<td>Expect value</td>
+</tr>
+<tr class="even">
+<td>bit score</td>
+<td>Bit score</td>
+</tr>
+<tr class="odd">
+<td>% query coverage per hsp</td>
+<td>Query Coverage Per High Scoring Pairs</td>
+</tr>
+<tr class="even">
+<td>subject title</td>
+<td>Subject sequence name</td>
+</tr>
+</tbody>
+</table>
+<p>You can specify options to include in this tabular format by type the folowing command and take a look at the terminal.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">blastn</span> <span class="at">-help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="reference-sources" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="reference-sources"><span class="header-section-number">7.3</span> Reference sources</h2>
+<ul>
+<li><p><a href="https://training.galaxyproject.org/training-material/topics/transcriptomics/tutorials/full-de-novo/tutorial.html">De novo transcriptome assembly, annotation, and differential expression analysis</a> from Galaxy Training!</p></li>
+<li><p>NCBI Bioinformatics Resources: <a href="https://guides.lib.berkeley.edu/ncbi/blast">An Introduction: BLAST: Compare &amp; identify sequences</a>. Berkeley Library, Universiry of California.</p></li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

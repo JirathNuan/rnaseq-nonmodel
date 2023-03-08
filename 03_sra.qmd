@@ -11,7 +11,7 @@ SRA toolkit can
 -   Retrieve a small subset of large files
 -   Search within SRA files and fetch specific sequences
 
-![Screenshots of NCBI Sequence Read Archives](https://i0.wp.com/ncbiinsights.ncbi.nlm.nih.gov/wp-content/uploads/2015/12/post-1-fig-1-toolkit-dls.png?resize=735%252C660&ssl=1){fig-align="center" width="80%"}
+![Screenshots of NCBI Sequence Read Archives](assets/43_SRA.png){fig-align="center"}
 
 ## What is Sequence Read Archives (SRA)
 
