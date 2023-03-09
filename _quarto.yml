@@ -6,8 +6,9 @@ book:
   title: "Transcriptome Data Analysis in Non-model Organisms"
   author: 
     - "Jiratchaya Nuanpirom"
-    - "Prasert Yodsawat"
     - "Ponsit Sathapondecha"
+    - "Prasert Yodsawat"
+
   date: today
   chapters:
     - index.qmd
@@ -22,6 +23,8 @@ book:
   repo-url: https://github.com/JirathNuan/rnaseq-nonmodel
   repo-actions: [edit]
   downloads: [pdf]
+  search: true
+  sharing: [facebook]
 
 
 bibliography: references.bib

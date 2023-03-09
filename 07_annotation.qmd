@@ -31,31 +31,32 @@ The following command `download_eggnog_data.py` tries to download the diamond se
 After preparing the EggNOG database, we can run the EggNog mapper via the file `emapper.py` as in the following command, specifying the required arguments for the path of the downloaded EggNOG database in `--data_dir`, the input type (`--itype`) and the search algorithm MMSeqs2 (`-m`). You can see usage of emapper.py by type emapper.py --help in your terminal, or have a look at [A few recipes of using EggNOG-mapper](https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.5-to-v2.1.10#a-few-recipes).
 
 ``` bash
-# current directory: ~/Cpa_RNASeq
+# Go to main project directory
+cd ~/Cpa_RNASeq
 # Activate conda environment
 conda activate emapper
 # Run EggNOG-mapper
-emapper.py --cpu 2 \
+emapper.py --cpu 5 \
 --data_dir /opt/Cpa_RNASeq/eggNOG_db/ \
 --output_dir 05_annotation/ \
 -m diamond \
 --evalue 1e-5 \
--i 03_assembly/Trinity_2023-03-08.Trinity.fasta \
+-i 04_DE_analysis/DESeq2_result/DEGtop100_all_seqs.fasta \
 --no_file_comments \
 --itype CDS \
 --excel \
---output Cyanophora_emapper_20230307
+--output Cpa_emapper_2023-03-10
 ```
 
-Estimated time usage: > 1 hr
+Estimated time usage: 
 
 Expected output files:
 
 ```
--rw-r--r--  1 jiratchaya jiratchaya 20287555 Mar  8 22:54 Cyanophora_emapper_20230307.emapper.annotations
--rw-r--r--  1 jiratchaya jiratchaya  5060493 Mar  8 22:54 Cyanophora_emapper_20230307.emapper.annotations.xlsx
--rw-r--r--  1 jiratchaya jiratchaya  5333975 Mar  8 22:54 Cyanophora_emapper_20230307.emapper.hits
--rw-r--r--  1 jiratchaya jiratchaya  2528455 Mar  8 22:54 Cyanophora_emapper_20230307.emapper.seed_orthologs
+-rw-r--r--  1 jiratchaya jiratchaya 20287555 Mar  8 22:54 Cpa_emapper_2023-03-10.emapper.annotations
+-rw-r--r--  1 jiratchaya jiratchaya  5060493 Mar  8 22:54 Cpa_emapper_2023-03-10.emapper.annotations.xlsx
+-rw-r--r--  1 jiratchaya jiratchaya  5333975 Mar  8 22:54 Cpa_emapper_2023-03-10.emapper.hits
+-rw-r--r--  1 jiratchaya jiratchaya  2528455 Mar  8 22:54 Cpa_emapper_2023-03-10.emapper.seed_orthologs
 ```
 
 Output explanations:
@@ -121,18 +122,26 @@ Depending on your interest, you can choose which phylum you want to use as BLAST
 
 ### BLASTN
 
+BLAST tools is located in the `ncbi` environment, so you will need to activate environment as follow:
+
+```bash
+conda activate ncbi
+```
+
+Then,run BLASTN:
+
 ``` bash
 # Current working directory: ~/Cpa_RNASeq
-blastn -db [database_of_interest] \
+blastn -db /opt/Cpa_RNASeq/BLAST_DB/[database_of_interest] \
 -query 04_DE_analysis/DEG_sequence.fasta \
 -out 05_annotation/BLASTN_DEG_[phylum_of_interest].tsv \
 -evalue 1e-5 \
 -outfmt "7 std qcovhsp stitle" \
 -max_target_seqs 5 \
--num_threads 2
+-num_threads 4
 ```
 
-Estimated time: < 10 mins
+Estimated time: < 5 mins
 
 By this command, you'll search query sequence in your database of interest. The result will collected using BLAST if E-value <= 1e-5. 
 

@@ -147,9 +147,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Transcriptome Data Analysis in Non-model Organisms</a> 
-        <div class="sidebar-tools-main">
+        <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/JirathNuan/rnaseq-nonmodel" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
     <a href="./Transcriptome-Data-Analysis-in-Non-model-Organisms.pdf" title="Download PDF" class="sidebar-tool px-1"><i class="bi bi-file-pdf"></i></a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=|url|" title="Facebook" class="sidebar-tool px-1"><i class="bi bi-facebook"></i></a>
 </div>
     </div>
       </div>
@@ -265,26 +266,27 @@ Activity
 </div>
 <div class="callout-body-container callout-body">
 <p>After preparing the EggNOG database, we can run the EggNog mapper via the file <code>emapper.py</code> as in the following command, specifying the required arguments for the path of the downloaded EggNOG database in <code>--data_dir</code>, the input type (<code>--itype</code>) and the search algorithm MMSeqs2 (<code>-m</code>). You can see usage of emapper.py by type emapper.py –help in your terminal, or have a look at <a href="https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.5-to-v2.1.10#a-few-recipes">A few recipes of using EggNOG-mapper</a>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># current directory: ~/Cpa_RNASeq</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Activate conda environment</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate emapper</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run EggNOG-mapper</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">emapper.py</span> <span class="at">--cpu</span> 2 <span class="dt">\</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>--data_dir /opt/Cpa_RNASeq/eggNOG_db/ <span class="dt">\</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>--output_dir 05_annotation/ <span class="dt">\</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>-m diamond <span class="dt">\</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>--evalue 1e-5 <span class="dt">\</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>-i 03_assembly/Trinity_2023-03-08.Trinity.fasta <span class="dt">\</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>--no_file_comments <span class="dt">\</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>--itype CDS <span class="dt">\</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>--excel <span class="dt">\</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>--output Cyanophora_emapper_20230307</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Estimated time usage: &gt; 1 hr</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Go to main project directory</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Cpa_RNASeq</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Activate conda environment</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate emapper</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Run EggNOG-mapper</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">emapper.py</span> <span class="at">--cpu</span> 5 <span class="dt">\</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>--data_dir /opt/Cpa_RNASeq/eggNOG_db/ <span class="dt">\</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>--output_dir 05_annotation/ <span class="dt">\</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>-m diamond <span class="dt">\</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>--evalue 1e-5 <span class="dt">\</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>-i 04_DE_analysis/DESeq2_result/DEGtop100_all_seqs.fasta <span class="dt">\</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>--no_file_comments <span class="dt">\</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>--itype CDS <span class="dt">\</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>--excel <span class="dt">\</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>--output Cpa_emapper_2023-03-10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Estimated time usage:</p>
 <p>Expected output files:</p>
-<pre><code>-rw-r--r--  1 jiratchaya jiratchaya 20287555 Mar  8 22:54 Cyanophora_emapper_20230307.emapper.annotations
--rw-r--r--  1 jiratchaya jiratchaya  5060493 Mar  8 22:54 Cyanophora_emapper_20230307.emapper.annotations.xlsx
--rw-r--r--  1 jiratchaya jiratchaya  5333975 Mar  8 22:54 Cyanophora_emapper_20230307.emapper.hits
--rw-r--r--  1 jiratchaya jiratchaya  2528455 Mar  8 22:54 Cyanophora_emapper_20230307.emapper.seed_orthologs</code></pre>
+<pre><code>-rw-r--r--  1 jiratchaya jiratchaya 20287555 Mar  8 22:54 Cpa_emapper_2023-03-10.emapper.annotations
+-rw-r--r--  1 jiratchaya jiratchaya  5060493 Mar  8 22:54 Cpa_emapper_2023-03-10.emapper.annotations.xlsx
+-rw-r--r--  1 jiratchaya jiratchaya  5333975 Mar  8 22:54 Cpa_emapper_2023-03-10.emapper.hits
+-rw-r--r--  1 jiratchaya jiratchaya  2528455 Mar  8 22:54 Cpa_emapper_2023-03-10.emapper.seed_orthologs</code></pre>
 <p>Output explanations:</p>
 <ul>
 <li><p><code>*.emapper.annotations</code> is a result file from the annotation phase. Each row represents the annotation reported for a given query.</p></li>
@@ -358,15 +360,18 @@ Activity
 <p>Depending on your interest, you can choose which phylum you want to use as BLAST database as above. Then we’ will investigate it together!</p>
 <section id="blastn" class="level3" data-number="7.2.1">
 <h3 data-number="7.2.1" class="anchored" data-anchor-id="blastn"><span class="header-section-number">7.2.1</span> BLASTN</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Current working directory: ~/Cpa_RNASeq</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">blastn</span> <span class="at">-db</span> [database_of_interest] <span class="dt">\</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>-query 04_DE_analysis/DEG_sequence.fasta <span class="dt">\</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>-out 05_annotation/BLASTN_DEG_[phylum_of_interest].tsv <span class="dt">\</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>-evalue 1e-5 <span class="dt">\</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>-outfmt <span class="st">"7 std qcovhsp stitle"</span> <span class="dt">\</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>-max_target_seqs 5 <span class="dt">\</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>-num_threads 2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Estimated time: &lt; 10 mins</p>
+<p>BLAST tools is located in the <code>ncbi</code> environment, so you will need to activate environment as follow:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate ncbi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then,run BLASTN:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Current working directory: ~/Cpa_RNASeq</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">blastn</span> <span class="at">-db</span> /opt/Cpa_RNASeq/BLAST_DB/[database_of_interest] <span class="dt">\</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>-query 04_DE_analysis/DEG_sequence.fasta <span class="dt">\</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>-out 05_annotation/BLASTN_DEG_[phylum_of_interest].tsv <span class="dt">\</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>-evalue 1e-5 <span class="dt">\</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>-outfmt <span class="st">"7 std qcovhsp stitle"</span> <span class="dt">\</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>-max_target_seqs 5 <span class="dt">\</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>-num_threads 4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Estimated time: &lt; 5 mins</p>
 <p>By this command, you’ll search query sequence in your database of interest. The result will collected using BLAST if E-value &lt;= 1e-5.</p>
 </section>
 </div>
@@ -457,7 +462,7 @@ TRINITY_DN281_c0_g1_i1  CP097822.1      100.000 251     0       0       1260    
 </tbody>
 </table>
 <p>You can specify options to include in this tabular format by type the folowing command and take a look at the terminal.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">blastn</span> <span class="at">-help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">blastn</span> <span class="at">-help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="reference-sources" class="level2" data-number="7.3">
 <h2 data-number="7.3" class="anchored" data-anchor-id="reference-sources"><span class="header-section-number">7.3</span> Reference sources</h2>
