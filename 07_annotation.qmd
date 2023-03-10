@@ -36,12 +36,12 @@ cd ~/Cpa_RNASeq
 # Activate conda environment
 conda activate emapper
 # Run EggNOG-mapper
-emapper.py --cpu 5 \
+emapper.py --cpu 2 \
 --data_dir /opt/Cpa_RNASeq/eggNOG_db/ \
 --output_dir 05_annotation/ \
 -m diamond \
 --evalue 1e-5 \
--i 04_DE_analysis/DESeq2_result/DEGtop100_all_seqs.fasta \
+-i 04_DE_analysis/DESeq2_result/DEGtop20_all_seqs.fasta \
 --no_file_comments \
 --itype CDS \
 --excel \
