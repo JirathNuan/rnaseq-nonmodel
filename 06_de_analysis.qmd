@@ -491,30 +491,30 @@ Then, we'll subset the assembled transcriptome for only differentially expressed
 
 ## Activity
 
-From the previous command, we already have a list of differentialli expressed gnees in `salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P1e-3_C2.DE.subset` file. For the functional annotation analysis in the next step, we will subset only top 50 upregulated and top 50 downregulated DEGs for annotation step. Data subsetting will use the following command.
+From the previous command, we already have a list of differentialli expressed gnees in `salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P1e-3_C2.DE.subset` file. For the functional annotation analysis in the next step, we will subset only top 10 upregulated and top 10 downregulated DEGs for annotation step. Data subsetting will use the following command.
 
-1. Extract top 50 upregulated DEGs in Normal light condition. This command will ascendingly sort the 6th column (log2foldchange) of the file `salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P1e-3_C2.normal_light-UP.subset`, then selected top 50 highest log2foldchange from the last 50 lines, then select only the trinity transcript ID in the first column.
+1. Extract top 10 upregulated DEGs in Normal light condition. This command will ascendingly sort the 6th column (log2foldchange) of the file `salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P1e-3_C2.normal_light-UP.subset`, then selected top 10 highest log2foldchange from the last 10 lines, then select only the trinity transcript ID in the first column.
 
 ``` bash
-sort --key=6 --numeric-sort salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P1e-3_C2.normal_light-UP.subset | tail -n 50 | cut --fields=1 > DEGtop50_NormalLight-up.txt
+sort --key=6 --numeric-sort salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P1e-3_C2.normal_light-UP.subset | tail -n 10 | cut --fields=1 > DEGtop10_NormalLight-up.txt
 ```
 
 2. Do the same for dark condiiton using `salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P1e-3_C2.dark-UP.subset` file.
 
 ```bash
-sort --key=6 --numeric-sort salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P1e-3_C2.dark-UP.subset | tail -n 50 | cut --fields=1 > DEGtop50_dark-up.txt
+sort --key=6 --numeric-sort salmon.isoform.counts.matrix.dark_vs_normal_light.DESeq2.DE_results.P1e-3_C2.dark-UP.subset | tail -n 10 | cut --fields=1 > DEGtop10_dark-up.txt
 ```
 
-3. Concatenate transcript ID files (`DEGtop50_NormalLight-up.txt` and `DEGtop50_dark-up.txt`) into a single file.
+3. Concatenate transcript ID files (`DEGtop10_NormalLight-up.txt` and `DEGtop10_dark-up.txt`) into a single file.
 
 ```bash
-cat DEGtop50_NormalLight-up.txt DEGtop50_dark-up.txt > DEGtop100_all.txt
+cat DEGtop10_NormalLight-up.txt DEGtop10_dark-up.txt > DEGtop20_all.txt
 ```
 
-4. Retrieve FASTA sequence of top 100 DEGs using Trinity's utility.
+4. Retrieve FASTA sequence of top 20 DEGs using Trinity's utility.
 
 ```bash
-retrieve_sequences_from_fasta.pl DEGtop100_all.txt ~/Cpa_RNASeq/03_assembly/Trinity_2023-03-08.Trinity.fasta > DEGtop100_all_seqs.fasta
+retrieve_sequences_from_fasta.pl DEGtop100_all.txt ~/Cpa_RNASeq/03_assembly/Trinity_2023-03-08.Trinity.fasta > DEGtop20_all_seqs.fasta
 ```
 
 The output file locates in `~/Cpa_RNASeq/04_DE_analysis/DESeq2_result`

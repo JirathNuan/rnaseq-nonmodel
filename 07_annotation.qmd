@@ -48,7 +48,7 @@ emapper.py --cpu 5 \
 --output Cpa_emapper_2023-03-10
 ```
 
-Estimated time usage: 
+Estimated time usage: ~ 1 hr
 
 Expected output files:
 
